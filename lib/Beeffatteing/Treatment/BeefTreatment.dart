@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
-class VermiCompostSellsButton extends StatefulWidget {
-  const VermiCompostSellsButton({super.key});
+class Beeftreatment extends StatefulWidget {
+  const Beeftreatment({super.key});
 
   @override
-  State<VermiCompostSellsButton> createState() => _VermiCompostSellsButtonState();
+  State<Beeftreatment> createState() => _BeeftreatmentState();
 }
 
-class _VermiCompostSellsButtonState extends State<VermiCompostSellsButton> {
+class _BeeftreatmentState extends State<Beeftreatment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'জৈব সার বিক্রয়',),
+      appBar: CustomAppBar(title: 'Breef Fattening Treatment',),
 
         body: CustomScrollView(
           primary: false,
@@ -23,15 +23,14 @@ class _VermiCompostSellsButtonState extends State<VermiCompostSellsButton> {
               mainAxisSpacing: 10,
               crossAxisCount: 2,
               children: [
-
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/vermiCompostSellBuyers');
+                    Navigator.pushNamed(context, '/beefFatteningDoctor');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
                     elevation: 5,
-                    margin: EdgeInsets.all(7.5),
+                    margin: EdgeInsets.fromLTRB(12, 12, 0, 0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -43,7 +42,7 @@ class _VermiCompostSellsButtonState extends State<VermiCompostSellsButton> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('ক্রেতা সমূহ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('Doctors List', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -51,7 +50,7 @@ class _VermiCompostSellsButtonState extends State<VermiCompostSellsButton> {
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(8)
                                 ),
-                                child: Icon(Icons.people)
+                                child: Icon(Fontisto.doctor)
                             )
                           ],
                         ),
@@ -59,15 +58,14 @@ class _VermiCompostSellsButtonState extends State<VermiCompostSellsButton> {
                     ),
                   ),
                 ),
-
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/vermicompostsells');
+                    Navigator.pushNamed(context, '/beefFatteningTreatmentDesc');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
                     elevation: 5,
-                    margin: EdgeInsets.all(8),
+                    margin: EdgeInsets.fromLTRB(07, 12, 10, 0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -79,7 +77,7 @@ class _VermiCompostSellsButtonState extends State<VermiCompostSellsButton> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('বিক্রয় তথ্য', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('Treatment', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -87,7 +85,7 @@ class _VermiCompostSellsButtonState extends State<VermiCompostSellsButton> {
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(8)
                                 ),
-                                child: Icon(MaterialCommunityIcons.information)
+                                child: Icon(AntDesign.medicinebox)
                             )
                           ],
                         ),
@@ -101,6 +99,65 @@ class _VermiCompostSellsButtonState extends State<VermiCompostSellsButton> {
           ],
         )
 
+      // body: ListView(children: [
+      //   GestureDetector(
+      //     onTap: () {
+      //       Navigator.pushNamed(context, '/beefFatteningDoctor');
+      //     },
+      //     child: Container(
+      //       height: 50,
+      //       width: 300,
+      //       margin: EdgeInsets.fromLTRB(15, 12, 10, 20),
+      //       decoration: BoxDecoration(
+      //           color: Colors.greenAccent[400],
+      //           borderRadius: BorderRadius.circular(10)
+      //       ),
+      //       child: Center(child: Row(
+      //         children: [
+      //           Padding(
+      //             padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      //             child: Text('Doctors List', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+      //           ),
+      //           Spacer(),
+      //           Padding(
+      //             padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      //             child: Icon(Icons.arrow_forward),
+      //           )
+      //         ],
+      //       )),
+      //     ),
+      //   ),
+      //
+      //
+      //   GestureDetector(
+      //     onTap: () {
+      //       Navigator.pushNamed(context, '/beefFatteningTreatmentDesc');
+      //     },
+      //     child: Container(
+      //       height: 50,
+      //       width: 300,
+      //       margin: EdgeInsets.fromLTRB(15, 2, 10, 20),
+      //       decoration: BoxDecoration(
+      //           color: Colors.greenAccent[400],
+      //           borderRadius: BorderRadius.circular(10)
+      //       ),
+      //       child: Center(child: Row(
+      //         children: [
+      //           Padding(
+      //             padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      //             child: Text('Treatment', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+      //           ),
+      //           Spacer(),
+      //           Padding(
+      //             padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      //             child: Icon(Icons.arrow_forward),
+      //           )
+      //         ],
+      //       )),
+      //     ),
+      //   ),
+      //
+      // ],),
     );
   }
 }

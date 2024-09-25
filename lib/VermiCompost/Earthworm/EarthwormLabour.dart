@@ -1,43 +1,82 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
-import 'package:flutter/material.dart';
-// import 'package:alliedagro/components/CustomAppBar.dart';
-// import 'package:alliedagro/components/CustomTextField.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 
-class BreedingOthers extends StatefulWidget {
-  const BreedingOthers({super.key});
+class EarthwormLabour extends StatefulWidget {
+  const EarthwormLabour({super.key});
 
   @override
-  State<BreedingOthers> createState() => _BreedingOthersState();
+  State<EarthwormLabour> createState() => _EarthwormLabourState();
 }
 
-class _BreedingOthersState extends State<BreedingOthers> {
+class _EarthwormLabourState extends State<EarthwormLabour> {
+  List dropDownListData = [
+    {"title": "Daily",  "value": 'Daily'},
+    {"title": "Monthly", "value": 'Monthly'},
+    // {"title": "Suppliers", "value": "3"},
+  ];
   String? shed_id;
-
-  String? seat_id;
-
-  TextEditingController name = TextEditingController();
 
   String? edit_shed_id;
 
-  String? edit_seat_id;
+  List sheds = [];
+
+  TextEditingController name = TextEditingController(); // labourname
+  TextEditingController mobile_no = TextEditingController();
+  TextEditingController edit_mobile_no = TextEditingController();
+
+  TextEditingController amount = TextEditingController(); //amount
+
+  String? salary_status;
 
   TextEditingController editid = TextEditingController();
 
-  TextEditingController editname = TextEditingController();
+  TextEditingController editname = TextEditingController(); // labourname
+
+  TextEditingController editamount = TextEditingController(); //amount
+
+  String? edit_salary_status;
+
+  DateTime selectedDate = DateTime.now();
+
+
+  DateTime selectedEditDate = DateTime.now();
 
   List<dynamic> data = [];
 
-  List<dynamic> sheds = [];
 
-  List<dynamic> seats = [];
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  Future<void> _selectEditDate(BuildContext context, setStateSB) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedEditDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedEditDate) {
+      setStateSB(() {
+        selectedEditDate = picked;
+      });
+    }
+  }
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/sheds');
 
     Response res = await get(url);
 
@@ -46,30 +85,23 @@ class _BreedingOthersState extends State<BreedingOthers> {
     });
   }
 
-  void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
-
-    Response res = await get(url);
-
-    setState(() {
-      seats = jsonDecode(res.body);
-    });
-  }
-
-  void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others');
+  void getData() async{
+    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour');
 
     Response res = await get(url);
 
     setState(() {
       data = jsonDecode(res.body);
+
     });
+
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/add');
+    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour/add');
 
-    Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'name': name.text};
+    Map<String, dynamic> data = { 'name': name.text, 'amount': amount.text, 'date': selectedDate.toIso8601String(), 'salary_status': salary_status, 'mobile_no': mobile_no.text, 'shed_id': shed_id.toString()  };
 
     Response res = await post(url, body: data);
 
@@ -86,17 +118,22 @@ class _BreedingOthersState extends State<BreedingOthers> {
       );
 
       setState(() {
-        shed_id = null;
-        seat_id = null;
+        mobile_no.text = '';
         name.text = '';
+        salary_status = null;
+        shed_id = null;
+        // seller = '';
       });
     }
+
+
     getData();
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/edit?id=${editid.text}');
-    Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'name': editname.text};
+    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour/edit?id=${editid.text}');
+
+    Map<String, dynamic> data = { 'name': editname.text, 'amount': editamount.text, 'date': selectedEditDate.toIso8601String(), 'salary_status': edit_salary_status, 'mobile_no': edit_mobile_no.text, 'shed_id': edit_shed_id.toString() };
 
     Response res = await put(url, body: data);
 
@@ -111,14 +148,16 @@ class _BreedingOthersState extends State<BreedingOthers> {
           fontSize: 16.0
 
       );
+
+      getData();
     }
+
 
     getData();
   }
 
-  void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/delete?id=${id}');
-
+  void deleteData(id) async{
+    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour/delete?id=${id}');
     Response res = await delete(url);
 
     if(res.statusCode == 201){
@@ -127,31 +166,84 @@ class _BreedingOthersState extends State<BreedingOthers> {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0
 
       );
+
+      getData();
     }
+
     getData();
   }
-
-
 
   @override void initState() {
     // TODO: implement initState
     super.initState();
-    getSheds();
     getData();
+    getSheds();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'অন্যান্য খরচসমূহ',),
-      body: ListView(
-        children: [
-          SizedBox(height: 05,),
+        appBar: CustomAppBar(title: ' Labour List',), //Appbar
+        body: ListView(children: [
+
+
+          Container(
+              margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+              child: CustomTextField(controller: name, hintText: "Labour Name", obscureText: false, textinputtypephone: false)), //Custom TextFeild
+
+          Container(
+              margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+              child: CustomTextField(controller: mobile_no, hintText: "Mobile Number", obscureText: false, textinputtypephone: true)),
+
+          const SizedBox(
+            height: 20,
+          ),
+          Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
+            child: InputDecorator(
+                decoration: InputDecoration(
+                  border:
+                  OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0)),
+                  contentPadding: const EdgeInsets.all(10),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                      isDense: true,
+                      value: salary_status,
+                      isExpanded: true,
+                      menuMaxHeight: 350,
+                      hint: Text('Select Salary Status'),
+                      items: [
+                        ...dropDownListData.map<DropdownMenuItem<String>>((data) {
+                          return DropdownMenuItem(
+                              child: Text(data['title']), value: data['value']);
+                        }).toList(),
+                      ],
+
+                      onChanged: (value) {
+                        print("selected Value $value");
+
+                        setState(() {
+                          salary_status = value!;
+                        });
+                      }),
+
+
+                )
+
+              // CustomTextField()
+            ),
+          ),
+
+          SizedBox(height: 10,),
+
           Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
             child: InputDecorator(
                 decoration: InputDecoration(
@@ -166,7 +258,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
                       value: shed_id,
                       isExpanded: true,
                       menuMaxHeight: 350,
-                      hint: Text('Select Shed ID'),
+                      hint: Text('Assign Shed'),
                       items: [
                         ...sheds.map<DropdownMenuItem<String>>((data) {
                           return DropdownMenuItem(
@@ -176,7 +268,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
                       onChanged: (value) {
                         print("selected Value $value");
-                        getSeats(value);
+
                         setState(() {
                           shed_id = value!;
                         });
@@ -188,59 +280,16 @@ class _BreedingOthersState extends State<BreedingOthers> {
               // CustomTextField()
             ),
           ),
-          SizedBox(height: 03,),
 
-          Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
-            child: InputDecorator(
-                decoration: InputDecoration(
-                  border:
-                  OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                  contentPadding: const EdgeInsets.all(10),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                      isDense: true,
-                      value: seat_id,
-                      isExpanded: true,
-                      menuMaxHeight: 350,
-                      hint: Text('Select Seat ID'),
-                      items: [
-                        ...seats.map<DropdownMenuItem<String>>((data) {
-                          return DropdownMenuItem(
-                              child: Text(data['name']), value: data['id'].toString());
-                        }).toList(),
-                      ],
-
-                      onChanged: (value) {
-                        print("selected Value $value");
-                        setState(() {
-                          seat_id = value!;
-                        });
-                      }),
-
-
-                )
-
-              // CustomTextField()
-            ),
-          ),
-
-          Container(
-              margin: EdgeInsets.fromLTRB(2, 10, 2, 0),
-              child: CustomTextField(controller: name, hintText: "Name", obscureText: false, textinputtypephone: false)),
 
           Container( padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(04),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.greenAccent[400],
-                  foregroundColor: Colors.black,
-                ),
-                onPressed: (){
+            child: ElevatedButton(onPressed: (){
               addData();
-            }, child: const Text("Submit", style: TextStyle(fontSize: 15.5),)),
+            }, child: const Text("Submit")),
           ),
+
+          SizedBox(height: 20,),
 
           for(var i in data)
             Column(
@@ -258,18 +307,29 @@ class _BreedingOthersState extends State<BreedingOthers> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('Others Name: ${i['name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+                                child: Text('${i['name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
+
+
                               Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('Shed ID: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+                                child: Text('Salary Staus: ${i['salary_status']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey),),
                               ),
+
                               Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('Seat ID: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+                                child: Text('Shed ID: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey),),
                               ),
+
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+                                child: Text('Mobile Number: ${i['mobile_no']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey),),
+                              ),
+
+
 
                             ]
                         ),
@@ -289,13 +349,12 @@ class _BreedingOthersState extends State<BreedingOthers> {
                                 onTap: () {
                                   setState(() {
                                     editid.text = i['id'].toString();
-                                    edit_shed_id = i['shed_id'].toString();
-                                    edit_seat_id = i['seat_id'].toString();
-                                    editname.text = i['name'];
-
+                                    editname.text = i['name'].toString();
+                                    edit_salary_status = i['salary_status'].toString();
+                                    edit_mobile_no.text = i['mobile_no'] != null ? i['mobile_no'] : '';
+                                    edit_shed_id = i['shed_id'] != null ? i['shed_id'].toString() : null;
                                   });
 
-                                  getSeats(i['shed_id']);
                                   showModalBottomSheet<void>(
                                     context: context,
                                     isScrollControlled: true,
@@ -304,13 +363,64 @@ class _BreedingOthersState extends State<BreedingOthers> {
                                       return StatefulBuilder(
                                           builder: (context, setStateSB) {
                                             return FractionallySizedBox(
-                                              heightFactor: 0.9,
+                                              heightFactor: 0.8,
                                               // height: 200,
                                               // color: Colors.amber,
                                               child: Column(
                                                 // mainAxisAlignment: MainAxisAlignment.center,
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
+
+
+                                                  Container(
+                                                      margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+                                                      child: CustomTextField(controller: editname, hintText: "Labour Name", obscureText: false, textinputtypephone: false)), //Custom TextFeild
+
+                                                  Container(
+                                                      margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+                                                      child: CustomTextField(controller: edit_mobile_no, hintText: "Mobile Number", obscureText: false, textinputtypephone: false)), //Custom TextFeild
+
+                                                  const SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                  Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
+                                                    child: InputDecorator(
+                                                        decoration: InputDecoration(
+                                                          border:
+                                                          OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(15.0)),
+                                                          contentPadding: const EdgeInsets.all(10),
+                                                        ),
+                                                        child: DropdownButtonHideUnderline(
+                                                          child: DropdownButton<String>(
+                                                              isDense: true,
+                                                              value: edit_salary_status,
+                                                              isExpanded: true,
+                                                              hint: Text('Select Salary Status'),
+                                                              menuMaxHeight: 350,
+                                                              items: [
+
+                                                                ...dropDownListData.map<DropdownMenuItem<String>>((data) {
+                                                                  return DropdownMenuItem(
+                                                                      child: Text(data['title']), value: data['value']);
+                                                                }).toList(),
+                                                              ],
+
+                                                              onChanged: (value) {
+                                                                print("selected Value $value");
+
+                                                                setStateSB(() {
+                                                                  edit_salary_status = value!;
+                                                                });
+                                                              }),
+
+
+                                                        )
+
+                                                      // CustomTextField()
+                                                    ),
+                                                  ),
+
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
                                                     child: InputDecorator(
                                                         decoration: InputDecoration(
@@ -325,7 +435,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
                                                               value: edit_shed_id,
                                                               isExpanded: true,
                                                               menuMaxHeight: 350,
-                                                              hint: Text('Select Shed ID'),
+                                                              hint: Text('Assign Shed'),
                                                               items: [
                                                                 ...sheds.map<DropdownMenuItem<String>>((data) {
                                                                   return DropdownMenuItem(
@@ -335,7 +445,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
                                                               onChanged: (value) {
                                                                 print("selected Value $value");
-                                                                getSeats(value);
+
                                                                 setStateSB(() {
                                                                   edit_shed_id = value!;
                                                                 });
@@ -347,50 +457,6 @@ class _BreedingOthersState extends State<BreedingOthers> {
                                                       // CustomTextField()
                                                     ),
                                                   ),
-
-                                                  Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
-                                                    child: InputDecorator(
-                                                        decoration: InputDecoration(
-                                                          border:
-                                                          OutlineInputBorder(
-                                                              borderRadius: BorderRadius.circular(15.0)),
-                                                          contentPadding: const EdgeInsets.all(10),
-                                                        ),
-                                                        child: DropdownButtonHideUnderline(
-                                                          child: DropdownButton<String>(
-                                                              isDense: true,
-                                                              value: edit_seat_id,
-                                                              isExpanded: true,
-                                                              menuMaxHeight: 350,
-                                                              hint: Text('Select Seat ID'),
-                                                              items: [
-                                                                ...seats.map<DropdownMenuItem<String>>((data) {
-                                                                  return DropdownMenuItem(
-                                                                      child: Text(data['name']), value: data['id'].toString());
-                                                                }).toList(),
-                                                              ],
-
-                                                              onChanged: (value) {
-                                                                print("selected Value $value");
-                                                                setStateSB(() {
-                                                                  edit_seat_id = value!;
-                                                                });
-                                                              }),
-
-
-                                                        )
-
-                                                      // CustomTextField()
-                                                    ),
-                                                  ),
-
-
-
-                                                  Container(
-                                                      margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
-                                                      child: CustomTextField(controller: editname, hintText: "Name", obscureText: false, textinputtypephone: true)),
-
-
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),
                                                     margin: EdgeInsets.all(04),
                                                     child: ElevatedButton(onPressed: (){
@@ -451,8 +517,9 @@ class _BreedingOthersState extends State<BreedingOthers> {
               ],
             )
 
-        ],
-      ),
+
+        ],)
+
     );
   }
 }

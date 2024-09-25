@@ -1,5 +1,5 @@
-import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
 class BeefFattening extends StatefulWidget {
@@ -13,11 +13,11 @@ class _BeefFatteningState extends State<BeefFattening> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar(title: 'গরু মোটাতাজাকরন',),
+        appBar: CustomAppBar(title: 'Beef Fattening',),
 
         body: CustomScrollView(
           primary: false,
-          slivers: [
+          slivers:  [
             SliverGrid.count(
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,

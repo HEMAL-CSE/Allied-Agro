@@ -1,21 +1,20 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
-import 'package:flutter/material.dart';
-// import 'package:alliedagro/components/CustomAppBar.dart';
-// import 'package:alliedagro/components/CustomTextField.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 
-class BreedingOthers extends StatefulWidget {
-  const BreedingOthers({super.key});
+class BeefFatteningLabour extends StatefulWidget {
+  const BeefFatteningLabour({super.key});
 
   @override
-  State<BreedingOthers> createState() => _BreedingOthersState();
+  State<BeefFatteningLabour> createState() => _BeefFatteningLabourState();
 }
 
-class _BreedingOthersState extends State<BreedingOthers> {
+class _BeefFatteningLabourState extends State<BeefFatteningLabour> {
+
   String? shed_id;
 
   String? seat_id;
@@ -37,7 +36,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   List<dynamic> seats = [];
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
 
     Response res = await get(url);
 
@@ -46,18 +45,18 @@ class _BreedingOthersState extends State<BreedingOthers> {
     });
   }
 
-  void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
-
-    Response res = await get(url);
-
-    setState(() {
-      seats = jsonDecode(res.body);
-    });
-  }
+  // void getSeats(id) async {
+  //   final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
+  //
+  //   Response res = await get(url);
+  //
+  //   setState(() {
+  //     seats = jsonDecode(res.body);
+  //   });
+  // }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_labour');
 
     Response res = await get(url);
 
@@ -67,9 +66,9 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/add');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_labour/add');
 
-    Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'name': name.text};
+    Map<String, dynamic> data = { 'shed_id': shed_id, 'name': name.text};
 
     Response res = await post(url, body: data);
 
@@ -87,7 +86,6 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
       setState(() {
         shed_id = null;
-        seat_id = null;
         name.text = '';
       });
     }
@@ -95,8 +93,8 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/edit?id=${editid.text}');
-    Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'name': editname.text};
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_labour/edit?id=${editid.text}');
+    Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'name': editname.text};
 
     Response res = await put(url, body: data);
 
@@ -117,7 +115,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_labour/delete?id=${id}');
 
     Response res = await delete(url);
 
@@ -148,10 +146,9 @@ class _BreedingOthersState extends State<BreedingOthers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'অন্যান্য খরচসমূহ',),
+      appBar: CustomAppBar(title: 'Beef Labour',),
       body: ListView(
         children: [
-          SizedBox(height: 05,),
           Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
             child: InputDecorator(
                 decoration: InputDecoration(
@@ -176,7 +173,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
                       onChanged: (value) {
                         print("selected Value $value");
-                        getSeats(value);
+                        // getSeats(value);
                         setState(() {
                           shed_id = value!;
                         });
@@ -188,58 +185,18 @@ class _BreedingOthersState extends State<BreedingOthers> {
               // CustomTextField()
             ),
           ),
-          SizedBox(height: 03,),
-
-          Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
-            child: InputDecorator(
-                decoration: InputDecoration(
-                  border:
-                  OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                  contentPadding: const EdgeInsets.all(10),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                      isDense: true,
-                      value: seat_id,
-                      isExpanded: true,
-                      menuMaxHeight: 350,
-                      hint: Text('Select Seat ID'),
-                      items: [
-                        ...seats.map<DropdownMenuItem<String>>((data) {
-                          return DropdownMenuItem(
-                              child: Text(data['name']), value: data['id'].toString());
-                        }).toList(),
-                      ],
-
-                      onChanged: (value) {
-                        print("selected Value $value");
-                        setState(() {
-                          seat_id = value!;
-                        });
-                      }),
 
 
-                )
-
-              // CustomTextField()
-            ),
-          ),
 
           Container(
-              margin: EdgeInsets.fromLTRB(2, 10, 2, 0),
+              margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
               child: CustomTextField(controller: name, hintText: "Name", obscureText: false, textinputtypephone: false)),
 
           Container( padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(04),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.greenAccent[400],
-                  foregroundColor: Colors.black,
-                ),
-                onPressed: (){
+            child: ElevatedButton(onPressed: (){
               addData();
-            }, child: const Text("Submit", style: TextStyle(fontSize: 15.5),)),
+            }, child: const Text("Submit")),
           ),
 
           for(var i in data)
@@ -260,16 +217,16 @@ class _BreedingOthersState extends State<BreedingOthers> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('Others Name: ${i['name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                child: Text('Labour Name: ${i['name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
                                 child: Text('Shed ID: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('Seat ID: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
-                              ),
+                              // Padding(
+                              //   padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
+                              //   child: Text('Seat ID: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                              // ),
 
                             ]
                         ),
@@ -290,12 +247,12 @@ class _BreedingOthersState extends State<BreedingOthers> {
                                   setState(() {
                                     editid.text = i['id'].toString();
                                     edit_shed_id = i['shed_id'].toString();
-                                    edit_seat_id = i['seat_id'].toString();
+                                    // edit_seat_id = i['seat_id'].toString();
                                     editname.text = i['name'];
 
                                   });
 
-                                  getSeats(i['shed_id']);
+                                  // getSeats(i['shed_id']);
                                   showModalBottomSheet<void>(
                                     context: context,
                                     isScrollControlled: true,
@@ -335,7 +292,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
                                                               onChanged: (value) {
                                                                 print("selected Value $value");
-                                                                getSeats(value);
+                                                                // getSeats(value);
                                                                 setStateSB(() {
                                                                   edit_shed_id = value!;
                                                                 });
@@ -348,47 +305,50 @@ class _BreedingOthersState extends State<BreedingOthers> {
                                                     ),
                                                   ),
 
-                                                  Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
-                                                    child: InputDecorator(
-                                                        decoration: InputDecoration(
-                                                          border:
-                                                          OutlineInputBorder(
-                                                              borderRadius: BorderRadius.circular(15.0)),
-                                                          contentPadding: const EdgeInsets.all(10),
-                                                        ),
-                                                        child: DropdownButtonHideUnderline(
-                                                          child: DropdownButton<String>(
-                                                              isDense: true,
-                                                              value: edit_seat_id,
-                                                              isExpanded: true,
-                                                              menuMaxHeight: 350,
-                                                              hint: Text('Select Seat ID'),
-                                                              items: [
-                                                                ...seats.map<DropdownMenuItem<String>>((data) {
-                                                                  return DropdownMenuItem(
-                                                                      child: Text(data['name']), value: data['id'].toString());
-                                                                }).toList(),
-                                                              ],
-
-                                                              onChanged: (value) {
-                                                                print("selected Value $value");
-                                                                setStateSB(() {
-                                                                  edit_seat_id = value!;
-                                                                });
-                                                              }),
-
-
-                                                        )
-
-                                                      // CustomTextField()
-                                                    ),
-                                                  ),
+                                                  // Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
+                                                  //   child: InputDecorator(
+                                                  //       decoration: InputDecoration(
+                                                  //         border:
+                                                  //         OutlineInputBorder(
+                                                  //             borderRadius: BorderRadius.circular(15.0)),
+                                                  //         contentPadding: const EdgeInsets.all(10),
+                                                  //       ),
+                                                  //       child: DropdownButtonHideUnderline(
+                                                  //         child: DropdownButton<String>(
+                                                  //             isDense: true,
+                                                  //             value: edit_seat_id,
+                                                  //             isExpanded: true,
+                                                  //             menuMaxHeight: 350,
+                                                  //             hint: Text('Select Seat ID'),
+                                                  //             items: [
+                                                  //               ...seats.map<DropdownMenuItem<String>>((data) {
+                                                  //                 return DropdownMenuItem(
+                                                  //                     child: Text(data['name']), value: data['id'].toString());
+                                                  //               }).toList(),
+                                                  //             ],
+                                                  //
+                                                  //             onChanged: (value) {
+                                                  //               print("selected Value $value");
+                                                  //               setStateSB(() {
+                                                  //                 edit_seat_id = value!;
+                                                  //               });
+                                                  //             }),
+                                                  //
+                                                  //
+                                                  //       )
+                                                  //
+                                                  //     // CustomTextField()
+                                                  //   ),
+                                                  // ),
 
 
 
                                                   Container(
                                                       margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
                                                       child: CustomTextField(controller: editname, hintText: "Name", obscureText: false, textinputtypephone: true)),
+
+
+
 
 
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),

@@ -28,7 +28,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                      Navigator.pushNamed(context, '/earthwormsellers');
                   },
                   child: Card(
-                    color: Colors.greenAccent,
+                    color: Colors.greenAccent[400],
                     elevation: 5,
                     margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
@@ -42,7 +42,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('EarthWorm Sellers', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.5),),
+                            Text('EarthWorm Sellers',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.5),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -63,7 +63,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                     Navigator.pushNamed(context, '/earthwormpurchase');
                   },
                   child: Card(
-                    color: Colors.greenAccent,
+                    color: Colors.greenAccent[400],
                     elevation: 5,
                     margin: EdgeInsets.all(7.5),
                     shape: RoundedRectangleBorder(
@@ -77,7 +77,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Earthworm Purchase', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                            Text('Earthworm Purchase', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -99,7 +99,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                     Navigator.pushNamed(context, '/earthwormlabour');
                   },
                   child: Card(
-                    color: Colors.greenAccent,
+                    color: Colors.greenAccent[400],
                     elevation: 5,
                     margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
@@ -113,7 +113,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Labour List', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
+                            Text('Labour List',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -135,7 +135,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                     Navigator.pushNamed(context, '/earthwormlabourpayment');
                   },
                   child: Card(
-                    color: Colors.greenAccent,
+                    color: Colors.greenAccent[400],
                     elevation: 5,
                     margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
@@ -149,7 +149,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Labour Payment', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
+                            Text('Labour Payment',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -171,7 +171,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                     Navigator.pushNamed(context, '/earthwormothers');
                   },
                   child: Card(
-                    color: Colors.greenAccent,
+                    color: Colors.greenAccent[400],
                     elevation: 5,
                     margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
@@ -185,7 +185,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Others Expenses', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
+                            Text('Others Expenses',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -207,7 +207,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                     Navigator.pushNamed(context, '/earthwormlabourpayment');
                   },
                   child: Card(
-                    color: Colors.greenAccent,
+                    color: Colors.greenAccent[400],
                     elevation: 5,
                     margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
@@ -221,7 +221,7 @@ class _EarthwormExpensesState extends State<EarthwormExpenses> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Others Payment', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
+                            Text('Others Payment',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),

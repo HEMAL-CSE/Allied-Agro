@@ -1,64 +1,64 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
-import 'package:flutter/material.dart';
-// import 'package:alliedagro/components/CustomAppBar.dart';
-// import 'package:alliedagro/components/CustomTextField.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 
-
-class DelivaryReport extends StatefulWidget {
-  const DelivaryReport({super.key});
+class BeefSlaughtering extends StatefulWidget {
+  const BeefSlaughtering({super.key});
 
   @override
-  State<DelivaryReport> createState() => _DelivaryReportState();
+  State<BeefSlaughtering> createState() => _BeefSlaughteringState();
 }
 
-class _DelivaryReportState extends State<DelivaryReport> {
+class _BeefSlaughteringState extends State<BeefSlaughtering> {
 
   String? shed_id;
-
   String? seat_id;
 
-  String? cow_id;
+  String? cattle_id;
 
-  DateTime delivery_date = DateTime.now();
-
-  String? calf_sex;
-
-  TextEditingController calf_breed = TextEditingController();
-
-  String? edit_shed_id;
-
-  String? edit_seat_id;
-
-  String? edit_cow_id;
-
-  DateTime edit_delivery_date = DateTime.now();
-
-  String? edit_calf_sex;
-
-  TextEditingController edit_calf_breed = TextEditingController();
-
-  TextEditingController editid = TextEditingController();
-
-  List<dynamic> data = [];
+  DateTime slaughtering_date = DateTime.now();
 
   List<dynamic> sheds = [];
 
   List<dynamic> seats = [];
 
-  List<dynamic> cows = [];
+  List<dynamic> cattles = [];
 
-  List calf_genders = [
-    { 'name': 'Male' },
-    {'name': 'Female'}
-  ];
+  List<dynamic> data = [];
+
+  TextEditingController cattle_body_weight = TextEditingController();
+  TextEditingController beef_weight = TextEditingController();
+  TextEditingController per_kg_cost = TextEditingController();
+  TextEditingController others_income = TextEditingController();
+  TextEditingController expenses = TextEditingController();
+
+  DateTime edit_slaughtering_date = DateTime.now();
+
+
+  String? edit_shed_id;
+  String? edit_seat_id;
+
+  String? edit_cattle_id;
+
+  TextEditingController edit_cattle_body_weight = TextEditingController();
+  TextEditingController edit_beef_weight = TextEditingController();
+  TextEditingController edit_per_kg_cost = TextEditingController();
+  TextEditingController edit_others_income = TextEditingController();
+  TextEditingController edit_expenses = TextEditingController();
+  TextEditingController editid = TextEditingController();
+  // TextEditingController net_profit = TextEditingController();
+  // TextEditingController total_cost = TextEditingController();
+
+
+
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
 
     Response res = await get(url);
 
@@ -68,43 +68,43 @@ class _DelivaryReportState extends State<DelivaryReport> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
-
-    print(id);
 
     setState(() {
       seats = jsonDecode(res.body);
     });
   }
 
-  void getCows(shed_id, seat_id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/cows?shed_id=${shed_id}&seat_id=${seat_id}');
+  void getCattles(shed_id, seat_id) async {
+    final url = Uri.parse('http://68.178.163.174:5000/cattles?shed_id=${shed_id}&seat_id=${seat_id}');
 
     Response res = await get(url);
 
     setState(() {
-      cows = jsonDecode(res.body);
+      cattles = jsonDecode(res.body);
     });
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/cows?has_calf=1');
-
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/slaughter_info?slaughtered=1');
+ 
     Response res = await get(url);
-
     print(jsonDecode(res.body));
 
     setState(() {
       data = jsonDecode(res.body);
     });
+
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/delivery?shed_id=${shed_id}&seat_id=${seat_id}&cow_id=${cow_id}');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/slaughter/add?id=${cattle_id}');
 
-    Map<String, dynamic> data = { 'delivery_date': delivery_date.toIso8601String(), 'calf_sex': calf_sex, 'calf_breed': calf_breed.text };
+    Map<String, dynamic> data = {'slaughtering_date': slaughtering_date.toIso8601String(), 'weight': cattle_body_weight.text, 'per_kg_cost': per_kg_cost.text, 'others_income': others_income.text, 'expenses': expenses.text};
+
+
 
     Response res = await put(url, body: data);
 
@@ -121,20 +121,23 @@ class _DelivaryReportState extends State<DelivaryReport> {
       );
 
       setState(() {
-        delivery_date = DateTime.now();
         shed_id = null;
         seat_id = null;
-        cow_id = null;
-        calf_sex = null;
-        calf_breed.text = '';
+        cattle_id = null;
+        slaughtering_date = DateTime.now();
+        cattle_body_weight.text = '';
+        per_kg_cost.text = '';
+        others_income.text = '';
+        expenses.text = '';
       });
     }
+
     getData();
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/delivery?shed_id=${edit_shed_id}&seat_id=${edit_seat_id}&cow_id=${edit_cow_id}');
-    Map<String, dynamic> data = { 'delivery_date': edit_delivery_date.toIso8601String(), 'calf_sex': edit_calf_sex, 'calf_breed': edit_calf_breed.text };
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/slaughter/add?id=${editid.text}');
+    Map<String, dynamic> data = {'slaughtering_date': edit_slaughtering_date.toIso8601String(), 'weight': edit_cattle_body_weight.text, 'per_kg_cost': edit_per_kg_cost.text, 'others_income': edit_others_income.text, 'expenses': edit_expenses.text};
 
     Response res = await put(url, body: data);
 
@@ -152,27 +155,30 @@ class _DelivaryReportState extends State<DelivaryReport> {
     }
 
     getData();
+
   }
 
-  // void deleteData(id) async {
-  //   final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_feed/delivery?shed_id=${edit_shed_id}&seat_id=${edit_seat_id}&cow_id=${edit_cow_id}');
-  //
-  //   Response res = await put(url, body: );
-  //
-  //   if(res.statusCode == 201){
-  //     Fluttertoast.showToast(
-  //         msg: "Deleted",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.CENTER,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: Colors.green,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0
-  //
-  //     );
-  //   }
-  //   getData();
-  // }
+
+  void deleteData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/delete?id=${id}');
+
+    Response res = await delete(url);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Deleted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+
+    getData();
+  }
 
   Future<void> _selectDate(BuildContext context,setState, selectedDate, void setSelectedDate(value)) async {
     final DateTime? picked = await showDatePicker(
@@ -187,7 +193,6 @@ class _DelivaryReportState extends State<DelivaryReport> {
     }
   }
 
-
   @override void initState() {
     // TODO: implement initState
     super.initState();
@@ -198,19 +203,126 @@ class _DelivaryReportState extends State<DelivaryReport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'প্রসব সম্পর্কিত রিপোর্ট',),//Appbar
+      appBar: CustomAppBar(title: 'Beef Slaughtering',),
       body: ListView(children: [
 
+        Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
+          child: InputDecorator(
+              decoration: InputDecoration(
+                border:
+                OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0)),
+                contentPadding: const EdgeInsets.all(10),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                    isDense: true,
+                    value: shed_id,
+                    isExpanded: true,
+                    menuMaxHeight: 350,
+                    hint: Text('Select Shed ID'),
+                    items: [
+                      ...sheds.map<DropdownMenuItem<String>>((data) {
+                        return DropdownMenuItem(
+                            child: Text(data['name']), value: data['id'].toString());
+                      }).toList(),
+                    ],
+
+                    onChanged: (value) {
+                      print("selected Value $value");
+                      getSeats(value);
+                      setState(() {
+                        shed_id = value!;
+                      });
+                    }),
+              )
+
+            // CustomTextField()
+          ),
+        ),
+
+        Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
+          child: InputDecorator(
+              decoration: InputDecoration(
+                border:
+                OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0)),
+                contentPadding: const EdgeInsets.all(10),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                    isDense: true,
+                    value: seat_id,
+                    isExpanded: true,
+                    menuMaxHeight: 350,
+                    hint: Text('Select Seat ID'),
+                    items: [
+                      ...seats.map<DropdownMenuItem<String>>((data) {
+                        return DropdownMenuItem(
+                            child: Text(data['name']), value: data['id'].toString());
+                      }).toList(),
+                    ],
+
+                    onChanged: (value) {
+                      print("selected Value $value");
+                      getCattles(shed_id, value);
+                      setState(() {
+                        seat_id = value!;
+                      });
+                    }),
+
+
+              )
+
+            // CustomTextField()
+          ),
+        ),
+        Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
+          child: InputDecorator(
+              decoration: InputDecoration(
+                border:
+                OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(15.0)),
+                contentPadding: const EdgeInsets.all(10),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                    isDense: true,
+                    value: cattle_id,
+                    isExpanded: true,
+                    menuMaxHeight: 350,
+                    hint: Text('Select Cattle ID'),
+                    items: [
+                      ...cattles.map<DropdownMenuItem<String>>((data) {
+                        return DropdownMenuItem(
+                            child: Text(data['cattle_id'].toString()), value: data['id'].toString());
+                      }).toList(),
+                    ],
+
+                    onChanged: (value) {
+                      print("selected Value $value");
+
+                      setState(() {
+                        cattle_id = value!;
+                      });
+                    }),
+
+
+              )
+
+            // CustomTextField()
+          ),
+        ),
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(' তারিখ সিলেক্ট করুন: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
-                Text("${delivery_date!.toLocal()}".split(' ')[0], style: TextStyle(fontSize: 20),),
+                Text('Slaughtering Date: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                Text("${slaughtering_date!.toLocal()}".split(' ')[0], style: TextStyle(fontSize: 20),),
                 GestureDetector(
                   onTap: () {
-                    _selectDate(context, setState, delivery_date, (value) { delivery_date = value; });
+                    _selectDate(context, setState, slaughtering_date, (value) { slaughtering_date = value; });
                   },
                   child: Container(
                     padding: EdgeInsets.all(6),
@@ -226,168 +338,50 @@ class _DelivaryReportState extends State<DelivaryReport> {
             )
         ),
 
-        Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          child: InputDecorator(
-              decoration: InputDecoration(
-                border:
-                OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0)),
-                contentPadding: const EdgeInsets.all(10),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                    isDense: true,
-                    value: shed_id,
-                    isExpanded: true,
-                    menuMaxHeight: 350,
-                    hint: Text('শেড নাম্বার সিলেক্ট করুন'),
-                    items: [
-                      ...sheds.map<DropdownMenuItem<String>>((data) {
-                        return DropdownMenuItem(
-                            child: Text(data['name']), value: data['id'].toString());
-                      }).toList(),
-                    ],
-                    onChanged: (value) {
-                      print("selected Value $value");
-                      getSeats(value);
-                      setState(() {
-                        shed_id = value!;
-                      });
-                    }),
+        Container(
+            margin: EdgeInsets.fromLTRB(2, 10, 2, 0),
+            child: CustomTextField(controller: cattle_body_weight, hintText: "Cattle Body Weight", obscureText: false, textinputtypephone: true)),
 
-              )
+        // Container(
+        //     margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+        //     child: CustomTextField(controller: purchase_cost, hintText: "Purchase Cost", obscureText: false, textinputtypephone: true)),
 
-            // CustomTextField()
-          ),
-        ),
-
-        Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          child: InputDecorator(
-              decoration: InputDecoration(
-                border:
-                OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0)),
-                contentPadding: const EdgeInsets.all(10),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                    isDense: true,
-                    value: seat_id,
-                    isExpanded: true,
-                    menuMaxHeight: 350,
-                    hint: Text('সিট নাম্বার সিলেক্ট করুন'),
-                    items: [
-                      ...seats.map<DropdownMenuItem<String>>((data) {
-                        return DropdownMenuItem(
-                            child: Text(data['name']), value: data['id'].toString());
-                      }).toList(),
-                    ],
-
-                    onChanged: (value) {
-                      getCows(shed_id, value);
-                      print("selected Value $value");
-
-                      setState(() {
-                        seat_id = value!;
-                      });
-                    }),
-
-              )
-
-            // CustomTextField()
-          ),
-        ),
-
-        Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          child: InputDecorator(
-              decoration: InputDecoration(
-                border:
-                OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0)),
-                contentPadding: const EdgeInsets.all(10),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                    isDense: true,
-                    value: cow_id,
-                    isExpanded: true,
-                    menuMaxHeight: 350,
-                    hint: Text('গাভী নাম্বার সিলেক্ট করুন'),
-                    items: [
-                      ...cows.map<DropdownMenuItem<String>>((data) {
-                        return DropdownMenuItem(
-                            child: Text(data['cow_id'].toString()), value: data['cow_id'].toString());
-                      }).toList(),
-                    ],
-
-                    onChanged: (value) {
-                      print("selected Value $value");
-
-                      setState(() {
-                        cow_id = value!;
-                      });
-                    }),
-              )
-
-            // CustomTextField()
-          ),
-        ),
-
-        Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          child: InputDecorator(
-              decoration: InputDecoration(
-                border:
-                OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0)),
-                contentPadding: const EdgeInsets.all(10),
-              ),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                    isDense: true,
-                    value: calf_sex,
-                    isExpanded: true,
-                    menuMaxHeight: 350,
-                    hint: Text('বাছুরের প্রজাতি সিলেক্ট '),
-                    items: [
-                      ...calf_genders.map<DropdownMenuItem<String>>((data) {
-                        return DropdownMenuItem(
-                            child: Text(data['name']), value: data['name'].toString());
-                      }).toList(),
-                    ],
-                    onChanged: (value) {
-                      print("selected Value $value");
-
-                      setState(() {
-                        calf_sex = value!;
-                      });
-                    }),
-              )
-
-            // CustomTextField()
-          ),
-        ),
+        // Container(
+        //     margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+        //     child: CustomTextField(controller: cattle_body_weight, hintText: "Body Weight KG ", obscureText: false, textinputtypephone: true)),
 
         Container(
-            margin: EdgeInsets.fromLTRB(2, 12, 2, 0),
-            child: CustomTextField(controller: calf_breed, hintText: "বাছুরের জাত", obscureText: false, textinputtypephone: true)),
+            margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+            child: CustomTextField(controller: per_kg_cost, hintText: "Per Kg Cost", obscureText: false, textinputtypephone: true)),
+
+        // Container(
+        //     margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+        //     child: CustomTextField(controller: total_cost, hintText: "Total Cost", obscureText: false, textinputtypephone: true)),
+
+        Container(
+            margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+            child: CustomTextField(controller: others_income, hintText: "Others Income", obscureText: false, textinputtypephone: true)),
+
+        Container(
+            margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+            child: CustomTextField(controller: expenses, hintText: "Expenses", obscureText: false, textinputtypephone: true)),
+
+        // Container(
+        //     margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+        //     child: CustomTextField(controller: net_profit, hintText: "Net Profit", obscureText: false, textinputtypephone: true)),
 
         Container( padding: EdgeInsets.all(10),
           margin: EdgeInsets.all(04),
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.greenAccent[400],
-                foregroundColor: Colors.black,
-              ),
-              onPressed: (){
+          child: ElevatedButton(onPressed: (){
             addData();
-          }, child: const Text("জমা দিন", style: TextStyle(fontSize: 15.5),)),
+          }, child: const Text("Submit")),
         ),
 
         for(var i in data)
           Column(
             children: [
               Container(
-                height: 200,
+                height: 300,
                 child: Card(
                   elevation: 5,
 
@@ -400,22 +394,49 @@ class _DelivaryReportState extends State<DelivaryReport> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                              child: Text('গাভী নাম্বার: ${i['cow_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                              padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
+                              child: Text('Cattle ID: ${i['cattle_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                              child: Text('শেড নাম্বার: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
+                              child: Text('Shed ID: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                              child: Text('বাছুর: ${i['calf_sex']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
+                              child: Text('Seat ID: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                             ),
 
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                              child: Text('জাত: ${i['calf_breed']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                              child: Text('Slaughtering Date: ${i['slaughtering_date'] != null ? DateFormat('dd/MM/yyyy').format(DateTime.parse(i['slaughtering_date'])) : ''}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                             ),
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+                              child: Text('Cattle Body Weight: ${i['cattle_body_weight']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+                              child: Text('Per Kg Cost: ${i['per_kg_cost']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+                              child: Text('Others Income: ${i['others_income']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+                              child: Text('Expenses: ${i['expenses']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                            ),
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
+                              child: Text('Net Profit: ${i['net_profit']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                            ),
+
+
                           ]
                       ),
                       Spacer(),
@@ -436,15 +457,17 @@ class _DelivaryReportState extends State<DelivaryReport> {
                                   editid.text = i['id'].toString();
                                   edit_shed_id = i['shed_id'].toString();
                                   edit_seat_id = i['seat_id'].toString();
-                                  edit_cow_id = i['cow_id'].toString();
-                                  edit_delivery_date = DateTime.parse(i['delivery_date']);
-                                  edit_calf_sex = i['calf_sex'];
-                                  edit_calf_breed.text = i['calf_breed'];
+                                  edit_cattle_id = i['id'].toString();
+                                  edit_cattle_body_weight.text = i['weight'].toString();
+                                  edit_per_kg_cost.text = i['per_kg_cost'].toString();
+                                  edit_others_income.text = i['others_income'].toString();
+                                  edit_expenses.text = i['expenses'].toString();
+
+
                                 });
 
                                 getSeats(i['shed_id']);
-                                getCows(i['shed_id'], i['seat_id']);
-
+                                getCattles(i['shed_id'], i['seat_id']);
                                 showModalBottomSheet<void>(
                                   context: context,
                                   isScrollControlled: true,
@@ -484,7 +507,7 @@ class _DelivaryReportState extends State<DelivaryReport> {
 
                                                             onChanged: (value) {
                                                               print("selected Value $value");
-                                                              getSeats(value);
+                                                              // getSeats(value);
                                                               setStateSB(() {
                                                                 edit_shed_id = value!;
                                                               });
@@ -521,7 +544,6 @@ class _DelivaryReportState extends State<DelivaryReport> {
 
                                                             onChanged: (value) {
                                                               print("selected Value $value");
-                                                              getCows(edit_shed_id, value);
                                                               setStateSB(() {
                                                                 edit_seat_id = value!;
                                                               });
@@ -534,7 +556,9 @@ class _DelivaryReportState extends State<DelivaryReport> {
                                                   ),
                                                 ),
 
-                                                Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+
+
+                                                Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
                                                   child: InputDecorator(
                                                       decoration: InputDecoration(
                                                         border:
@@ -545,68 +569,85 @@ class _DelivaryReportState extends State<DelivaryReport> {
                                                       child: DropdownButtonHideUnderline(
                                                         child: DropdownButton<String>(
                                                             isDense: true,
-                                                            value: edit_cow_id,
+                                                            value: edit_cattle_id,
                                                             isExpanded: true,
                                                             menuMaxHeight: 350,
-                                                            hint: Text('Select Cow ID'),
+                                                            hint: Text('Select Cattle ID'),
                                                             items: [
-                                                              ...cows.map<DropdownMenuItem<String>>((data) {
+                                                              ...cattles.map<DropdownMenuItem<String>>((data) {
                                                                 return DropdownMenuItem(
-                                                                    child: Text(data['id']), value: data['id'].toString());
+                                                                    child: Text(data['cattle_id'].toString()), value: data['id'].toString());
                                                               }).toList(),
                                                             ],
 
                                                             onChanged: (value) {
                                                               print("selected Value $value");
 
-                                                              setState(() {
-                                                                edit_cow_id = value!;
+                                                              setStateSB(() {
+                                                                edit_cattle_id = value!;
                                                               });
                                                             }),
+
+
                                                       )
 
                                                     // CustomTextField()
                                                   ),
                                                 ),
-
-                                                Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-                                                  child: InputDecorator(
-                                                      decoration: InputDecoration(
-                                                        border:
-                                                        OutlineInputBorder(
-                                                            borderRadius: BorderRadius.circular(15.0)),
-                                                        contentPadding: const EdgeInsets.all(10),
-                                                      ),
-                                                      child: DropdownButtonHideUnderline(
-                                                        child: DropdownButton<String>(
-                                                            isDense: true,
-                                                            value: edit_calf_sex,
-                                                            isExpanded: true,
-                                                            menuMaxHeight: 350,
-                                                            hint: Text('Select Calf'),
-                                                            items: [
-                                                              ...calf_genders.map<DropdownMenuItem<String>>((data) {
-                                                                return DropdownMenuItem(
-                                                                    child: Text(data['name']), value: data['name'].toString());
-                                                              }).toList(),
-                                                            ],
-
-                                                            onChanged: (value) {
-                                                              print("selected Value $value");
-
-                                                              setState(() {
-                                                                edit_calf_sex = value!;
-                                                              });
-                                                            }),
-                                                      )
-
-                                                    // CustomTextField()
-                                                  ),
+                                                Padding(
+                                                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+                                                    child: Row(
+                                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                                      children: [
+                                                        Text('Slaughtering Date: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                                                        Text("${edit_slaughtering_date!.toLocal()}".split(' ')[0], style: TextStyle(fontSize: 20),),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            _selectDate(context, setStateSB, edit_slaughtering_date, (value) { edit_slaughtering_date = value; });
+                                                          },
+                                                          child: Container(
+                                                            padding: EdgeInsets.all(6),
+                                                            margin: EdgeInsets.symmetric(horizontal: 5),
+                                                            decoration: BoxDecoration(
+                                                                color: Colors.grey,
+                                                                borderRadius: BorderRadius.circular(10)
+                                                            ),
+                                                            child: Icon(Icons.calendar_month, color: Colors.white,),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    )
                                                 ),
 
                                                 Container(
-                                                    margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
-                                                    child: CustomTextField(controller: edit_calf_breed, hintText: "Enter Calf Breed", obscureText: false, textinputtypephone: true)),
+                                                    margin: EdgeInsets.fromLTRB(2, 10, 2, 0),
+                                                    child: CustomTextField(controller: edit_cattle_body_weight, hintText: "Cattle Body Weight", obscureText: false, textinputtypephone: true)),
+
+                                                // Container(
+                                                //     margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+                                                //     child: CustomTextField(controller: purchase_cost, hintText: "Purchase Cost", obscureText: false, textinputtypephone: true)),
+
+                                                // Container(
+                                                //     margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+                                                //     child: CustomTextField(controller: cattle_body_weight, hintText: "Body Weight KG ", obscureText: false, textinputtypephone: true)),
+
+                                                Container(
+                                                    margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+                                                    child: CustomTextField(controller: edit_per_kg_cost, hintText: "Per Kg Cost", obscureText: false, textinputtypephone: true)),
+
+                                                // Container(
+                                                //     margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+                                                //     child: CustomTextField(controller: total_cost, hintText: "Total Cost", obscureText: false, textinputtypephone: true)),
+
+                                                Container(
+                                                    margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+                                                    child: CustomTextField(controller: edit_others_income, hintText: "Others Income", obscureText: false, textinputtypephone: true)),
+
+                                                Container(
+                                                    margin: EdgeInsets.fromLTRB(2, 13, 2, 0),
+                                                    child: CustomTextField(controller: edit_expenses, hintText: "Expenses", obscureText: false, textinputtypephone: true)),
+
+
 
 
 
@@ -631,33 +672,33 @@ class _DelivaryReportState extends State<DelivaryReport> {
                               child: Icon(Icons.edit, color: Colors.green[500],),
                             ),
                             Spacer(),
-                            // GestureDetector(
-                            //   onTap: () {
-                            //     showDialog<String>(
-                            //       context: context,
-                            //       builder: (BuildContext context) => AlertDialog(
-                            //         title: const Text('Do you want to delete this?'),
-                            //         // content: const Text('AlertDialog description'),
-                            //         actions: <Widget>[
-                            //
-                            //           TextButton(
-                            //             onPressed: () => Navigator.pop(context, 'Cancel'),
-                            //             child: const Text('Cancel'),
-                            //           ),
-                            //           TextButton(
-                            //             onPressed: ()
-                            //             {
-                            //               deleteData(i['id']);
-                            //               Navigator.pop(context, 'OK');
-                            //             },
-                            //             child: const Text('OK'),
-                            //           ),
-                            //         ],
-                            //       ),
-                            //     );
-                            //   },
-                            //   child: Icon(Icons.delete, color: Colors.red[300],),
-                            // )
+                            GestureDetector(
+                              onTap: () {
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) => AlertDialog(
+                                    title: const Text('Do you want to delete this?'),
+                                    // content: const Text('AlertDialog description'),
+                                    actions: <Widget>[
+
+                                      TextButton(
+                                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: ()
+                                        {
+                                          deleteData(i['id']);
+                                          Navigator.pop(context, 'OK');
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              child: Icon(Icons.delete, color: Colors.red[300],),
+                            )
                           ],
                         ),
                       )
@@ -669,7 +710,6 @@ class _DelivaryReportState extends State<DelivaryReport> {
               SizedBox(height: 10,)
             ],
           )
-
 
       ],),
     );

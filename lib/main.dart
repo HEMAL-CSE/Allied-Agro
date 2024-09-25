@@ -1,4 +1,26 @@
 import 'package:alliedagro/Beeffatteing/BeefFattening.dart';
+import 'package:alliedagro/Beeffatteing/BeefFeeding/BeefFeeding.dart';
+import 'package:alliedagro/Beeffatteing/CattlePurchase/BeefCattlePurchase.dart';
+import 'package:alliedagro/Beeffatteing/Customers/BeefCustomer.dart';
+import 'package:alliedagro/Beeffatteing/Customers/BeefCustomerInfo.dart';
+import 'package:alliedagro/Beeffatteing/Expenses/BeefFatteningExpenses.dart';
+import 'package:alliedagro/Beeffatteing/Expenses/BeefFatteningFeed.dart';
+import 'package:alliedagro/Beeffatteing/Expenses/BeefFatteningLabour.dart';
+import 'package:alliedagro/Beeffatteing/Expenses/BeefFatteningOthers.dart';
+import 'package:alliedagro/Beeffatteing/Expenses/BeefFatteningOthersPayment.dart';
+import 'package:alliedagro/Beeffatteing/Expenses/BeeffatteningLabourPayment.dart';
+import 'package:alliedagro/Beeffatteing/Healthcare/BeefHealthcare.dart';
+import 'package:alliedagro/Beeffatteing/Healthcare/BeefMedicines.dart';
+import 'package:alliedagro/Beeffatteing/Healthcare/BeefVaccines.dart';
+import 'package:alliedagro/Beeffatteing/Report/BeefFatteningreport.dart';
+import 'package:alliedagro/Beeffatteing/Report/BeefReportExpenses.dart';
+import 'package:alliedagro/Beeffatteing/Report/BeefReportIncome.dart';
+import 'package:alliedagro/Beeffatteing/Report/BeefReportProduction.dart';
+import 'package:alliedagro/Beeffatteing/Report/BeefReportProfit.dart';
+import 'package:alliedagro/Beeffatteing/Slaughtering/BeefSlaughtering.dart';
+import 'package:alliedagro/Beeffatteing/Treatment/BeefFatteningTreatmentDesc.dart';
+import 'package:alliedagro/Beeffatteing/Treatment/BeefFatteningTreatmentDoctor.dart';
+import 'package:alliedagro/Beeffatteing/Treatment/BeefTreatment.dart';
 import 'package:alliedagro/Cow/CowDashboard.dart';
 import 'package:alliedagro/Cow/CowDelivary.dart';
 import 'package:alliedagro/Cow/CowExpenses.dart';
@@ -45,13 +67,33 @@ import 'package:alliedagro/Milk/TotalMilkProd.dart';
 import 'package:alliedagro/VermiCompost/Earthworm/EarthWorm.dart';
 import 'package:alliedagro/VermiCompost/Earthworm/EarthWormEnvironment.dart';
 import 'package:alliedagro/VermiCompost/Earthworm/EarthWormExpenses.dart';
+import 'package:alliedagro/VermiCompost/Earthworm/EarthwormLabour.dart';
+import 'package:alliedagro/VermiCompost/Earthworm/EarthwormLabourPayment.dart';
+import 'package:alliedagro/VermiCompost/Earthworm/EarthwormOthers.dart';
+import 'package:alliedagro/VermiCompost/Earthworm/EarthwormOthersPayment.dart';
+import 'package:alliedagro/VermiCompost/Earthworm/EarthwormPurchase.dart';
+import 'package:alliedagro/VermiCompost/Earthworm/EarthwormSellers.dart';
+import 'package:alliedagro/VermiCompost/Earthworm/ProductionOfEartworm.dart';
+import 'package:alliedagro/VermiCompost/Earthworm/SellsOfEarthWorm.dart';
+import 'package:alliedagro/VermiCompost/Environment/VermiCompostEnvironment.dart';
+import 'package:alliedagro/VermiCompost/MaterialAndExpenses/CowdungPurchase.dart';
+import 'package:alliedagro/VermiCompost/MaterialAndExpenses/CowdungSellerList.dart';
+import 'package:alliedagro/VermiCompost/MaterialAndExpenses/LabourList.dart';
+import 'package:alliedagro/VermiCompost/MaterialAndExpenses/LabourPayment.dart';
+import 'package:alliedagro/VermiCompost/MaterialAndExpenses/MaterialsVermiCompost.dart';
+import 'package:alliedagro/VermiCompost/MaterialAndExpenses/OthersCostList.dart';
+import 'package:alliedagro/VermiCompost/MaterialAndExpenses/OthersPayment.dart';
+import 'package:alliedagro/VermiCompost/Production/VermiCompostProd.dart';
+import 'package:alliedagro/VermiCompost/Production/vermicompost_shed.dard.dart';
 
 import 'package:alliedagro/VermiCompost/Report/VermiCompostIncomeReport.dart';
 import 'package:alliedagro/VermiCompost/Report/VermiCompostProductionReport.dart';
 import 'package:alliedagro/VermiCompost/Report/VermiCompostProfitReport.dart';
 import 'package:alliedagro/VermiCompost/Report/VermiCompostReport.dart';
 import 'package:alliedagro/VermiCompost/Report/VermiCompostReportExpenses.dart';
+import 'package:alliedagro/VermiCompost/Sells/VermiCompostSells.dart';
 import 'package:alliedagro/VermiCompost/Sells/VermiCompostSellsButton.dart';
+import 'package:alliedagro/VermiCompost/Sells/VermiSellsBuyerList.dart';
 import 'package:alliedagro/VermiCompost/VermiCompostList.dart';
 import 'package:flutter/material.dart';
 import 'package:alliedagro/BioGasFolder/BioGas.dart';
@@ -72,37 +114,37 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => HomePage(),
         '/vermicompostlist': (context) => VermiCompostList(),
-        // '/cowdungPurchase' : (context) => CowdungPurchase(),
-        // '/cowdungPurchase' : (context) => CowdungPurchase(),
-        // '/labourList' : (context) => LabourList(),
-        // '/cowdungsellerList' : (context) =>CowdungSellerList(),
-        // '/earthworm' : (context) =>EarthwormComponent(),
-        // '/productionEarthWorm' : (context) =>ProductionEarthWorm(),
-        // '/sellsofEarthWorm' :(context) =>EarthWormSells(),
-        // '/vermicompostprod': (context) => VermiCompostProd(),
-        // '/vermicompostshed': (context) => VermiCompostShed(),
-        // '/vermicompostsells': (context) => VermiCompostSells(),
-        // '/labourPayment' : (context) => LabourPayment(),
-        // '/othersPayment' : (context) => OthersPayment(),
-        // '/othersCostList' :(context) => OthersList(),
-        // '/cowpurchase': (context) => CowdungPurchase(),
-        // '/vermicompostreport' : (context) =>VermiCompostReport(),
-        // '/vermicompostExpensesReport' : (context) =>VermiCompostExpensesReport(),
-        // '/vermiCompostProductionReport' : (context) => VermiCompostProductionReport(),
-        // '/vermiCompostIncomeReport' : (context) => VermiCompostIncomeReport(),
-        // '/vermiCompostProfitReport' : (context) =>VermiCompostprofitReport(),
-        // '/vermicompostenvironment': (context) => VermiCompostEnvironment(),
-        // '/materialsVermiCompost':(context)=>MaterialsVermiCompost(),
-        // '/earthwormExpenses' : (context) =>EarthwormExpenses(),
-        // '/earthwormEnvironment' : (context) =>EarthWormEnvironment(),
-        // '/earthwormsellers': (context) => EarthwormSellers(),
-        // '/earthwormpurchase': (context) => EarthwormPurchase(),
-        // '/earthwormlabour': (context) => EarthwormLabour(),
-        // '/earthwormlabourpayment': (context) => EarthwormLabourPayment(),
-        // '/earthwormothers': (context) => EarthwormOthers(),
-        // '/earthwormotherspayment': (context) => EarthwormOthersPayment(),
-        // '/vermiCompostSellsButton' : (context) => VermiCompostSellsButton(),
-        // '/vermiCompostSellBuyers' : (context) =>VermiSellsBuyersList(),
+        '/cowdungPurchase' : (context) => CowdungPurchase(),
+        '/cowdungPurchase' : (context) => CowdungPurchase(),
+        '/labourList' : (context) => LabourList(),
+        '/cowdungsellerList' : (context) =>CowdungSellerList(),
+        '/earthworm' : (context) =>EarthwormComponent(),
+        '/productionEarthWorm' : (context) =>ProductionEarthWorm(),
+        '/sellsofEarthWorm' :(context) =>EarthWormSells(),
+        '/vermicompostprod': (context) => VermiCompostProd(),
+        '/vermicompostshed': (context) => VermiCompostShed(),
+        '/vermicompostsells': (context) => VermiCompostSells(),
+        '/labourPayment' : (context) => LabourPayment(),
+        '/othersPayment' : (context) => OthersPayment(),
+        '/othersCostList' :(context) => OthersList(),
+        '/cowpurchase': (context) => CowdungPurchase(),
+        '/vermicompostreport' : (context) =>VermiCompostReport(),
+        '/vermicompostExpensesReport' : (context) =>VermiCompostExpensesReport(),
+        '/vermiCompostProductionReport' : (context) => VermiCompostProductionReport(),
+        '/vermiCompostIncomeReport' : (context) => VermiCompostIncomeReport(),
+        '/vermiCompostProfitReport' : (context) =>VermiCompostprofitReport(),
+        '/vermicompostenvironment': (context) => VermiCompostEnvironment(),
+        '/materialsVermiCompost':(context)=>MaterialsVermiCompost(),
+        '/earthwormExpenses' : (context) =>EarthwormExpenses(),
+        '/earthwormEnvironment' : (context) =>EarthWormEnvironment(),
+        '/earthwormsellers': (context) => EarthwormSellers(),
+        '/earthwormpurchase': (context) => EarthwormPurchase(),
+        '/earthwormlabour': (context) => EarthwormLabour(),
+        '/earthwormlabourpayment': (context) => EarthwormLabourPayment(),
+        '/earthwormothers': (context) => EarthwormOthers(),
+        '/earthwormotherspayment': (context) => EarthwormOthersPayment(),
+        '/vermiCompostSellsButton' : (context) => VermiCompostSellsButton(),
+        '/vermiCompostSellBuyers' : (context) =>VermiSellsBuyersList(),
 
         //   Milk Section Start
         '/milkdashboard' : (context) => MilkDashboard(),
@@ -161,6 +203,31 @@ class MyApp extends StatelessWidget {
         '/cowVaccines': (context) => BreedingVaccines(),
         '/cowMedicine': (context) => BreedingMedicines(),
         '/cowFeeding': (context) => BreedingFeeding(),
+
+
+        //beef
+        '/beefCattlePurchase' : (context) => BeefCattlePurchase(),
+        '/beefCustomer' : (context) => BeefCustomer(),
+        '/beefCustomerInfo' : (context) =>BeefCustomerInfo(),
+        '/beefSlaughtering' : (context) =>BeefSlaughtering(),
+        '/beefFatteningExpenses' : (context) =>BeefFatteningExpenses(),
+        '/beefTreatment' : (context) =>Beeftreatment(),
+        '/beefFatteningDoctor': (context) => BeefFatteningTreatmentDoctor(),
+        '/beefFatteningTreatmentDesc': (context) => BeefFatteningTreatmentDesc(),
+        '/beefFatteningFeed': (context) => BeefFatteningFeed(),
+        '/beefFatteningLabour': (context) => BeefFatteningLabour(),
+        '/beefFatteningPayment' : (context) => BeefFatteningLabourPayment(),
+        '/beefFatteningOthers' : (context) => BeefFatteningOthers(),
+        '/beefFatteningOthersPayment': (context) =>BeefFatteningOtherspayment(),
+        '/beeffatteningReport' : (context) =>BeefFatteningReport(),
+        '/beefExpensesReport': (context) => BeefExpensesReport(),
+        '/beefProfitReport': (context) => BeefProfitReport(),
+        '/beefProductionReport': (context) =>BeefProductionReport(),
+        '/beefIncomeReport' : (context) =>BeefIncomeReport(),
+        '/beef_feeding': (context) => BeefFeeding(),
+        '/beef_healthcare': (context) => BeefHealthcare(),
+        '/beef_vaccines': (context) => BeefVaccines(),
+        '/beef_medicines': (context) => BeefMedicines(),
 
       //   Calf Section
 
