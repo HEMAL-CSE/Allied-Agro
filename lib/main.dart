@@ -162,7 +162,11 @@ class MyApp extends StatelessWidget {
         '/cowMedicine': (context) => BreedingMedicines(),
         '/cowFeeding': (context) => BreedingFeeding(),
 
-      //   Calf Section
+      //   Milk Section
+        '/totalmilkproduction': (context) => TotalMilkProd(),
+        '/milkselling': (context) => MilkSelling(),
+        '/milklabour': (context) => MilkLabour(),
+        '/milklaboursalary': (context) => MilkLabourPayment(),
 
       },
 

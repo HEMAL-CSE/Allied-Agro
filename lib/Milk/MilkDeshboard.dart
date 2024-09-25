@@ -26,7 +26,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/total_milk_prod');
+                    Navigator.pushNamed(context, '/totalmilkproduction');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -63,7 +63,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
                 //Earthwarm section start
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/milk_selling');
+                     Navigator.pushNamed(context, '/milkselling');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -99,7 +99,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
 
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/milk_customer');
+                    Navigator.pushNamed(context, '/milk_customer');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -135,7 +135,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
 
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/milk_labour');
+                     Navigator.pushNamed(context, '/milklabour');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -172,7 +172,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
 
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/milk_labour_payment');
+                     Navigator.pushNamed(context, '/milklaboursalary');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],

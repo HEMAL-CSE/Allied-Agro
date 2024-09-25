@@ -258,8 +258,14 @@ class _MilkSellingState extends State<MilkSelling> {
                                                     onPressed: () {
                                                       // addData();
                                                     },
+
                                                     child:
-                                                        const Text("জমা দিন")),
+                                                        const Text("জমা দিন"),
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.greenAccent[400],
+                                                  foregroundColor: Colors.black,
+                                                ),
+                                                ),
                                               ),
 
                                               // SizedBox(height: MediaQuery.of(context).viewInsets.bottom+20,)
