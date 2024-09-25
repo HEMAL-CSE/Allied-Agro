@@ -29,7 +29,7 @@ class _VermiCompostReportState extends State<VermiCompostReport> {
                     Navigator.pushNamed(context, '/vermicompostExpensesReport');
                   },
                   child: Card(
-                    color: Colors.greenAccent,
+                    color: Colors.greenAccent[400],
                     elevation: 5,
                     margin: EdgeInsets.all(7.5),
                     shape: RoundedRectangleBorder(
@@ -43,7 +43,7 @@ class _VermiCompostReportState extends State<VermiCompostReport> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Expenses ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('খরচসমূহ ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -65,7 +65,7 @@ class _VermiCompostReportState extends State<VermiCompostReport> {
                     Navigator.pushNamed(context, '/vermiCompostProductionReport');
                   },
                   child: Card(
-                    color: Colors.greenAccent,
+                    color: Colors.greenAccent[400],
                     elevation: 5,
                     margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
@@ -79,7 +79,7 @@ class _VermiCompostReportState extends State<VermiCompostReport> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Production', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('উৎপাদন', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -101,7 +101,7 @@ class _VermiCompostReportState extends State<VermiCompostReport> {
                     Navigator.pushNamed(context, '/vermiCompostIncomeReport');
                   },
                   child: Card(
-                    color: Colors.greenAccent,
+                    color: Colors.greenAccent[400],
                     elevation: 5,
                     margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
@@ -115,7 +115,7 @@ class _VermiCompostReportState extends State<VermiCompostReport> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Income', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('আয়', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -137,7 +137,7 @@ class _VermiCompostReportState extends State<VermiCompostReport> {
                     Navigator.pushNamed(context, '/vermiCompostProfitReport');
                   },
                   child: Card(
-                    color: Colors.greenAccent,
+                    color: Colors.greenAccent[400],
                     elevation: 5,
                     margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
@@ -151,7 +151,7 @@ class _VermiCompostReportState extends State<VermiCompostReport> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Profit / Loss', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('লাভ / লস', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),

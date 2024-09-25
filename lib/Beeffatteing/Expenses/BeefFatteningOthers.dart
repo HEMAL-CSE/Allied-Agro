@@ -1,21 +1,19 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
-import 'package:flutter/material.dart';
-// import 'package:alliedagro/components/CustomAppBar.dart';
-// import 'package:alliedagro/components/CustomTextField.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 
-class BreedingOthers extends StatefulWidget {
-  const BreedingOthers({super.key});
+class BeefFatteningOthers extends StatefulWidget {
+  const BeefFatteningOthers({super.key});
 
   @override
-  State<BreedingOthers> createState() => _BreedingOthersState();
+  State<BeefFatteningOthers> createState() => _BeefFatteningOthersState();
 }
 
-class _BreedingOthersState extends State<BreedingOthers> {
+class _BeefFatteningOthersState extends State<BeefFatteningOthers> {
   String? shed_id;
 
   String? seat_id;
@@ -37,7 +35,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   List<dynamic> seats = [];
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
 
     Response res = await get(url);
 
@@ -47,7 +45,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -57,7 +55,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_others');
 
     Response res = await get(url);
 
@@ -67,7 +65,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/add');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_others/add');
 
     Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'name': name.text};
 
@@ -84,7 +82,6 @@ class _BreedingOthersState extends State<BreedingOthers> {
           fontSize: 16.0
 
       );
-
       setState(() {
         shed_id = null;
         seat_id = null;
@@ -95,7 +92,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_others/edit?id=${editid.text}');
     Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'name': editname.text};
 
     Response res = await put(url, body: data);
@@ -117,7 +114,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_others/delete?id=${id}');
 
     Response res = await delete(url);
 
@@ -148,10 +145,9 @@ class _BreedingOthersState extends State<BreedingOthers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'অন্যান্য খরচসমূহ',),
+      appBar: CustomAppBar(title: 'Beef Others',),
       body: ListView(
         children: [
-          SizedBox(height: 05,),
           Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
             child: InputDecorator(
                 decoration: InputDecoration(
@@ -188,7 +184,6 @@ class _BreedingOthersState extends State<BreedingOthers> {
               // CustomTextField()
             ),
           ),
-          SizedBox(height: 03,),
 
           Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
             child: InputDecorator(
@@ -227,19 +222,14 @@ class _BreedingOthersState extends State<BreedingOthers> {
           ),
 
           Container(
-              margin: EdgeInsets.fromLTRB(2, 10, 2, 0),
+              margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
               child: CustomTextField(controller: name, hintText: "Name", obscureText: false, textinputtypephone: false)),
 
           Container( padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(04),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.greenAccent[400],
-                  foregroundColor: Colors.black,
-                ),
-                onPressed: (){
+            child: ElevatedButton(onPressed: (){
               addData();
-            }, child: const Text("Submit", style: TextStyle(fontSize: 15.5),)),
+            }, child: const Text("Submit")),
           ),
 
           for(var i in data)
@@ -389,6 +379,9 @@ class _BreedingOthersState extends State<BreedingOthers> {
                                                   Container(
                                                       margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
                                                       child: CustomTextField(controller: editname, hintText: "Name", obscureText: false, textinputtypephone: true)),
+
+
+
 
 
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),

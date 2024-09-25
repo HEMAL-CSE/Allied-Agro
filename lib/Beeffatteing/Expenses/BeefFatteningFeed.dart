@@ -1,34 +1,41 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
-import 'package:flutter/material.dart';
-// import 'package:alliedagro/components/CustomAppBar.dart';
-// import 'package:alliedagro/components/CustomTextField.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 
-class BreedingOthers extends StatefulWidget {
-  const BreedingOthers({super.key});
+class BeefFatteningFeed extends StatefulWidget {
+  const BeefFatteningFeed({super.key});
 
   @override
-  State<BreedingOthers> createState() => _BreedingOthersState();
+  State<BeefFatteningFeed> createState() => _BeefFatteningFeedState();
 }
 
-class _BreedingOthersState extends State<BreedingOthers> {
+class _BeefFatteningFeedState extends State<BeefFatteningFeed> {
+
   String? shed_id;
 
   String? seat_id;
 
-  TextEditingController name = TextEditingController();
+  String? cattle_id;
+
+  TextEditingController amount = TextEditingController();
+
+  TextEditingController price = TextEditingController();
 
   String? edit_shed_id;
 
   String? edit_seat_id;
 
-  TextEditingController editid = TextEditingController();
+  String? edit_cattle_id;
 
-  TextEditingController editname = TextEditingController();
+  TextEditingController edit_amount = TextEditingController();
+
+  TextEditingController edit_price = TextEditingController();
+
+  TextEditingController editid = TextEditingController();
 
   List<dynamic> data = [];
 
@@ -36,8 +43,10 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
   List<dynamic> seats = [];
 
+  List<dynamic> cattles = [];
+
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
 
     Response res = await get(url);
 
@@ -47,7 +56,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -56,8 +65,18 @@ class _BreedingOthersState extends State<BreedingOthers> {
     });
   }
 
+  void getcattles(shed_id, seat_id) async {
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/?shed_id=${shed_id}&seat_id=${seat_id}');
+
+    Response res = await get(url);
+
+    setState(() {
+      cattles = jsonDecode(res.body);
+    });
+  }
+
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_feed');
 
     Response res = await get(url);
 
@@ -67,9 +86,9 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/add');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_feed/add');
 
-    Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'name': name.text};
+    Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'cattle_id': cattle_id, 'amount': amount.text, 'price': price.text};
 
     Response res = await post(url, body: data);
 
@@ -88,15 +107,17 @@ class _BreedingOthersState extends State<BreedingOthers> {
       setState(() {
         shed_id = null;
         seat_id = null;
-        name.text = '';
+        cattle_id = null;
+        amount.text = '';
+        price.text = '';
       });
     }
     getData();
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/edit?id=${editid.text}');
-    Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'name': editname.text};
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_feed/edit?id=${editid.text}');
+    Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'cattle_id': edit_cattle_id, 'amount': edit_amount.text, 'price': edit_price.text};
 
     Response res = await put(url, body: data);
 
@@ -117,7 +138,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_feed/delete?id=${id}');
 
     Response res = await delete(url);
 
@@ -148,10 +169,9 @@ class _BreedingOthersState extends State<BreedingOthers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'অন্যান্য খরচসমূহ',),
+      appBar: CustomAppBar(title: 'Feed',),
       body: ListView(
         children: [
-          SizedBox(height: 05,),
           Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
             child: InputDecorator(
                 decoration: InputDecoration(
@@ -182,13 +202,11 @@ class _BreedingOthersState extends State<BreedingOthers> {
                         });
                       }),
 
-
                 )
 
               // CustomTextField()
             ),
           ),
-          SizedBox(height: 03,),
 
           Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
             child: InputDecorator(
@@ -214,6 +232,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
                       onChanged: (value) {
                         print("selected Value $value");
+                        getcattles(shed_id, value);
                         setState(() {
                           seat_id = value!;
                         });
@@ -226,21 +245,59 @@ class _BreedingOthersState extends State<BreedingOthers> {
             ),
           ),
 
+          Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
+            child: InputDecorator(
+                decoration: InputDecoration(
+                  border:
+                  OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0)),
+                  contentPadding: const EdgeInsets.all(10),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                      isDense: true,
+                      value: cattle_id,
+                      isExpanded: true,
+                      menuMaxHeight: 350,
+                      hint: Text('Select cattle ID'),
+                      items: [
+                        ...cattles.map<DropdownMenuItem<String>>((data) {
+                          return DropdownMenuItem(
+                              child: Text(data['cattle_id'].toString()), value: data['id'].toString());
+                        }).toList(),
+                      ],
+
+                      onChanged: (value) {
+                        print("selected Value $value");
+
+                        setState(() {
+                          cattle_id = value!;
+                        });
+                      }),
+
+
+                )
+
+              // CustomTextField()
+            ),
+          ),
+
           Container(
-              margin: EdgeInsets.fromLTRB(2, 10, 2, 0),
-              child: CustomTextField(controller: name, hintText: "Name", obscureText: false, textinputtypephone: false)),
+              margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+              child: CustomTextField(controller: amount, hintText: "Amount KG", obscureText: false, textinputtypephone: true)),
+
+          Container(
+              margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+              child: CustomTextField(controller: price, hintText: "Amount BDT", obscureText: false, textinputtypephone: true)),
 
           Container( padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(04),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.greenAccent[400],
-                  foregroundColor: Colors.black,
-                ),
-                onPressed: (){
+            child: ElevatedButton(onPressed: (){
               addData();
-            }, child: const Text("Submit", style: TextStyle(fontSize: 15.5),)),
+            }, child: const Text("Submit")),
           ),
+
+          SizedBox(height: 20,),
 
           for(var i in data)
             Column(
@@ -260,7 +317,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('Others Name: ${i['name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                child: Text('cattle ID: ${i['cattle_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
@@ -269,6 +326,15 @@ class _BreedingOthersState extends State<BreedingOthers> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
                                 child: Text('Seat ID: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
+                                child: Text('Amount: ${i['amount']} kg', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey),),
+                              ),
+
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
+                                child: Text('Price: ${i['price']} BDT', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey),),
                               ),
 
                             ]
@@ -291,11 +357,15 @@ class _BreedingOthersState extends State<BreedingOthers> {
                                     editid.text = i['id'].toString();
                                     edit_shed_id = i['shed_id'].toString();
                                     edit_seat_id = i['seat_id'].toString();
-                                    editname.text = i['name'];
+                                    edit_cattle_id = i['cattle_id'].toString();
+                                    edit_amount.text = i['amount'].toString();
+                                    edit_price.text = i['price'].toString();
 
                                   });
 
                                   getSeats(i['shed_id']);
+                                  getcattles(i['shed_id'], i['seat_id']);
+
                                   showModalBottomSheet<void>(
                                     context: context,
                                     isScrollControlled: true,
@@ -372,6 +442,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
                                                               onChanged: (value) {
                                                                 print("selected Value $value");
+                                                                getcattles(edit_shed_id, value);
                                                                 setStateSB(() {
                                                                   edit_seat_id = value!;
                                                                 });
@@ -384,11 +455,52 @@ class _BreedingOthersState extends State<BreedingOthers> {
                                                     ),
                                                   ),
 
+                                                  Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
+                                                    child: InputDecorator(
+                                                        decoration: InputDecoration(
+                                                          border:
+                                                          OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(15.0)),
+                                                          contentPadding: const EdgeInsets.all(10),
+                                                        ),
+                                                        child: DropdownButtonHideUnderline(
+                                                          child: DropdownButton<String>(
+                                                              isDense: true,
+                                                              value: edit_cattle_id,
+                                                              isExpanded: true,
+                                                              menuMaxHeight: 350,
+                                                              hint: Text('Select cattle ID'),
+                                                              items: [
+                                                                ...cattles.map<DropdownMenuItem<String>>((data) {
+                                                                  return DropdownMenuItem(
+                                                                      child: Text(data['cattle_id'].toString()), value: data['id'].toString());
+                                                                }).toList(),
+                                                              ],
+
+                                                              onChanged: (value) {
+                                                                print("selected Value $value");
+
+                                                                setState(() {
+                                                                  edit_cattle_id = value!;
+                                                                });
+                                                              }),
+
+
+                                                        )
+
+                                                      // CustomTextField()
+                                                    ),
+                                                  ),
+
+                                                  Container(
+                                                      margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+                                                      child: CustomTextField(controller: edit_amount, hintText: "Amount", obscureText: false, textinputtypephone: true)),
+
 
 
                                                   Container(
                                                       margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
-                                                      child: CustomTextField(controller: editname, hintText: "Name", obscureText: false, textinputtypephone: true)),
+                                                      child: CustomTextField(controller: edit_price, hintText: "Price", obscureText: false, textinputtypephone: true)),
 
 
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),
@@ -450,7 +562,6 @@ class _BreedingOthersState extends State<BreedingOthers> {
                 SizedBox(height: 10,)
               ],
             )
-
         ],
       ),
     );

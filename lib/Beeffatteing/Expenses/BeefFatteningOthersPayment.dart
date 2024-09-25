@@ -1,34 +1,41 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
-import 'package:flutter/material.dart';
-// import 'package:alliedagro/components/CustomAppBar.dart';
-// import 'package:alliedagro/components/CustomTextField.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 
-class BreedingOthers extends StatefulWidget {
-  const BreedingOthers({super.key});
+class BeefFatteningOtherspayment extends StatefulWidget {
+  const BeefFatteningOtherspayment({super.key});
 
   @override
-  State<BreedingOthers> createState() => _BreedingOthersState();
+  State<BeefFatteningOtherspayment> createState() => _BeefFatteningOtherspaymentState();
 }
 
-class _BreedingOthersState extends State<BreedingOthers> {
+class _BeefFatteningOtherspaymentState extends State<BeefFatteningOtherspayment> {
+
+  DateTime selectDate = DateTime.now();
+
+  DateTime selectEditDate = DateTime.now();
+
   String? shed_id;
 
   String? seat_id;
 
-  TextEditingController name = TextEditingController();
+  String? others_id;
+
+  TextEditingController payment = TextEditingController();
 
   String? edit_shed_id;
 
   String? edit_seat_id;
 
+  String? edit_others_id;
+
   TextEditingController editid = TextEditingController();
 
-  TextEditingController editname = TextEditingController();
+  TextEditingController editpayment = TextEditingController();
 
   List<dynamic> data = [];
 
@@ -36,8 +43,10 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
   List<dynamic> seats = [];
 
+  List<dynamic> others = [];
+
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
 
     Response res = await get(url);
 
@@ -47,7 +56,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -56,8 +65,18 @@ class _BreedingOthersState extends State<BreedingOthers> {
     });
   }
 
+  void getOthers(shed_id, seat_id) async {
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_others?shed_id=${shed_id}&seat_id=${seat_id}');
+
+    Response res = await get(url);
+
+    setState(() {
+      others = jsonDecode(res.body);
+    });
+  }
+
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_others_payment');
 
     Response res = await get(url);
 
@@ -67,9 +86,9 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/add');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_others_payment/add');
 
-    Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'name': name.text};
+    Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'others_id': others_id, 'payment': payment.text, 'date': selectDate.toIso8601String()};
 
     Response res = await post(url, body: data);
 
@@ -87,16 +106,18 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
       setState(() {
         shed_id = null;
+        selectDate = DateTime.now();
         seat_id = null;
-        name.text = '';
+        others_id = null;
+        payment.text = '';
       });
     }
     getData();
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/edit?id=${editid.text}');
-    Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'name': editname.text};
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_others_payment/edit?id=${editid.text}');
+    Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'others_id': edit_others_id, 'payment': editpayment.text, 'date': selectEditDate.toIso8601String()};
 
     Response res = await put(url, body: data);
 
@@ -117,7 +138,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_others_payment/delete?id=${id}');
 
     Response res = await delete(url);
 
@@ -136,6 +157,19 @@ class _BreedingOthersState extends State<BreedingOthers> {
     getData();
   }
 
+  Future<void> _selectDate(BuildContext context,setState, selectedDate, void setSelectedDate(value)) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        setSelectedDate(picked);
+      });
+    }
+  }
+
 
 
   @override void initState() {
@@ -148,10 +182,34 @@ class _BreedingOthersState extends State<BreedingOthers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'অন্যান্য খরচসমূহ',),
+      appBar: CustomAppBar(title: 'Beef Others Payment',),
       body: ListView(
         children: [
-          SizedBox(height: 05,),
+
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text('Select Date: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                  Text("${selectDate!.toLocal()}".split(' ')[0], style: TextStyle(fontSize: 20),),
+                  GestureDetector(
+                    onTap: () {
+                      _selectDate(context, setState, selectDate, (value) {selectDate = value;});
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(6),
+                      margin: EdgeInsets.symmetric(horizontal: 5),
+                      decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Icon(Icons.calendar_month, color: Colors.white,),
+                    ),
+                  )
+                ],
+              )
+          ),
           Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
             child: InputDecorator(
                 decoration: InputDecoration(
@@ -188,7 +246,6 @@ class _BreedingOthersState extends State<BreedingOthers> {
               // CustomTextField()
             ),
           ),
-          SizedBox(height: 03,),
 
           Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
             child: InputDecorator(
@@ -214,6 +271,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
                       onChanged: (value) {
                         print("selected Value $value");
+                        getOthers(shed_id, value);
                         setState(() {
                           seat_id = value!;
                         });
@@ -226,20 +284,53 @@ class _BreedingOthersState extends State<BreedingOthers> {
             ),
           ),
 
+
+
+          Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
+            child: InputDecorator(
+                decoration: InputDecoration(
+                  border:
+                  OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15.0)),
+                  contentPadding: const EdgeInsets.all(10),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                      isDense: true,
+                      value: others_id,
+                      isExpanded: true,
+                      menuMaxHeight: 350,
+                      hint: Text('Select'),
+                      items: [
+                        ...others.map<DropdownMenuItem<String>>((data) {
+                          return DropdownMenuItem(
+                              child: Text(data['name']), value: data['id'].toString());
+                        }).toList(),
+                      ],
+
+                      onChanged: (value) {
+                        print("selected Value $value");
+                        setState(() {
+                          others_id = value!;
+                        });
+                      }),
+
+
+                )
+
+              // CustomTextField()
+            ),
+          ),
+
           Container(
-              margin: EdgeInsets.fromLTRB(2, 10, 2, 0),
-              child: CustomTextField(controller: name, hintText: "Name", obscureText: false, textinputtypephone: false)),
+              margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+              child: CustomTextField(controller: payment, hintText: "Payment", obscureText: false, textinputtypephone: true)),
 
           Container( padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(04),
-            child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.greenAccent[400],
-                  foregroundColor: Colors.black,
-                ),
-                onPressed: (){
+            child: ElevatedButton(onPressed: (){
               addData();
-            }, child: const Text("Submit", style: TextStyle(fontSize: 15.5),)),
+            }, child: const Text("Submit")),
           ),
 
           for(var i in data)
@@ -260,7 +351,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('Others Name: ${i['name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                child: Text('Others ID: ${i['others_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
@@ -269,6 +360,11 @@ class _BreedingOthersState extends State<BreedingOthers> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
                                 child: Text('Seat ID: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                              ),
+
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
+                                child: Text('Payment: ${i['payment']} BDT', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
 
                             ]
@@ -291,11 +387,15 @@ class _BreedingOthersState extends State<BreedingOthers> {
                                     editid.text = i['id'].toString();
                                     edit_shed_id = i['shed_id'].toString();
                                     edit_seat_id = i['seat_id'].toString();
-                                    editname.text = i['name'];
+                                    edit_others_id = i['others_id'].toString();
+                                    editpayment.text = i['payment'];
+                                    selectEditDate = DateTime.parse(i['date']);
+
 
                                   });
 
                                   getSeats(i['shed_id']);
+                                  getOthers(i['shed_id'], i['seat_id']);
                                   showModalBottomSheet<void>(
                                     context: context,
                                     isScrollControlled: true,
@@ -311,6 +411,31 @@ class _BreedingOthersState extends State<BreedingOthers> {
                                                 // mainAxisAlignment: MainAxisAlignment.center,
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
+
+                                                  Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
+                                                      child: Row(
+                                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                                        children: [
+                                                          Text('Select Date: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                                                          Text("${selectEditDate!.toLocal()}".split(' ')[0], style: TextStyle(fontSize: 20),),
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              _selectDate(context, setStateSB, selectEditDate, (value) {selectEditDate = value;});
+                                                            },
+                                                            child: Container(
+                                                              padding: EdgeInsets.all(6),
+                                                              margin: EdgeInsets.symmetric(horizontal: 5),
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors.grey,
+                                                                  borderRadius: BorderRadius.circular(10)
+                                                              ),
+                                                              child: Icon(Icons.calendar_month, color: Colors.white,),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      )
+                                                  ),
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
                                                     child: InputDecorator(
                                                         decoration: InputDecoration(
@@ -372,8 +497,45 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
                                                               onChanged: (value) {
                                                                 print("selected Value $value");
+                                                                getOthers(edit_shed_id, value);
                                                                 setStateSB(() {
                                                                   edit_seat_id = value!;
+                                                                });
+                                                              }),
+
+
+                                                        )
+
+                                                      // CustomTextField()
+                                                    ),
+                                                  ),
+
+                                                  Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
+                                                    child: InputDecorator(
+                                                        decoration: InputDecoration(
+                                                          border:
+                                                          OutlineInputBorder(
+                                                              borderRadius: BorderRadius.circular(15.0)),
+                                                          contentPadding: const EdgeInsets.all(10),
+                                                        ),
+                                                        child: DropdownButtonHideUnderline(
+                                                          child: DropdownButton<String>(
+                                                              isDense: true,
+                                                              value: edit_others_id,
+                                                              isExpanded: true,
+                                                              menuMaxHeight: 350,
+                                                              hint: Text('Select'),
+                                                              items: [
+                                                                ...others.map<DropdownMenuItem<String>>((data) {
+                                                                  return DropdownMenuItem(
+                                                                      child: Text(data['name']), value: data['id'].toString());
+                                                                }).toList(),
+                                                              ],
+
+                                                              onChanged: (value) {
+                                                                print("selected Value $value");
+                                                                setStateSB(() {
+                                                                  edit_others_id = value!;
                                                                 });
                                                               }),
 
@@ -388,7 +550,10 @@ class _BreedingOthersState extends State<BreedingOthers> {
 
                                                   Container(
                                                       margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
-                                                      child: CustomTextField(controller: editname, hintText: "Name", obscureText: false, textinputtypephone: true)),
+                                                      child: CustomTextField(controller: editpayment, hintText: "Payment", obscureText: false, textinputtypephone: true)),
+
+
+
 
 
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),

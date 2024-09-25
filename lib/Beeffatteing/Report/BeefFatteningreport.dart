@@ -1,32 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
-import 'package:alliedagro/components/CustomTextField.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
-
-class EarthwormComponent extends StatefulWidget {
-  const EarthwormComponent({Key? key}) : super(key: key);
+class BeefFatteningReport extends StatefulWidget {
+  const BeefFatteningReport({super.key});
 
   @override
-  State<EarthwormComponent> createState() => _EarthwormComponentState();
+  State<BeefFatteningReport> createState() => _BeefFatteningReportState();
 }
 
-class _EarthwormComponentState extends State<EarthwormComponent> {
-
-  List dropDownListData = [
-    {"title": "Farmer",  "value": "1"},
-    {"title": "Farm Owner", "value": "2"},
-    {"title": "Suppliers", "value": "3"},
-  ];
-
-  TextEditingController kg = TextEditingController();
-
-  String defaultValue ="";
-
+class _BeefFatteningReportState extends State<BeefFatteningReport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'কেঁচোসার',), //Appbar
+      appBar: CustomAppBar(title: 'Beef Fattening Report',),
 
         body: CustomScrollView(
           primary: false,
@@ -36,14 +23,15 @@ class _EarthwormComponentState extends State<EarthwormComponent> {
               mainAxisSpacing: 10,
               crossAxisCount: 2,
               children: [
+
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/productionEarthWorm');
+                    Navigator.pushNamed(context, '/beefExpensesReport');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
                     elevation: 5,
-                    margin: EdgeInsets.all(8),
+                    margin: EdgeInsets.fromLTRB(12, 12, 0, 0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -55,7 +43,43 @@ class _EarthwormComponentState extends State<EarthwormComponent> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('উৎপাদন', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('Expenses ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            SizedBox(height: 10,),
+                            Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(8)
+                                ),
+                                child: Icon(FontAwesome.money)
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/beefProductionReport');
+                  },
+                  child: Card(
+                    color: Colors.greenAccent[400],
+                    elevation: 5,
+                    margin: EdgeInsets.fromLTRB(07, 12, 10, 0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Production', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -71,14 +95,15 @@ class _EarthwormComponentState extends State<EarthwormComponent> {
                     ),
                   ),
                 ),
+
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/sellsofEarthWorm');
+                    Navigator.pushNamed(context, '/beefIncomeReport');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
                     elevation: 5,
-                    margin: EdgeInsets.all(7.5),
+                    margin: EdgeInsets.fromLTRB(12, 12, 0, 0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -90,7 +115,7 @@ class _EarthwormComponentState extends State<EarthwormComponent> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('বিক্রয়', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),),
+                            Text('Income', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -98,7 +123,7 @@ class _EarthwormComponentState extends State<EarthwormComponent> {
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(8)
                                 ),
-                                child: Icon(MaterialCommunityIcons.sale)
+                                child: Icon(MaterialIcons.money)
                             )
                           ],
                         ),
@@ -109,12 +134,12 @@ class _EarthwormComponentState extends State<EarthwormComponent> {
 
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/earthwormExpenses');
+                    Navigator.pushNamed(context, '/beefProfitReport');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
                     elevation: 5,
-                    margin: EdgeInsets.all(8),
+                    margin: EdgeInsets.fromLTRB(07, 12, 10, 0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -126,7 +151,7 @@ class _EarthwormComponentState extends State<EarthwormComponent> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('খরচসমূহ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('Profit / Loss', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -134,43 +159,7 @@ class _EarthwormComponentState extends State<EarthwormComponent> {
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(8)
                                 ),
-                                child: Icon(Icons.device_hub)
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/earthwormEnvironment');
-                  },
-                  child: Card(
-                    color: Colors.greenAccent[400],
-                    elevation: 5,
-                    margin: EdgeInsets.all(8),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('পরিবেশ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                            SizedBox(height: 10,),
-                            Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.5),
-                                    borderRadius: BorderRadius.circular(8)
-                                ),
-                                child: Icon(Icons.nature )
+                                child: Icon(Feather.info)
                             )
                           ],
                         ),
@@ -185,6 +174,5 @@ class _EarthwormComponentState extends State<EarthwormComponent> {
         )
 
     );
-
   }
 }

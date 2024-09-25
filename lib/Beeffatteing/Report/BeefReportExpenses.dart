@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:http/http.dart';
 
-class VermiCompostExpensesReport extends StatefulWidget {
-  const VermiCompostExpensesReport({super.key});
+class BeefExpensesReport extends StatefulWidget {
+  const BeefExpensesReport({super.key});
 
   @override
-  State<VermiCompostExpensesReport> createState() => _VermiCompostExpensesReportState();
+  State<BeefExpensesReport> createState() => _BeefExpensesReportState();
 }
 
-class _VermiCompostExpensesReportState extends State<VermiCompostExpensesReport> {
+class _BeefExpensesReportState extends State<BeefExpensesReport> {
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
 
@@ -26,7 +26,7 @@ class _VermiCompostExpensesReportState extends State<VermiCompostExpensesReport>
   var totalExpenses = '';
 
   var othersExpenses = '';
-  
+
   bool showLabourDetails = false;
 
   bool showOthersDetails = false;
@@ -47,20 +47,20 @@ class _VermiCompostExpensesReportState extends State<VermiCompostExpensesReport>
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/report/expenses/cowdung?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/report/expenses/beef?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
     Response res = await get(url);
 
     var data = jsonDecode(res.body);
 
     print(data);
-    final url2 = Uri.parse('http://68.178.163.174:5007/vermi_compost/report/expenses/labour?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url2 = Uri.parse('http://68.178.163.174:5000/cattles/report/expenses/labour?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
     Response res2 = await get(url2);
 
     var data2 = jsonDecode(res2.body);
 
     print(data2);
 
-    final url3 = Uri.parse('http://68.178.163.174:5007/vermi_compost/report/expenses/others?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url3 = Uri.parse('http://68.178.163.174:5000/cattles/report/expenses/others?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
     Response res3 = await get(url3);
 
     var data3 = jsonDecode(res3.body);
@@ -79,7 +79,7 @@ class _VermiCompostExpensesReportState extends State<VermiCompostExpensesReport>
   }
 
   void getLabourDetails() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/report/expenses/labour/filter?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/report/expenses/labour/filter?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
     Response res = await get(url);
 
     var data = jsonDecode(res.body);
@@ -92,7 +92,7 @@ class _VermiCompostExpensesReportState extends State<VermiCompostExpensesReport>
   }
 
   void getOthersDetails() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/report/expenses/others/filter?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url = Uri.parse('http://68.178.163.174:5000/cattles/report/expenses/others/filter?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
     Response res = await get(url);
 
     var data = jsonDecode(res.body);
@@ -104,30 +104,19 @@ class _VermiCompostExpensesReportState extends State<VermiCompostExpensesReport>
     });
   }
 
-  // Future<void> _selectEditDate(BuildContext context, setStateSB) async {
-  //   final DateTime? picked = await showDatePicker(
-  //       context: context,
-  //       initialDate: selectedEditDate,
-  //       firstDate: DateTime(2015, 8),
-  //       lastDate: DateTime(2101));
-  //   if (picked != null && picked != selectedEditDate) {
-  //     setStateSB(() {
-  //       selectedEditDate = picked;
-  //     });
-  //   }
-  // }
-
   @override void initState() {
     // TODO: implement initState
     super.initState();
     getData();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Expenses Report',),
+      appBar: CustomAppBar(title: 'Expenses report',),
       body: ListView(children: [
+
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
             child: Row(
@@ -152,6 +141,7 @@ class _VermiCompostExpensesReportState extends State<VermiCompostExpensesReport>
               ],
             )
         ),
+
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
             child: Row(
@@ -192,10 +182,10 @@ class _VermiCompostExpensesReportState extends State<VermiCompostExpensesReport>
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10), margin: EdgeInsets.symmetric(horizontal: 12),
           child: Column(
             children: [
-              Row(children: [
-                Text('Cowdung (kg):', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),), SizedBox(width: 20,),
-                Text('${cowdungExpenses} kg', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),)
-              ],),
+              // Row(children: [
+              //   Text('Beef (kg):', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),), SizedBox(width: 20,),
+              //   Text('${cowdungExpenses} kg', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),)
+              // ],),
 
               SizedBox(height: 12,),
 
@@ -206,43 +196,43 @@ class _VermiCompostExpensesReportState extends State<VermiCompostExpensesReport>
 
               SizedBox(height: 12,),
 
-                Row(
-                  children: [
-                    Spacer(),
-                    GestureDetector(
+              Row(
+                children: [
+                  Spacer(),
+                  GestureDetector(
                       onTap: () {
                         getLabourDetails();
                       },
-                        child: Container(
+                      child: Container(
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: Colors.blueAccent,
-                            borderRadius: BorderRadius.circular(20)
+                              color: Colors.blueAccent,
+                              borderRadius: BorderRadius.circular(20)
                           ),
-                            child: Text('Labour Cost Details', style: TextStyle(fontSize: 16,),)
-                        )
-                    ),
-                    Spacer()
+                          child: Text('Labour Cost Details', style: TextStyle(fontSize: 16,),)
+                      )
+                  ),
+                  Spacer()
+                ],
+              ),
+              SizedBox(width: 20,),
+
+              showLabourDetails ?
+              SingleChildScrollView(
+                child: DataTable(
+                  columns: [
+                    DataColumn(label: Text('Labour Name')),
+                    DataColumn(label: Text('Amount'))
+                  ],
+                  rows: [
+                    for(var i in labourExpensesDetails)
+                      DataRow(cells: [
+                        DataCell(Text('${i['name']}')),
+                        DataCell(Text('${i['amount']}'))
+                      ])
                   ],
                 ),
-              SizedBox(width: 20,),
-              
-              showLabourDetails ?
-                  SingleChildScrollView(
-                    child: DataTable(
-                      columns: [
-                        DataColumn(label: Text('Labour Name')),
-                        DataColumn(label: Text('Amount'))
-                      ],
-                      rows: [
-                        for(var i in labourExpensesDetails)
-                          DataRow(cells: [
-                            DataCell(Text('${i['name']}')),
-                            DataCell(Text('${i['amount']}'))
-                          ])
-                      ],
-                    ),
-                  ): Text(''),
+              ): Text(''),
 
               Row(children: [
                 Text('Others Cost:', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),), SizedBox(width: 20,),
@@ -288,8 +278,6 @@ class _VermiCompostExpensesReportState extends State<VermiCompostExpensesReport>
                   ],
                 ),
               ): Text(''),
-
-
 
             ],
           ),
