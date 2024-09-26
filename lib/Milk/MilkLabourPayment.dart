@@ -42,9 +42,7 @@ class _MilkLabourPaymentState extends State<MilkLabourPayment> {
       appBar: CustomAppBar(title: 'শ্রমিক পেমেন্ট',),
       body: ListView(
         children: [
-
-
-
+          SizedBox(height: 06,),
 
           Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
             child: InputDecorator(
@@ -83,7 +81,7 @@ class _MilkLabourPaymentState extends State<MilkLabourPayment> {
           ),
 
           Container(
-              margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+              margin: EdgeInsets.fromLTRB(2, 12, 2, 0),
               child: CustomTextField(controller: payment, hintText: "বেতন", obscureText: false, textinputtypephone: true)),
 
           Container( padding: EdgeInsets.all(10),

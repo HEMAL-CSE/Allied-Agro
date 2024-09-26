@@ -253,7 +253,9 @@ class _MilkDashboardState extends State<MilkDashboard> {
               children: [
                 GestureDetector(
                   onTap: () {
+
                     Navigator.pushNamed(context, '/dairy_purchase');
+
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -324,6 +326,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
 
                 GestureDetector(
                   onTap: () {
+
                     Navigator.pushNamed(context, '/dairy_expenses');
                   },
                   child: Card(
@@ -361,6 +364,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, '/dairytreatmentlist');
+
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -432,7 +436,9 @@ class _MilkDashboardState extends State<MilkDashboard> {
 
                 GestureDetector(
                   onTap: () {
+
                     Navigator.pushNamed(context, '/dairy_healthcare');
+
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -469,6 +475,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, '/dairy_feeding');
+
                   },
                   child: Card(
                     color: Colors.greenAccent[400],

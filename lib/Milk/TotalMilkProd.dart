@@ -98,8 +98,6 @@ class _TotalMilkProdState extends State<TotalMilkProd> {
                                 child: Text('পরিমাণ: 2 kg', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
 
-
-
                             ]
                         ),
                         Spacer(),
@@ -116,7 +114,6 @@ class _TotalMilkProdState extends State<TotalMilkProd> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-
 
                                   showModalBottomSheet<void>(
                                     context: context,
@@ -161,11 +158,12 @@ class _TotalMilkProdState extends State<TotalMilkProd> {
 
                                                   CustomTextField(controller: amount, hintText: 'পরিমাণ', obscureText: false, textinputtypephone: false),
 
-                                                  SizedBox(height: 10,),
+                                                  SizedBox(height: 08,),
 
                                                   Container( padding: EdgeInsets.all(10),
                                                     margin: EdgeInsets.all(04),
-                                                    child: ElevatedButton(onPressed: (){
+                                                    child: ElevatedButton(
+                                                        onPressed: (){
                                                       // addData();
                                                     }, child: const Text("জমা দিন")),
                                                   ),
