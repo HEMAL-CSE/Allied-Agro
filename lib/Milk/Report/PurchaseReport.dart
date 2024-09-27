@@ -35,7 +35,7 @@ class _DairyPurchaseReportState extends State<DairyPurchaseReport> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/report/purchase?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/report/purchase?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
 
     Response res = await get(url);
 

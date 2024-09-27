@@ -58,7 +58,7 @@ class _DelivaryReportState extends State<DelivaryReport> {
   ];
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -68,7 +68,7 @@ class _DelivaryReportState extends State<DelivaryReport> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -80,7 +80,7 @@ class _DelivaryReportState extends State<DelivaryReport> {
   }
 
   void getCows(shed_id, seat_id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/cows?shed_id=${shed_id}&seat_id=${seat_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/cows?shed_id=${shed_id}&seat_id=${seat_id}');
 
     Response res = await get(url);
 
@@ -90,7 +90,7 @@ class _DelivaryReportState extends State<DelivaryReport> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/cows?has_calf=1');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/cows?has_calf=1');
 
     Response res = await get(url);
 
@@ -102,7 +102,7 @@ class _DelivaryReportState extends State<DelivaryReport> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/delivery?shed_id=${shed_id}&seat_id=${seat_id}&cow_id=${cow_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/delivery?shed_id=${shed_id}&seat_id=${seat_id}&cow_id=${cow_id}');
 
     Map<String, dynamic> data = { 'delivery_date': delivery_date.toIso8601String(), 'calf_sex': calf_sex, 'calf_breed': calf_breed.text };
 
@@ -133,7 +133,7 @@ class _DelivaryReportState extends State<DelivaryReport> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/delivery?shed_id=${edit_shed_id}&seat_id=${edit_seat_id}&cow_id=${edit_cow_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/delivery?shed_id=${edit_shed_id}&seat_id=${edit_seat_id}&cow_id=${edit_cow_id}');
     Map<String, dynamic> data = { 'delivery_date': edit_delivery_date.toIso8601String(), 'calf_sex': edit_calf_sex, 'calf_breed': edit_calf_breed.text };
 
     Response res = await put(url, body: data);
@@ -155,7 +155,7 @@ class _DelivaryReportState extends State<DelivaryReport> {
   }
 
   // void deleteData(id) async {
-  //   final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_feed/delivery?shed_id=${edit_shed_id}&seat_id=${edit_seat_id}&cow_id=${edit_cow_id}');
+  //   final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_feed/delivery?shed_id=${edit_shed_id}&seat_id=${edit_seat_id}&cow_id=${edit_cow_id}');
   //
   //   Response res = await put(url, body: );
   //

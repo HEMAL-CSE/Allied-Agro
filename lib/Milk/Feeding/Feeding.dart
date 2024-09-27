@@ -24,7 +24,7 @@ class _DairyFeedingState extends State<DairyFeeding> {
 
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/feed_names');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/feed_names');
 
     Response res = await get(url);
 
@@ -34,7 +34,7 @@ class _DairyFeedingState extends State<DairyFeeding> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/feed_names/add');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/feed_names/add');
 
     Map data = {
       'name': name.text,
@@ -58,7 +58,7 @@ class _DairyFeedingState extends State<DairyFeeding> {
   }
 
   void editData() async{
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/feed_names/edit?id=${editId.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/feed_names/edit?id=${editId.text}');
 
     Map data = {
       'name': editName.text,
@@ -82,7 +82,7 @@ class _DairyFeedingState extends State<DairyFeeding> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/feed_names/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/feed_names/delete?id=${id}');
 
     Response res = await delete(url);
 

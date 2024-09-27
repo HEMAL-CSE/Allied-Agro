@@ -89,7 +89,7 @@ class _DairyPurchaseState extends State<DairyPurchase> {
 
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -99,7 +99,7 @@ class _DairyPurchaseState extends State<DairyPurchase> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -109,7 +109,7 @@ class _DairyPurchaseState extends State<DairyPurchase> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/dairy_cows');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/dairy_cows');
 
     Response res = await get(url);
 
@@ -120,7 +120,7 @@ class _DairyPurchaseState extends State<DairyPurchase> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/dairy_cows/add');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/dairy_cows/add');
 
     Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'cow_id': cow_id.text, 'purchase_date': purchase_date.toIso8601String(), 'purchase_price': price.text, 'weight': weight.text,  };
 
@@ -150,7 +150,7 @@ class _DairyPurchaseState extends State<DairyPurchase> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/dairy_cows/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/dairy_cows/edit?id=${editid.text}');
     Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'cow_id': edit_cow_id.text, 'purchase_date': edit_purchase_date.toIso8601String(), 'purchase_price': edit_price.text, 'weight': edit_weight.text, };
 
     Response res = await put(url, body: data);
@@ -172,7 +172,7 @@ class _DairyPurchaseState extends State<DairyPurchase> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/dairy_cows/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/dairy_cows/delete?id=${id}');
 
     Response res = await delete(url);
 

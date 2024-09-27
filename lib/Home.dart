@@ -66,7 +66,7 @@ class _HomeState extends State<HomePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? owner_id = prefs.getString('user_id');
 
-    final url = Uri.parse('http://68.178.163.174:5007/farm/types?owner_id=${owner_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/farm/types?owner_id=${owner_id}');
 
     Response res = await get(url);
 

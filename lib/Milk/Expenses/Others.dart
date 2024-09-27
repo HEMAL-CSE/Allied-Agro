@@ -31,7 +31,7 @@ class _DairyOthersState extends State<DairyOthers> {
 
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/other');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/other');
 
     Response res = await get(url);
 
@@ -41,7 +41,7 @@ class _DairyOthersState extends State<DairyOthers> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/other/add');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/other/add');
 
     Map<String, dynamic> data = {  'name': name.text};
 
@@ -68,7 +68,7 @@ class _DairyOthersState extends State<DairyOthers> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/other/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/other/edit?id=${editid.text}');
     Map<String, dynamic> data = {  'name': editname.text};
 
     Response res = await put(url, body: data);
@@ -90,7 +90,7 @@ class _DairyOthersState extends State<DairyOthers> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/other/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/other/delete?id=${id}');
 
     Response res = await delete(url);
 

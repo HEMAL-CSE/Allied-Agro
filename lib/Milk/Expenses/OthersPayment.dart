@@ -60,7 +60,7 @@ class _DairyOthersPaymentState extends State<DairyOthersPayment> {
   }
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -70,7 +70,7 @@ class _DairyOthersPaymentState extends State<DairyOthersPayment> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -80,7 +80,7 @@ class _DairyOthersPaymentState extends State<DairyOthersPayment> {
   }
 
   void getOthers() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/other');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/other');
 
     Response res = await get(url);
 
@@ -90,7 +90,7 @@ class _DairyOthersPaymentState extends State<DairyOthersPayment> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/other_payment');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/other_payment');
 
     Response res = await get(url);
 
@@ -100,7 +100,7 @@ class _DairyOthersPaymentState extends State<DairyOthersPayment> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/other_payment/add');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/other_payment/add');
 
     Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'others_id': others_id, 'payment': payment.text, 'date': date.toIso8601String()};
 
@@ -129,7 +129,7 @@ class _DairyOthersPaymentState extends State<DairyOthersPayment> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/other_payment/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/other_payment/edit?id=${editid.text}');
     Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'others_id': edit_others_id, 'payment': editpayment.text, 'date': editDate.toIso8601String()};
 
     Response res = await put(url, body: data);
@@ -151,7 +151,7 @@ class _DairyOthersPaymentState extends State<DairyOthersPayment> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/other_payment/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/other_payment/delete?id=${id}');
 
     Response res = await delete(url);
 

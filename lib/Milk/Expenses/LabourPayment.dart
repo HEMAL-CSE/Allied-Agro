@@ -52,7 +52,7 @@ class _DairyLabourPaymentState extends State<DairyLabourPayment> {
 
 
   // void getSeats(id) async {
-  //   final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
+  //   final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
   //
   //   Response res = await get(url);
   //
@@ -62,7 +62,7 @@ class _DairyLabourPaymentState extends State<DairyLabourPayment> {
   // }
 
   void getLabours() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/labour');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/labour');
 
     Response res = await get(url);
 
@@ -72,7 +72,7 @@ class _DairyLabourPaymentState extends State<DairyLabourPayment> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/labour_payment');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/labour_payment');
 
     Response res = await get(url);
 
@@ -82,7 +82,7 @@ class _DairyLabourPaymentState extends State<DairyLabourPayment> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/labour_payment/add');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/labour_payment/add');
 
     Map<String, dynamic> data = { 'labour_id': labour_id, 'payment': payment.text, 'date': date.toIso8601String()};
 
@@ -109,7 +109,7 @@ class _DairyLabourPaymentState extends State<DairyLabourPayment> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/labour_payment/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/labour_payment/edit?id=${editid.text}');
     Map<String, dynamic> data = {  'labour_id': edit_labour_id, 'payment': editpayment.text, 'date': editDate.toIso8601String()};
 
     Response res = await put(url, body: data);
@@ -131,7 +131,7 @@ class _DairyLabourPaymentState extends State<DairyLabourPayment> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/labour_payment/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/labour_payment/delete?id=${id}');
 
     Response res = await delete(url);
 

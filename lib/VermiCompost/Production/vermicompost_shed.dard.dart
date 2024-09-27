@@ -57,7 +57,7 @@ class _VermiCompostShedState extends State<VermiCompostShed> {
   }
 
   void getData() async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/vermicompost_prod?shed_id=${widget.shed_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/vermicompost_prod?shed_id=${widget.shed_id}');
 
     Response res = await get(url);
 
@@ -90,7 +90,7 @@ class _VermiCompostShedState extends State<VermiCompostShed> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/vermicompost_prod/add');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/vermicompost_prod/add');
 
     Map<String, dynamic> data = { 'shed_id': widget.shed_id.toString(), 'amount': kg.text, 'date': selectedDate.toIso8601String(),  };
 
@@ -120,7 +120,7 @@ class _VermiCompostShedState extends State<VermiCompostShed> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/vermicompost_prod/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/vermicompost_prod/edit?id=${editid.text}');
 
     Map<String, dynamic> data = {  'amount': editkg.text, 'date': selectedEditDate.toIso8601String(), };
 
@@ -146,7 +146,7 @@ class _VermiCompostShedState extends State<VermiCompostShed> {
   }
 
   void deleteData(id) async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/vermicompost_prod/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/vermicompost_prod/delete?id=${id}');
     Response res = await delete(url);
 
     if(res.statusCode == 201){

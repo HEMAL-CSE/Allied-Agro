@@ -37,7 +37,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   List<dynamic> seats = [];
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -47,7 +47,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -57,7 +57,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_others');
 
     Response res = await get(url);
 
@@ -67,7 +67,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/add');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_others/add');
 
     Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'name': name.text};
 
@@ -95,7 +95,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_others/edit?id=${editid.text}');
     Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'name': editname.text};
 
     Response res = await put(url, body: data);
@@ -117,7 +117,7 @@ class _BreedingOthersState extends State<BreedingOthers> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_others/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_others/delete?id=${id}');
 
     Response res = await delete(url);
 

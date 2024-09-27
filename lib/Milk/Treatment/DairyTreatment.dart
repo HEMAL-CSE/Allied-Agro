@@ -96,7 +96,7 @@ class _DairyTreatmentState extends State<DairyTreatment> {
 
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -106,7 +106,7 @@ class _DairyTreatmentState extends State<DairyTreatment> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -120,7 +120,7 @@ class _DairyTreatmentState extends State<DairyTreatment> {
 
     String? owner_id = prefs.getString('user_id');
 
-    final url = Uri.parse('http://68.178.163.174:5000/farm/info?owner_id=${owner_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/farm/info?owner_id=${owner_id}');
 
     Response res = await get(url);
 
@@ -134,7 +134,7 @@ class _DairyTreatmentState extends State<DairyTreatment> {
   }
 
   void getCows(shed_id, seat_id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/dairy_cows?shed_id=${shed_id}&seat_id=${seat_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/dairy_cows?shed_id=${shed_id}&seat_id=${seat_id}');
 
     Response res = await get(url);
 
@@ -146,7 +146,7 @@ class _DairyTreatmentState extends State<DairyTreatment> {
   void handleSubmit() async {
     for(var i in doctors){
       if(i['selected'] == true){
-        MultipartRequest request = MultipartRequest('POST', Uri.parse('http://68.178.163.174:5000/dairy/treatment'));
+        MultipartRequest request = MultipartRequest('POST', Uri.parse('http://68.178.163.174:5008/dairy/treatment'));
 
         // print(MultipartFile('file', imageFile!.readAsBytes().asStream(), imageFile!.lengthSync()));
 
@@ -219,7 +219,7 @@ class _DairyTreatmentState extends State<DairyTreatment> {
 
     String? farm_id = prefs.getString('farm_id');
 
-    final url = Uri.parse('http://68.178.163.174:5000/doctors/dairy?farm_id=${farm_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/doctors/dairy?farm_id=${farm_id}');
 
     Response res = await get(url);
 
@@ -252,7 +252,7 @@ class _DairyTreatmentState extends State<DairyTreatment> {
   }
 
   void deleteData(cow_id, doctor_id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/treatment/delete?cow_id=${cow_id}&doctor_id=${doctor_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/treatment/delete?cow_id=${cow_id}&doctor_id=${doctor_id}');
 
     Response res = await delete(url);
 
@@ -272,7 +272,7 @@ class _DairyTreatmentState extends State<DairyTreatment> {
   }
 
   void getDoctors() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/doctors');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/doctors');
     Response res = await get(url);
 
     var resbody = jsonDecode(res.body);

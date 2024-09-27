@@ -26,7 +26,7 @@ class _CalfDashboardState extends State<CalfDashboard> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/calf_birth');
+                    Navigator.pushNamed(context, '/calf_birth');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -63,7 +63,7 @@ class _CalfDashboardState extends State<CalfDashboard> {
                 //Earthwarm section start
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/calf_expenses');
+                    Navigator.pushNamed(context, '/calf_expenses');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -99,7 +99,7 @@ class _CalfDashboardState extends State<CalfDashboard> {
 
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/calf_treatment');
+                    Navigator.pushNamed(context, '/calf_treatment');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -135,7 +135,7 @@ class _CalfDashboardState extends State<CalfDashboard> {
 
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/calf_selling');
+                    Navigator.pushNamed(context, '/calf_selling');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -172,7 +172,7 @@ class _CalfDashboardState extends State<CalfDashboard> {
 
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/calf_customer');
+                    Navigator.pushNamed(context, '/calf_customer');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],

@@ -64,7 +64,7 @@ class _DairyFeedState extends State<DairyFeed> {
   }
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -74,7 +74,7 @@ class _DairyFeedState extends State<DairyFeed> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -84,7 +84,7 @@ class _DairyFeedState extends State<DairyFeed> {
   }
 
   void getCows(shed_id, seat_id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/dairy_cows?shed_id=${shed_id}&seat_id=${seat_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/dairy_cows?shed_id=${shed_id}&seat_id=${seat_id}');
 
     Response res = await get(url);
 
@@ -94,7 +94,7 @@ class _DairyFeedState extends State<DairyFeed> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/feed');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/feed');
 
     Response res = await get(url);
 
@@ -104,7 +104,7 @@ class _DairyFeedState extends State<DairyFeed> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/feed/add');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/feed/add');
 
     Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'cow_id': cow_id, 'amount': amount.text, 'price': price.text, 'date': date.toIso8601String()};
 
@@ -134,7 +134,7 @@ class _DairyFeedState extends State<DairyFeed> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/feed/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/feed/edit?id=${editid.text}');
     Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'cow_id': edit_cow_id, 'amount': edit_amount.text, 'price': edit_price.text, 'date': editDate.toIso8601String()};
 
     Response res = await put(url, body: data);
@@ -156,7 +156,7 @@ class _DairyFeedState extends State<DairyFeed> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/feed/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/feed/delete?id=${id}');
 
     Response res = await delete(url);
 

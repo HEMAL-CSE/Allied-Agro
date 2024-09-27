@@ -35,7 +35,7 @@ class _CowdungSellerListState extends State<CowdungSellerList> {
   ];
   
   void getData() async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/cowdung_seller');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/cowdung_seller');
 
     Response res = await get(url);
 
@@ -51,7 +51,7 @@ class _CowdungSellerListState extends State<CowdungSellerList> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/cowdung_seller/add');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/cowdung_seller/add');
 
     Map<String, dynamic> data = { 'seller_id': id.text, 'name': name.text, 'address': address.text, 'mobile_no': mobile_no.text, 'monthly_selling_capacity': monthly_selling_capacity.text };
 
@@ -83,7 +83,7 @@ class _CowdungSellerListState extends State<CowdungSellerList> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/cowdung_seller/edit?seller_id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/cowdung_seller/edit?seller_id=${editid.text}');
 
     Map<String, dynamic> data = { 'name': editname.text, 'address': editaddress.text, 'mobile_no': editmobile_no.text, 'monthly_selling_capacity': edit_monthly_selling_capacity.text };
 
@@ -109,7 +109,7 @@ class _CowdungSellerListState extends State<CowdungSellerList> {
   }
 
   void deleteData(id) async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/cowdung_seller/delete?seller_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/cowdung_seller/delete?seller_id=${id}');
     Response res = await delete(url);
 
     if(res.statusCode == 201){

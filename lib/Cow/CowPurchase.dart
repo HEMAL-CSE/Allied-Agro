@@ -87,7 +87,7 @@ class _CowPurchaseState extends State<CowPurchase> {
   }
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -97,7 +97,7 @@ class _CowPurchaseState extends State<CowPurchase> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -107,7 +107,7 @@ class _CowPurchaseState extends State<CowPurchase> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/cows');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/cows');
 
     Response res = await get(url);
 
@@ -118,7 +118,7 @@ class _CowPurchaseState extends State<CowPurchase> {
   }
 
   // void addData() async {
-  //   final url = Uri.parse('http://68.178.163.174:5007/breeding/cow_purchase');
+  //   final url = Uri.parse('http://68.178.163.174:5008/breeding/cow_purchase');
   //
   //   Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'cow_id': cow_id.text, 'purchase_date': purchase_date.toIso8601String(), 'price': price.text, 'weight': weight.text, 'pregnant': pregnant, 'pregnant_month': pregnant_month.text, 'supposed_delivery_date': supposed_delivery_date.toIso8601String() };
   //
@@ -151,7 +151,7 @@ class _CowPurchaseState extends State<CowPurchase> {
   // }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/cow_purchase/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/cow_purchase/edit?id=${editid.text}');
     Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'cow_id': edit_cow_id.text, 'purchase_date': edit_purchase_date.toIso8601String(), 'price': edit_price.text, 'weight': edit_weight.text, 'pregnant': edit_pregnant, 'pregnant_month': edit_pregnant_month.text, 'supposed_delivery_date': edit_supposed_delivery_date.toIso8601String() };
 
     Response res = await put(url, body: data);
@@ -173,7 +173,7 @@ class _CowPurchaseState extends State<CowPurchase> {
   }
 
   // void deleteData(id) async {
-  //   final url = Uri.parse('http://68.178.163.174:5007/breeding/cow_purchase/delete?id=${id}');
+  //   final url = Uri.parse('http://68.178.163.174:5008/breeding/cow_purchase/delete?id=${id}');
   //
   //   Response res = await delete(url);
   //

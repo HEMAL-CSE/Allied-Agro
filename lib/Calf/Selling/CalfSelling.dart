@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:alliedagro/components/CustomTextField.dart';
 import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 
 class CalfSelling extends StatefulWidget {
   const CalfSelling({super.key});
@@ -44,6 +48,84 @@ class _CalfSellingState extends State<CalfSelling> {
 
   List<dynamic> calfs = [];
 
+  void getSheds() async {
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
+
+    Response res = await get(url);
+
+    setState(() {
+      sheds = jsonDecode(res.body);
+    });
+  }
+
+  void getSeats(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
+
+    Response res = await get(url);
+
+    setState(() {
+      seats = jsonDecode(res.body);
+    });
+  }
+
+  void getData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/?sold=1');
+
+    Response res = await get(url);
+
+    setState(() {
+      seats = jsonDecode(res.body);
+    });
+  }
+
+  void addData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/selling?shed_id=${shed_id}&seat_id=${seat_id}&calf_id=${calf_id}');
+    Map body = {
+      'selling_date': selling_date.toIso8601String(),
+      'selling_price': calf_price.text
+    };
+
+    Response res = await put(url,body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+
+  }
+
+  void editData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/selling?shed_id=${edit_shed_id}&seat_id=${edit_seat_id}&calf_id=${edit_calf_id}');
+    Map body = {
+      'selling_date': edit_selling_date.toIso8601String(),
+      'selling_price': edit_calf_price.text
+    };
+
+    Response res = await put(url,body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+
+  }
+
   Future<void> _selectDate(BuildContext context,setState, selectedDate, void setSelectedDate(value)) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -55,6 +137,14 @@ class _CalfSellingState extends State<CalfSelling> {
         setSelectedDate(picked);
       });
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getSheds();
+    getData();
   }
 
   @override
@@ -207,12 +297,13 @@ class _CalfSellingState extends State<CalfSelling> {
             Container( padding: EdgeInsets.all(10),
               margin: EdgeInsets.all(04),
               child: ElevatedButton(onPressed: (){
-                // addData();
+                addData();
               }, child: const Text("জমা দিন")),
             ),
 
             SizedBox(height: 20,),
 
+            for(var i in data)
             Column(
               children: [
                 Container(
@@ -230,15 +321,15 @@ class _CalfSellingState extends State<CalfSelling> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                                child: Text('বাছুর নাম্বার: 1', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                child: Text('বাছুর নাম্বার: ${i['calf_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                                child: Text('শেড নাম্বার: 1', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('শেড নাম্বার: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                                child: Text('বিক্রয় মূল্য: 20000 tk', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('বিক্রয় মূল্য: ${i['selling_price']} tk', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
 
                             ]
@@ -406,7 +497,7 @@ class _CalfSellingState extends State<CalfSelling> {
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),
                                                     margin: EdgeInsets.all(04),
                                                     child: ElevatedButton(onPressed: (){
-                                                      // editData();
+                                                      editData();
                                                       Navigator.pop(context);
                                                     }, child: const Text("Save")),
                                                   ),

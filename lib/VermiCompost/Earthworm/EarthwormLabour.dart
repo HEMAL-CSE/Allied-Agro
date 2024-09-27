@@ -76,7 +76,7 @@ class _EarthwormLabourState extends State<EarthwormLabour> {
   }
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/sheds');
 
     Response res = await get(url);
 
@@ -86,7 +86,7 @@ class _EarthwormLabourState extends State<EarthwormLabour> {
   }
 
   void getData() async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_labour');
 
     Response res = await get(url);
 
@@ -99,7 +99,7 @@ class _EarthwormLabourState extends State<EarthwormLabour> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour/add');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_labour/add');
 
     Map<String, dynamic> data = { 'name': name.text, 'amount': amount.text, 'date': selectedDate.toIso8601String(), 'salary_status': salary_status, 'mobile_no': mobile_no.text, 'shed_id': shed_id.toString()  };
 
@@ -131,7 +131,7 @@ class _EarthwormLabourState extends State<EarthwormLabour> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_labour/edit?id=${editid.text}');
 
     Map<String, dynamic> data = { 'name': editname.text, 'amount': editamount.text, 'date': selectedEditDate.toIso8601String(), 'salary_status': edit_salary_status, 'mobile_no': edit_mobile_no.text, 'shed_id': edit_shed_id.toString() };
 
@@ -157,7 +157,7 @@ class _EarthwormLabourState extends State<EarthwormLabour> {
   }
 
   void deleteData(id) async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_labour/delete?id=${id}');
     Response res = await delete(url);
 
     if(res.statusCode == 201){

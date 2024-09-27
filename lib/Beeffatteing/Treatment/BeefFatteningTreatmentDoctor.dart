@@ -27,7 +27,7 @@ class _BeefFatteningTreatmentDoctorState extends State<BeefFatteningTreatmentDoc
   List<dynamic> data = [];
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/doctors');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/doctors');
 
     Response res = await get(url);
 
@@ -37,7 +37,7 @@ class _BeefFatteningTreatmentDoctorState extends State<BeefFatteningTreatmentDoc
   }
 
   void getDoctors() async {
-    final url = Uri.parse('http://68.178.163.174:5000/doctors/approved');
+    final url = Uri.parse('http://68.178.163.174:5008/doctors/approved');
     Response res = await get(url);
 
     setState(() {
@@ -46,7 +46,7 @@ class _BeefFatteningTreatmentDoctorState extends State<BeefFatteningTreatmentDoc
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/doctors/add');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/doctors/add');
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -78,7 +78,7 @@ class _BeefFatteningTreatmentDoctorState extends State<BeefFatteningTreatmentDoc
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/doctors/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/doctors/edit?id=${editid.text}');
 
     Map<String, dynamic> data = {'doctor_id': edit_doctor_id};
 
@@ -101,7 +101,7 @@ class _BeefFatteningTreatmentDoctorState extends State<BeefFatteningTreatmentDoc
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/doctors/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/doctors/delete?id=${id}');
 
     Response res = await delete(url);
 

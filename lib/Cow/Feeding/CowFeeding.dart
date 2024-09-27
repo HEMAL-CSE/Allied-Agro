@@ -27,7 +27,7 @@ class _BreedingFeedingState extends State<BreedingFeeding> {
 
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/feed_names');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/feed_names');
 
     Response res = await get(url);
 
@@ -37,7 +37,7 @@ class _BreedingFeedingState extends State<BreedingFeeding> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/feed_names/add');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/feed_names/add');
 
     Map data = {
       'name': name.text,
@@ -61,7 +61,7 @@ class _BreedingFeedingState extends State<BreedingFeeding> {
   }
 
   void editData() async{
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/feed_names/edit?id=${editId.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/feed_names/edit?id=${editId.text}');
 
     Map data = {
       'name': editName.text,
@@ -85,7 +85,7 @@ class _BreedingFeedingState extends State<BreedingFeeding> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/feed_names/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/feed_names/delete?id=${id}');
 
     Response res = await delete(url);
 

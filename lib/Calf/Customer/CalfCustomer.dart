@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 
 class CalfCustomer extends StatefulWidget {
   const CalfCustomer({super.key});
@@ -13,12 +17,102 @@ class CalfCustomer extends StatefulWidget {
 
 class _CalfCustomerState extends State<CalfCustomer> {
   TextEditingController customer_name = TextEditingController();
+  TextEditingController customer_address = TextEditingController();
+  TextEditingController customer_mobile = TextEditingController();
+
 
   TextEditingController edit_customer_name = TextEditingController();
+  TextEditingController edit_customer_address = TextEditingController();
+  TextEditingController edit_customer_mobile = TextEditingController();
 
-  List<dynamic> doctors = [];
 
-  TextEditingController editid = TextEditingController();
+  List<dynamic> customers = [];
+
+
+
+  void getData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/customers');
+
+    Response res = await get(url);
+
+    setState(() {
+      customers = jsonDecode(res.body);
+    });
+  }
+
+  void addData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/customers/add');
+    Map body = {
+      'name': customer_name.text,
+      'address': customer_address.text,
+      'mobile': customer_mobile.text
+    };
+
+    Response res = await post(url, body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Submitted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  void editData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/customers/edit?id=${id}');
+    Map body = {
+      'name': edit_customer_name.text,
+      'address': edit_customer_address.text,
+      'mobile': edit_customer_mobile.text
+    };
+
+    Response res = await put(url, body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  void deleteData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/customers/delete?id=${id}');
+
+    Response res = await delete(url);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Deleted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,17 +122,23 @@ class _CalfCustomerState extends State<CalfCustomer> {
         Container(
             margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
             child: CustomTextField(controller: customer_name, hintText: "নাম", obscureText: false, textinputtypephone: false)),
+        Container(
+            margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+            child: CustomTextField(controller: customer_address, hintText: "ঠিকানা", obscureText: false, textinputtypephone: false)),
+        Container(
+            margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+            child: CustomTextField(controller: customer_mobile, hintText: "ফোন নাম্বার", obscureText: false, textinputtypephone: false)),
 
         SizedBox(height: 10,),
 
         Container( padding: EdgeInsets.all(10),
           margin: EdgeInsets.all(04),
           child: ElevatedButton(onPressed: (){
-            // addData();
+            addData();
           }, child: const Text("জমা দিন")),
         ),
 
-        // for(var i in data)
+        for(var i in customers)
         Column(
           children: [
             Container(
@@ -56,7 +156,16 @@ class _CalfCustomerState extends State<CalfCustomer> {
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                            child: Text('ক্রেতার নাম: Rayat', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                            child: Text('ক্রেতার নাম: ${i['name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
+                            child: Text('ক্রেতার ঠিকানা: ${i['address']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
+                            child: Text('ক্রেতার ফোন নাম্বার: ${i['mobile']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                           ),
 
                         ]
@@ -75,11 +184,12 @@ class _CalfCustomerState extends State<CalfCustomer> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              // setState(() {
-                              //   editid.text = i['id'].toString();
-                              //   edit_doctor_id = i['doctor_id'].toString();
-                              //
-                              // });
+                              setState(() {
+                               edit_customer_name = i['name'];
+                               edit_customer_address = i['address'];
+                               edit_customer_mobile = i['mobile'];
+
+                              });
 
                               // getSeats(i['shed_id']);
                               showModalBottomSheet<void>(
@@ -100,6 +210,12 @@ class _CalfCustomerState extends State<CalfCustomer> {
                                               Container(
                                                   margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
                                                   child: CustomTextField(controller: edit_customer_name, hintText: "নাম", obscureText: false, textinputtypephone: false)),
+                                              Container(
+                                                  margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+                                                  child: CustomTextField(controller: edit_customer_address, hintText: "ঠিকানা", obscureText: false, textinputtypephone: false)),
+                                              Container(
+                                                  margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+                                                  child: CustomTextField(controller: edit_customer_mobile, hintText: "ফোন নাম্বার", obscureText: false, textinputtypephone: false)),
 
                                               SizedBox(height: 10,),
 
@@ -108,7 +224,7 @@ class _CalfCustomerState extends State<CalfCustomer> {
                                               Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),
                                                 margin: EdgeInsets.all(04),
                                                 child: ElevatedButton(onPressed: (){
-                                                  // editData();
+                                                  editData(i['id']);
                                                   Navigator.pop(context);
                                                 }, child: const Text("Save")),
                                               ),
@@ -142,7 +258,7 @@ class _CalfCustomerState extends State<CalfCustomer> {
                                     TextButton(
                                       onPressed: ()
                                       {
-                                        // deleteData(i['id']);
+                                        deleteData(i['id']);
                                         Navigator.pop(context, 'OK');
                                       },
                                       child: const Text('OK'),

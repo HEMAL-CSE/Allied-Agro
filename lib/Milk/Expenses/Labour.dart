@@ -35,7 +35,7 @@ class _DairyLabourState extends State<DairyLabour> {
   List<dynamic> seats = [];
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -45,7 +45,7 @@ class _DairyLabourState extends State<DairyLabour> {
   }
 
   // void getSeats(id) async {
-  //   final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
+  //   final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
   //
   //   Response res = await get(url);
   //
@@ -55,7 +55,7 @@ class _DairyLabourState extends State<DairyLabour> {
   // }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/labour');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/labour');
 
     Response res = await get(url);
 
@@ -65,7 +65,7 @@ class _DairyLabourState extends State<DairyLabour> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/labour/add');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/labour/add');
 
     Map<String, dynamic> data = { 'shed_id': shed_id, 'name': name.text};
 
@@ -92,7 +92,7 @@ class _DairyLabourState extends State<DairyLabour> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/labour/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/labour/edit?id=${editid.text}');
     Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'name': editname.text};
 
     Response res = await put(url, body: data);
@@ -114,7 +114,7 @@ class _DairyLabourState extends State<DairyLabour> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/expenses/labour/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/expenses/labour/delete?id=${id}');
 
     Response res = await delete(url);
 

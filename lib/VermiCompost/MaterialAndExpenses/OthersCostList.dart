@@ -29,7 +29,7 @@ class _OthersListState extends State<OthersList> {
 
 
   void getData() async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/others_list');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/others_list');
 
     Response res = await get(url);
 
@@ -42,7 +42,7 @@ class _OthersListState extends State<OthersList> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/others_list/add');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/others_list/add');
 
     Map<String, dynamic> data = { 'name': name.text };
 
@@ -71,7 +71,7 @@ class _OthersListState extends State<OthersList> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/others_list/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/others_list/edit?id=${editid.text}');
 
     Map<String, dynamic> data = { 'name': editname.text };
 
@@ -97,7 +97,7 @@ class _OthersListState extends State<OthersList> {
   }
 
   void deleteData(id) async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/others_list/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/others_list/delete?id=${id}');
     Response res = await delete(url);
 
     if(res.statusCode == 201){

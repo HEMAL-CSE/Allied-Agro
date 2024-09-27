@@ -55,7 +55,7 @@ class _DairyProductionState extends State<DairyProduction> {
   }
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -65,7 +65,7 @@ class _DairyProductionState extends State<DairyProduction> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -75,7 +75,7 @@ class _DairyProductionState extends State<DairyProduction> {
   }
 
   void getCows(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/dairy_cows?seat_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/dairy_cows?seat_id=${id}');
 
     Response res = await get(url);
 
@@ -85,7 +85,7 @@ class _DairyProductionState extends State<DairyProduction> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/production');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/production');
 
     Response res = await get(url);
 
@@ -95,7 +95,7 @@ class _DairyProductionState extends State<DairyProduction> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/production/add');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/production/add');
 
     Map data = {
       'shed_id': shed_id,
@@ -123,7 +123,7 @@ class _DairyProductionState extends State<DairyProduction> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/production/edit=${edit_id.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/production/edit=${edit_id.text}');
 
     Map data = {
       'shed_id': edit_shed_id,
@@ -152,7 +152,7 @@ class _DairyProductionState extends State<DairyProduction> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/dairy/production/delete=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/dairy/production/delete=${id}');
 
     Response res = await delete(url);
 
@@ -184,7 +184,7 @@ class _DairyProductionState extends State<DairyProduction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Dairy Production',),
+      appBar: CustomAppBar(title: 'দুধ উৎপাদন',),
       body: ListView(
         children: [
           Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
@@ -201,7 +201,7 @@ class _DairyProductionState extends State<DairyProduction> {
                       value: shed_id,
                       isExpanded: true,
                       menuMaxHeight: 350,
-                      hint: Text('Select Shed ID'),
+                      hint: Text('শেড নাম্বার সিলেক্ট করুন'),
                       items: [
                         ...sheds.map<DropdownMenuItem<String>>((data) {
                           return DropdownMenuItem(
@@ -238,7 +238,7 @@ class _DairyProductionState extends State<DairyProduction> {
                       value: seat_id,
                       isExpanded: true,
                       menuMaxHeight: 350,
-                      hint: Text('Select Seat ID'),
+                      hint: Text('সিট নাম্বার সিলেক্ট করুন'),
                       items: [
                         ...seats.map<DropdownMenuItem<String>>((data) {
                           return DropdownMenuItem(
@@ -276,7 +276,7 @@ class _DairyProductionState extends State<DairyProduction> {
                       value: cow_id,
                       isExpanded: true,
                       menuMaxHeight: 350,
-                      hint: Text('Select Cow ID'),
+                      hint: Text('গরু নাম্বার সিলেক্ট করুন'),
                       items: [
                         ...cows.map<DropdownMenuItem<String>>((data) {
                           return DropdownMenuItem(
@@ -296,14 +296,14 @@ class _DairyProductionState extends State<DairyProduction> {
                 )
 
               // CustomTextField()
-            ),
+            ), 
           ),
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Select Date: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                  Text('তারিখ সিলেক্ট করুন: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
                   Text("${date!.toLocal()}".split(' ')[0], style: TextStyle(fontSize: 20),),
                   GestureDetector(
                     onTap: () {
@@ -325,7 +325,7 @@ class _DairyProductionState extends State<DairyProduction> {
 
           Container(
               margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
-              child: CustomTextField(controller: amount, hintText: "Amount", obscureText: false, textinputtypephone: true)),
+              child: CustomTextField(controller: amount, hintText: "পরিমাণ", obscureText: false, textinputtypephone: true)),
 
 
 
@@ -334,7 +334,7 @@ class _DairyProductionState extends State<DairyProduction> {
             margin: EdgeInsets.all(04),
             child: ElevatedButton(onPressed: (){
               addData();
-            }, child: const Text("Submit")),
+            }, child: const Text("জমা দিন")),
           ),
 
 
@@ -358,20 +358,20 @@ class _DairyProductionState extends State<DairyProduction> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                                child: Text('Cow ID: ${i['cow_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                child: Text('গরু নাম্বার: ${i['cow_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                                child: Text('Shed ID: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('শেড নাম্বার: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                                child: Text('Date: ${DateFormat('dd/MM/yyyy').format(DateTime.parse(i['date']))}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('তারিখ: ${DateFormat('dd/MM/yyyy').format(DateTime.parse(i['date']))}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
 
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                                child: Text('Amount: ${i['amount']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('পরিমাণ: ${i['amount']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
 
 
