@@ -1,3 +1,8 @@
+import 'package:alliedagro/Administrator/Administrator.dart';
+import 'package:alliedagro/Administrator/ApproveDoctor.dart';
+import 'package:alliedagro/Administrator/ApprovedDoctor.dart';
+import 'package:alliedagro/Auth/login.dart';
+import 'package:alliedagro/Auth/signup.dart';
 import 'package:alliedagro/Beeffatteing/BeefFattening.dart';
 import 'package:alliedagro/Beeffatteing/BeefFeeding/BeefFeeding.dart';
 import 'package:alliedagro/Beeffatteing/CattlePurchase/BeefCattlePurchase.dart';
@@ -21,6 +26,15 @@ import 'package:alliedagro/Beeffatteing/Slaughtering/BeefSlaughtering.dart';
 import 'package:alliedagro/Beeffatteing/Treatment/BeefFatteningTreatmentDesc.dart';
 import 'package:alliedagro/Beeffatteing/Treatment/BeefFatteningTreatmentDoctor.dart';
 import 'package:alliedagro/Beeffatteing/Treatment/BeefTreatment.dart';
+import 'package:alliedagro/BioGasFolder/BiogasCustomer/BioGasCustomer.dart';
+import 'package:alliedagro/BioGasFolder/BiogasEnvironment/BiogasEnvironment.dart';
+import 'package:alliedagro/BioGasFolder/BiogasExpenses/BiogasExpenses.dart';
+import 'package:alliedagro/BioGasFolder/BiogasExpenses/BiogasLabour.dart';
+import 'package:alliedagro/BioGasFolder/BiogasExpenses/BiogasLabourPayment.dart';
+import 'package:alliedagro/BioGasFolder/BiogasExpenses/BiogasOthers.dart';
+import 'package:alliedagro/BioGasFolder/BiogasExpenses/BiogasOthersPayment.dart';
+import 'package:alliedagro/BioGasFolder/BiogasIncome/BiogasIncome.dart';
+import 'package:alliedagro/Calf/Treatment/CalfTreatmentDesc.dart';
 import 'package:alliedagro/Cow/CowDashboard.dart';
 import 'package:alliedagro/Cow/CowDelivary.dart';
 import 'package:alliedagro/Cow/CowExpenses.dart';
@@ -58,12 +72,32 @@ import 'package:alliedagro/Cow/Treatment/CowDoctor.dart';
 import 'package:alliedagro/Cow/Treatment/CowTreatment.dart';
 import 'package:alliedagro/Cow/Treatment/Treatment.dart';
 import 'package:alliedagro/Home.dart';
+import 'package:alliedagro/Milk/Customers/DairyCustomer.dart';
+import 'package:alliedagro/Milk/Customers/DairyCustomerInfo.dart';
+import 'package:alliedagro/Milk/Expenses/Expenses.dart';
+import 'package:alliedagro/Milk/Expenses/Feed.dart';
+import 'package:alliedagro/Milk/Expenses/Labour.dart';
+import 'package:alliedagro/Milk/Expenses/LabourPayment.dart';
+import 'package:alliedagro/Milk/Expenses/Others.dart';
+import 'package:alliedagro/Milk/Expenses/OthersPayment.dart';
+import 'package:alliedagro/Milk/Feeding/Feeding.dart';
+import 'package:alliedagro/Milk/Healthcare/DairyHealthcare.dart';
+import 'package:alliedagro/Milk/Healthcare/DairyMedicines.dart';
+import 'package:alliedagro/Milk/Healthcare/DairyVaccines.dart';
 import 'package:alliedagro/Milk/MilkCustomer.dart';
 import 'package:alliedagro/Milk/MilkDeshboard.dart';
 import 'package:alliedagro/Milk/MilkLabour.dart';
 import 'package:alliedagro/Milk/MilkLabourPayment.dart';
 import 'package:alliedagro/Milk/MilkSelling.dart';
+import 'package:alliedagro/Milk/Production/Production.dart';
+import 'package:alliedagro/Milk/Purchase/Purchase.dart';
+import 'package:alliedagro/Milk/Report/ExpensesReport.dart';
+import 'package:alliedagro/Milk/Report/PurchaseReport.dart';
+import 'package:alliedagro/Milk/Report/Report.dart';
 import 'package:alliedagro/Milk/TotalMilkProd.dart';
+import 'package:alliedagro/Milk/Treatment/DairyDoctors.dart';
+import 'package:alliedagro/Milk/Treatment/DairyTreatment.dart';
+import 'package:alliedagro/Milk/Treatment/DairyTreatmentList.dart';
 import 'package:alliedagro/VermiCompost/Earthworm/EarthWorm.dart';
 import 'package:alliedagro/VermiCompost/Earthworm/EarthWormEnvironment.dart';
 import 'package:alliedagro/VermiCompost/Earthworm/EarthWormExpenses.dart';
@@ -110,7 +144,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/home',
+      initialRoute: '/',
       routes: {
         '/home': (context) => HomePage(),
         '/vermicompostlist': (context) => VermiCompostList(),
@@ -158,6 +192,7 @@ class MyApp extends StatelessWidget {
         '/calf_expenses': (context) => CalfExpenses(),
         '/calf_feed': (context) => CalfFeed(),
         '/calf_labour': (context) => CalfLabour(),
+        '/calf_treatment_desc': (context) => CalfTreatmentDesc(),
         '/calf_labour_payment': (context) => CalfLabourPayment(),
         '/calf_others': (context) => CalfOthers(),
         '/calf_others_payment': (context) => CalfOthersPayment(),
@@ -173,6 +208,15 @@ class MyApp extends StatelessWidget {
 
       // Biogas Section
         '/biogasdashboard': (context) => BioGases(),
+        '/biogas_expenses': (context) => BiogasExpenses(),
+        '/biogas_labour': (context) => BiogasLabour(),
+        '/biogas_labour_payment': (context) => BiogasLabourPayment(),
+        '/biogas_others': (context) => BiogasOthers(),
+        '/biogas_others_payment': (context) => BiogasOthersPayment(),
+        '/biogas_customer': (context) => BioGasCustomer(),
+        '/biogas_income': (context) => BiogasIncome(),
+        '/biogas_environment': (context) => BiogasEnvironment(),
+
 
         '/beeffattening' : (context) => BeefFattening(),
 
@@ -229,7 +273,39 @@ class MyApp extends StatelessWidget {
         '/beef_vaccines': (context) => BeefVaccines(),
         '/beef_medicines': (context) => BeefMedicines(),
 
+        // Dairy Section Started
+        '/dairy_production': (context) => DairyProduction(),
+        '/dairy_purchase': (context) => DairyPurchase(),
+        '/dairy_expenses': (context) => DairyExpenses(),
+        '/dairyfeed': (context) => DairyFeed(),
+        '/dairylabour': (context) => DairyLabour(),
+        '/dairylabourpayment': (context) => DairyLabourPayment(),
+        '/dairyothers': (context) => DairyOthers(),
+        '/dairyotherspayment': (context) => DairyOthersPayment(),
+        '/dairytreatmentlist': (context) => DairyTreatmentList(),
+        '/dairy_doctors': (context) => DairyDoctors(),
+        '/dairy_treatment': (context) => DairyTreatment(),
+        '/dairy_customers': (context) => DairyCustomer(),
+        '/dairy_customers_info': (context) => DairyCustomerInfo(),
+        '/dairy_healthcare': (context) => DairyHealthcare(),
+        '/dairy_medicines': (context) => DairyMedicines(),
+        '/dairy_vaccines': (context) => DairyVaccines(),
+        '/dairy_feeding': (context) => DairyFeeding(),
+        '/dairy_reports': (context) => DairyReport(),
+        '/dairy_expenses_report': (context) => DairyExpensesReport(),
+        '/dairy_purchase_report': (context) => DairyPurchaseReport(),
+
       //   Calf Section
+
+        //Auth
+        '/': (context) => Login(),
+        '/register': (context) => Signup(),
+
+        //admin
+        '/admin': (context) => Administrator(),
+        '/approve_doctor': (context) => ApproveDoctor(),
+        '/approved_doctor': (context) => ApprovedDoctor(),
+
 
       },
     );

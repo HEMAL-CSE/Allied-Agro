@@ -28,7 +28,7 @@ class _CowDoctorState extends State<CowDoctor> {
   List<dynamic> data = [];
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/doctors');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/doctors');
 
     Response res = await get(url);
 
@@ -38,7 +38,7 @@ class _CowDoctorState extends State<CowDoctor> {
   }
 
   void getDoctors() async {
-    final url = Uri.parse('http://68.178.163.174:5007/doctors/approved');
+    final url = Uri.parse('http://68.178.163.174:5008/doctors/approved');
     Response res = await get(url);
 
     setState(() {
@@ -47,7 +47,7 @@ class _CowDoctorState extends State<CowDoctor> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/doctors/add');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/doctors/add');
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -78,7 +78,7 @@ class _CowDoctorState extends State<CowDoctor> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/doctors/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/doctors/edit?id=${editid.text}');
 
     Map<String, dynamic> data = {'doctor_id': edit_doctor_id};
 
@@ -101,7 +101,7 @@ class _CowDoctorState extends State<CowDoctor> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/doctors/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/doctors/delete?id=${id}');
 
     Response res = await delete(url);
 

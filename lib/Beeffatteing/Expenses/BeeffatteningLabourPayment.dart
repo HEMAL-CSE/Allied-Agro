@@ -45,7 +45,7 @@ class _BeefFatteningLabourPaymentState extends State<BeefFatteningLabourPayment>
   List<dynamic> labours = [];
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -55,7 +55,7 @@ class _BeefFatteningLabourPaymentState extends State<BeefFatteningLabourPayment>
   }
 
   // void getSeats(id) async {
-  //   final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
+  //   final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
   //
   //   Response res = await get(url);
   //
@@ -65,7 +65,7 @@ class _BeefFatteningLabourPaymentState extends State<BeefFatteningLabourPayment>
   // }
 
   void getLabours(shed_id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_labour?shed_id=${shed_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/beef_labour?shed_id=${shed_id}');
 
     Response res = await get(url);
 
@@ -75,7 +75,7 @@ class _BeefFatteningLabourPaymentState extends State<BeefFatteningLabourPayment>
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_labour_payment');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/beef_labour_payment');
 
     Response res = await get(url);
 
@@ -85,7 +85,7 @@ class _BeefFatteningLabourPaymentState extends State<BeefFatteningLabourPayment>
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_labour_payment/add');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/beef_labour_payment/add');
 
     Map<String, dynamic> data = { 'shed_id': shed_id, 'labour_id': labour_id, 'payment': payment.text, 'date': selectDate.toIso8601String()};
 
@@ -114,7 +114,7 @@ class _BeefFatteningLabourPaymentState extends State<BeefFatteningLabourPayment>
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_labour_payment/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/beef_labour_payment/edit?id=${editid.text}');
     Map<String, dynamic> data = { 'shed_id': edit_shed_id,  'labour_id': edit_labour_id, 'payment': editpayment.text, 'date': selectEditDate.toIso8601String()};
 
     Response res = await put(url, body: data);
@@ -136,7 +136,7 @@ class _BeefFatteningLabourPaymentState extends State<BeefFatteningLabourPayment>
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/beef_labour_payment/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/beef_labour_payment/delete?id=${id}');
 
     Response res = await delete(url);
 

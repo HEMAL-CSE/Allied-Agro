@@ -66,7 +66,7 @@ class _HomeState extends State<HomePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? owner_id = prefs.getString('user_id');
 
-    final url = Uri.parse('http://68.178.163.174:5007/farm/types?owner_id=${owner_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/farm/types?owner_id=${owner_id}');
 
     Response res = await get(url);
 
@@ -157,7 +157,14 @@ class _HomeState extends State<HomePage> {
               ListTile(
                 leading: Icon(Icons.logout),
                 title: Text('Logout'),
-                onTap: () => print('Contact'),
+                onTap: () async {
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+                  await prefs.remove('token');
+                  await prefs.remove('user_id');
+                  await prefs.remove('user_type_id');
+                  Navigator.pushNamed(context, '/');
+                },
               )
 
             ],

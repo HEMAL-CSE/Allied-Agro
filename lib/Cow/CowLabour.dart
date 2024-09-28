@@ -38,7 +38,7 @@ class _BreedingLabourState extends State<BreedingLabour> {
   List<dynamic> seats = [];
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -48,7 +48,7 @@ class _BreedingLabourState extends State<BreedingLabour> {
   }
 
   // void getSeats(id) async {
-  //   final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
+  //   final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
   //
   //   Response res = await get(url);
   //
@@ -58,7 +58,7 @@ class _BreedingLabourState extends State<BreedingLabour> {
   // }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_labour');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_labour');
 
     Response res = await get(url);
 
@@ -68,7 +68,7 @@ class _BreedingLabourState extends State<BreedingLabour> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_labour/add');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_labour/add');
 
     Map<String, dynamic> data = { 'shed_id': shed_id, 'name': name.text};
 
@@ -95,7 +95,7 @@ class _BreedingLabourState extends State<BreedingLabour> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_labour/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_labour/edit?id=${editid.text}');
     Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'name': editname.text};
 
     Response res = await put(url, body: data);
@@ -117,7 +117,7 @@ class _BreedingLabourState extends State<BreedingLabour> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_labour/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_labour/delete?id=${id}');
 
     Response res = await delete(url);
 

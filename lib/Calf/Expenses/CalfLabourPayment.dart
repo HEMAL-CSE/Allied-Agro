@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 
 class CalfLabourPayment extends StatefulWidget {
   const CalfLabourPayment({super.key});
@@ -20,11 +24,7 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
 
   String? edit_shed_id;
 
-  String? edit_seat_id;
-
   String? edit_labour_id;
-
-  TextEditingController editid = TextEditingController();
 
   TextEditingController editpayment = TextEditingController();
 
@@ -32,9 +32,115 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
 
   List<dynamic> sheds = [];
 
-  List<dynamic> seats = [];
 
   List<dynamic> labours = [];
+  void getSheds() async {
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
+
+    Response res = await get(url);
+
+    setState(() {
+      sheds = jsonDecode(res.body);
+    });
+  }
+
+
+  void getData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_labour_payment');
+
+    Response res = await get(url);
+
+    setState(() {
+      data = jsonDecode(res.body);
+    });
+  }
+
+  void getLabours(shed_id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_labour?shed_id=${shed_id}');
+
+    Response res = await get(url);
+
+    setState(() {
+      labours = jsonDecode(res.body);
+    });
+  }
+
+  void addData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_labour_payment/add');
+    Map body = {
+      'shed_id': shed_id,
+      'labour_id': labour_id,
+      'payment': payment.text,
+    };
+
+    Response res = await post(url, body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Submitted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  void editData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_labour_payment/edit?id=${id}');
+
+    Map body = {
+      'shed_id':edit_shed_id ,
+      'labour_id': edit_labour_id,
+      'payment': editpayment.text,
+    };
+
+    Response res = await put(url, body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  void deleteData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_labour_payment/delete?id=${id}');
+
+    Response res = await delete(url);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Deleted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getSheds();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +172,7 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
                       onChanged: (value) {
                         print("selected Value $value");
                         // getSeats(value);
-                        // getLabours(value);
+                        getLabours(value);
                         setState(() {
                           shed_id = value!;
                         });
@@ -160,13 +266,14 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
           Container( padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(04),
             child: ElevatedButton(onPressed: (){
-              // addData();
+              addData();
             }, child: const Text("জমা দিন")),
           ),
 
-          // for(var i in data)
+          for(var i in data)
             Column(
               children: [
+
                 Container(
                   height: 150,
                   child: Card(
@@ -182,11 +289,11 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('শ্রমিক নাম্বার: 1', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                child: Text('শ্রমিক নাম্বার: ${i['labour_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('শেড নাম্বার: 1', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('শেড নাম্বার: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
                               // Padding(
                               //   padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
@@ -195,7 +302,7 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
 
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('বেতন: 2000 BDT', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('বেতন: ${i['payment']} BDT', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
 
                             ]
@@ -214,17 +321,16 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  // setState(() {
-                                  //   editid.text = i['id'].toString();
-                                  //   edit_shed_id = i['shed_id'].toString();
-                                  //   // edit_seat_id = i['seat_id'].toString();
-                                  //   edit_labour_id = i['labour_id'].toString();
-                                  //   editpayment.text = i['payment'];
-                                  //
-                                  // });
+                                  setState(() {
+                                    edit_shed_id = i['shed_id'].toString();
+                                    // edit_seat_id = i['seat_id'].toString();
+                                    edit_labour_id = i['labour_id'].toString();
+                                    editpayment.text = i['payment'];
+
+                                  });
 
                                   // getSeats(i['shed_id']);
-                                  // getLabours(i['shed_id']);
+                                  getLabours(i['shed_id']);
                                   showModalBottomSheet<void>(
                                     context: context,
                                     isScrollControlled: true,
@@ -364,7 +470,7 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),
                                                     margin: EdgeInsets.all(04),
                                                     child: ElevatedButton(onPressed: (){
-                                                      // editData();
+                                                      editData(i['id']);
                                                       Navigator.pop(context);
                                                     }, child: const Text("Save")),
                                                   ),
@@ -398,7 +504,7 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
                                         TextButton(
                                           onPressed: ()
                                           {
-                                            // deleteData(i['id']);
+                                            deleteData(i['id']);
                                             Navigator.pop(context, 'OK');
                                           },
                                           child: const Text('OK'),

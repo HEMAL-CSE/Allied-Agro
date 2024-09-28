@@ -36,7 +36,7 @@ class _LabourPaymentState extends State<LabourPayment> {
 
 
   void getLabours() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/labour_list');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/labour_list');
 
     Response res = await get(url);
 
@@ -59,7 +59,7 @@ class _LabourPaymentState extends State<LabourPayment> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/labour_payment');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/labour_payment');
 
     Response res = await get(url);
 
@@ -69,7 +69,7 @@ class _LabourPaymentState extends State<LabourPayment> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/labour_payment/add');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/labour_payment/add');
 
     Map<String, dynamic> data = { 'labour_id': labour, 'amount': amount.text, 'date': selectedDate.toIso8601String()  };
 
@@ -99,7 +99,7 @@ class _LabourPaymentState extends State<LabourPayment> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/labour_payment/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/labour_payment/edit?id=${editid.text}');
 
     Map<String, dynamic> data = { 'labour_id': editLabour, 'amount': editamount.text, 'date': selectedEditDate.toIso8601String() };
 
@@ -138,7 +138,7 @@ class _LabourPaymentState extends State<LabourPayment> {
   }
 
   void deleteData(id) async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/labour_payment/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/labour_payment/delete?id=${id}');
     Response res = await delete(url);
 
     if(res.statusCode == 201){

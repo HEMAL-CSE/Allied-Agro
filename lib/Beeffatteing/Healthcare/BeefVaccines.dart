@@ -25,7 +25,7 @@ class _BeefVaccinesState extends State<BeefVaccines> {
 
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/vaccines');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/vaccines');
 
     Response res = await get(url);
 
@@ -35,7 +35,7 @@ class _BeefVaccinesState extends State<BeefVaccines> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/vaccines/add');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/vaccines/add');
 
     Map data = {
       'name': vaccineName.text,
@@ -60,7 +60,7 @@ class _BeefVaccinesState extends State<BeefVaccines> {
   }
 
   void editData() async{
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/vaccines/edit?id=${editId.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/vaccines/edit?id=${editId.text}');
 
     Map data = {
       'name': editVaccineName.text,
@@ -85,7 +85,7 @@ class _BeefVaccinesState extends State<BeefVaccines> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/vaccines/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/vaccines/delete?id=${id}');
 
     Response res = await delete(url);
 

@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 
 class CalfOthers extends StatefulWidget {
   const CalfOthers({super.key});
@@ -29,6 +33,112 @@ class _CalfOthersState extends State<CalfOthers> {
   List<dynamic> sheds = [];
 
   List<dynamic> seats = [];
+
+  void getSheds() async {
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
+
+    Response res = await get(url);
+
+    setState(() {
+      sheds = jsonDecode(res.body);
+    });
+  }
+
+  void getSeats(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
+
+    Response res = await get(url);
+
+    setState(() {
+      seats = jsonDecode(res.body);
+    });
+  }
+
+  void getData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others');
+
+    Response res = await get(url);
+
+    setState(() {
+      data = jsonDecode(res.body);
+    });
+  }
+
+  void addData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others/add');
+    Map body = {
+      'shed_id': shed_id,
+      'seat_id': seat_id,
+      'name': name.text,
+    };
+
+    Response res = await post(url, body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Submitted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  void editData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others/edit?id=${id}');
+
+    Map body = {
+      'shed_id': edit_shed_id,
+      'seat_id': edit_seat_id,
+      'name': editname.text,
+    };
+
+    Response res = await put(url, body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  void deleteData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others/delete?id=${id}');
+
+    Response res = await delete(url);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Deleted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getSheds();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +170,7 @@ class _CalfOthersState extends State<CalfOthers> {
 
                       onChanged: (value) {
                         print("selected Value $value");
-                        // getSeats(value);
+                        getSeats(value);
                         setState(() {
                           shed_id = value!;
                         });
@@ -116,11 +226,11 @@ class _CalfOthersState extends State<CalfOthers> {
           Container( padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(04),
             child: ElevatedButton(onPressed: (){
-              // addData();
+              addData();
             }, child: const Text("জমা দিন")),
           ),
 
-          // for(var i in data)
+          for(var i in data)
             Column(
               children: [
                 Container(
@@ -138,15 +248,15 @@ class _CalfOthersState extends State<CalfOthers> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('অন্যান্য: Electricity', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                child: Text('অন্যান্য: ${i['name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('শেড নাম্বার: 1', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('শেড নাম্বার: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('সিট নাম্বার: 1', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('সিট নাম্বার: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
 
                             ]
@@ -165,15 +275,14 @@ class _CalfOthersState extends State<CalfOthers> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  // setState(() {
-                                  //   editid.text = i['id'].toString();
-                                  //   edit_shed_id = i['shed_id'].toString();
-                                  //   edit_seat_id = i['seat_id'].toString();
-                                  //   editname.text = i['name'];
-                                  //
-                                  // });
+                                  setState(() {
+                                    edit_shed_id = i['shed_id'].toString();
+                                    edit_seat_id = i['seat_id'].toString();
+                                    editname.text = i['name'];
 
-                                  // getSeats(i['shed_id']);
+                                  });
+
+                                  getSeats(i['shed_id']);
                                   showModalBottomSheet<void>(
                                     context: context,
                                     isScrollControlled: true,
@@ -213,7 +322,7 @@ class _CalfOthersState extends State<CalfOthers> {
 
                                                               onChanged: (value) {
                                                                 print("selected Value $value");
-                                                                // getSeats(value);
+                                                                getSeats(value);
                                                                 setStateSB(() {
                                                                   edit_shed_id = value!;
                                                                 });
@@ -275,7 +384,7 @@ class _CalfOthersState extends State<CalfOthers> {
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),
                                                     margin: EdgeInsets.all(04),
                                                     child: ElevatedButton(onPressed: (){
-                                                      // editData();
+                                                      editData(i['id']);
                                                       Navigator.pop(context);
                                                     }, child: const Text("Save")),
                                                   ),
@@ -309,7 +418,7 @@ class _CalfOthersState extends State<CalfOthers> {
                                         TextButton(
                                           onPressed: ()
                                           {
-                                            // deleteData(i['id']);
+                                            deleteData(i['id']);
                                             Navigator.pop(context, 'OK');
                                           },
                                           child: const Text('OK'),

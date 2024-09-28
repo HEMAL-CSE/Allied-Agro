@@ -19,6 +19,233 @@ class _MilkDashboardState extends State<MilkDashboard> {
           primary: false,
           slivers: [
             SliverToBoxAdapter(child: SizedBox(height: 06,),),
+            // SliverGrid.count(
+            //   crossAxisSpacing: 10,
+            //   mainAxisSpacing: 10,
+            //   crossAxisCount: 2,
+            //   children: [
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.pushNamed(context, '/total_milk_prod');
+            //       },
+            //       child: Card(
+            //         color: Colors.greenAccent[400],
+            //         elevation: 5,
+            //         margin: EdgeInsets.fromLTRB(12, 12, 0, 0),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(8.0),
+            //         ),
+            //         child: Container(
+            //           height: 150,
+            //           width: 150,
+            //           child: Center(
+            //             child: Column(
+            //               crossAxisAlignment: CrossAxisAlignment.center,
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: [
+            //                 Text('মোট উৎপাদিত দুধ',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,),),
+            //                 SizedBox(height: 10,),
+            //                 Container(
+            //                     padding: EdgeInsets.all(10),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.white.withOpacity(0.5),
+            //                         borderRadius: BorderRadius.circular(8)
+            //                     ),
+            //                     child: Icon(Entypo.bucket)
+            //                 )
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //
+            //     //Earthwarm section start
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.pushNamed(context, '/milk_selling');
+            //       },
+            //       child: Card(
+            //         color: Colors.greenAccent[400],
+            //         elevation: 5,
+            //         margin: EdgeInsets.fromLTRB(08, 12, 10, 0),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(8.0),
+            //         ),
+            //         child: Container(
+            //           height: 150,
+            //           width: 150,
+            //           child: Center(
+            //             child: Column(
+            //               crossAxisAlignment: CrossAxisAlignment.center,
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: [
+            //                 Text('দুধ বিক্রয়',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+            //                 SizedBox(height: 10,),
+            //                 Container(
+            //                     padding: EdgeInsets.all(10),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.white.withOpacity(0.5),
+            //                         borderRadius: BorderRadius.circular(8)
+            //                     ),
+            //                     child: Icon(MaterialCommunityIcons.sale)
+            //                 )
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.pushNamed(context, '/milk_customer');
+            //       },
+            //       child: Card(
+            //         color: Colors.greenAccent[400],
+            //         elevation: 5,
+            //         margin: EdgeInsets.fromLTRB(12, 12, 0, 0),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(8.0),
+            //         ),
+            //         child: Container(
+            //           height: 150,
+            //           width: 150,
+            //           child: Center(
+            //             child: Column(
+            //               crossAxisAlignment: CrossAxisAlignment.center,
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: [
+            //                 Text('ক্রেতাদের তালিকা',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+            //                 SizedBox(height: 10,),
+            //                 Container(
+            //                     padding: EdgeInsets.all(10),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.white.withOpacity(0.5),
+            //                         borderRadius: BorderRadius.circular(8)
+            //                     ),
+            //                     child: Icon(Icons.people_alt_outlined)
+            //                 )
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.pushNamed(context, '/milk_labour');
+            //       },
+            //       child: Card(
+            //         color: Colors.greenAccent[400],
+            //         elevation: 5,
+            //         margin: EdgeInsets.fromLTRB(10, 12, 10, 0),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(8.0),
+            //         ),
+            //         child: Container(
+            //           height: 150,
+            //           width: 150,
+            //           child: Center(
+            //             child: Column(
+            //               crossAxisAlignment: CrossAxisAlignment.center,
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: [
+            //                 Text('শ্রমিকদের তালিকা',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+            //                 SizedBox(height: 10,),
+            //                 Container(
+            //                     padding: EdgeInsets.all(10),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.white.withOpacity(0.5),
+            //                         borderRadius: BorderRadius.circular(8)
+            //                     ),
+            //                     child: Icon(SimpleLineIcons.people)
+            //                 )
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //
+            //
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.pushNamed(context, '/milk_labour_payment');
+            //       },
+            //       child: Card(
+            //         color: Colors.greenAccent[400],
+            //         elevation: 5,
+            //         margin: EdgeInsets.fromLTRB(12, 12, 0, 0),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(8.0),
+            //         ),
+            //         child: Container(
+            //           height: 150,
+            //           width: 150,
+            //           child: Center(
+            //             child: Column(
+            //               crossAxisAlignment: CrossAxisAlignment.center,
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: [
+            //                 Text('শ্রমিকদের বেতন',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+            //                 SizedBox(height: 10,),
+            //                 Container(
+            //                     padding: EdgeInsets.all(10),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.white.withOpacity(0.5),
+            //                         borderRadius: BorderRadius.circular(8)
+            //                     ),
+            //                     child: Icon(FontAwesome.money)
+            //                 )
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //
+            //
+            //     GestureDetector(
+            //       onTap: () {
+            //         Navigator.pushNamed(context, '/vermicompostreport');
+            //       },
+            //       child: Card(
+            //         color: Colors.greenAccent[400],
+            //         elevation: 5,
+            //         margin: EdgeInsets.fromLTRB(10, 12, 10, 0),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(8.0),
+            //         ),
+            //         child: Container(
+            //           height: 150,
+            //           width: 150,
+            //           child: Center(
+            //             child: Column(
+            //               crossAxisAlignment: CrossAxisAlignment.center,
+            //               mainAxisAlignment: MainAxisAlignment.center,
+            //               children: [
+            //                 Text('রিপোর্ট',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+            //                 SizedBox(height: 10,),
+            //                 Container(
+            //                     padding: EdgeInsets.all(10),
+            //                     decoration: BoxDecoration(
+            //                         color: Colors.white.withOpacity(0.5),
+            //                         borderRadius: BorderRadius.circular(8)
+            //                     ),
+            //                     child: Icon(Icons.report)
+            //                 )
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //
+            //   ],
+            // )
+
             SliverGrid.count(
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
@@ -26,12 +253,14 @@ class _MilkDashboardState extends State<MilkDashboard> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/totalmilkproduction');
+
+                    Navigator.pushNamed(context, '/dairy_purchase');
+
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
                     elevation: 5,
-                    margin: EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -43,7 +272,42 @@ class _MilkDashboardState extends State<MilkDashboard> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('মোট উৎপাদিত দুধ',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,),),
+                            Text('ক্রয়',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            SizedBox(height: 10,),
+                            Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(8)
+                                ),
+                                child: Icon(AntDesign.plus)
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/dairy_production');
+                  },
+                  child: Card(
+                    color: Colors.greenAccent[400],
+                    elevation: 5,
+                    margin: EdgeInsets.all(8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('উৎপাদন',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -60,15 +324,15 @@ class _MilkDashboardState extends State<MilkDashboard> {
                   ),
                 ),
 
-                //Earthwarm section start
                 GestureDetector(
                   onTap: () {
-                     Navigator.pushNamed(context, '/milkselling');
+
+                    Navigator.pushNamed(context, '/dairy_expenses');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
                     elevation: 5,
-                    margin: EdgeInsets.fromLTRB(08, 12, 10, 0),
+                    margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -80,7 +344,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('দুধ বিক্রয়',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('খরচসমূহ',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -88,7 +352,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(8)
                                 ),
-                                child: Icon(MaterialCommunityIcons.sale)
+                                child: Icon(Icons.device_hub)
                             )
                           ],
                         ),
@@ -99,12 +363,49 @@ class _MilkDashboardState extends State<MilkDashboard> {
 
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/milk_customer');
+                    Navigator.pushNamed(context, '/dairytreatmentlist');
+
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
                     elevation: 5,
-                    margin: EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    margin: EdgeInsets.all(8),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('চিকিৎসা',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            SizedBox(height: 10,),
+                            Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(8)
+                                ),
+                                child: Icon(Fontisto.doctor)
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/dairy_customers');
+                  },
+                  child: Card(
+                    color: Colors.greenAccent[400],
+                    elevation: 5,
+                    margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -124,7 +425,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(8)
                                 ),
-                                child: Icon(Icons.people_alt_outlined)
+                                child: Icon(Icons.people)
                             )
                           ],
                         ),
@@ -135,12 +436,14 @@ class _MilkDashboardState extends State<MilkDashboard> {
 
                 GestureDetector(
                   onTap: () {
-                     Navigator.pushNamed(context, '/milklabour');
+
+                    Navigator.pushNamed(context, '/dairy_healthcare');
+
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
                     elevation: 5,
-                    margin: EdgeInsets.fromLTRB(10, 12, 10, 0),
+                    margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -152,7 +455,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('শ্রমিকদের তালিকা',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('স্বাস্থ্যসেবা', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -160,7 +463,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(8)
                                 ),
-                                child: Icon(SimpleLineIcons.people)
+                                child: Icon(AntDesign.medicinebox)
                             )
                           ],
                         ),
@@ -169,15 +472,15 @@ class _MilkDashboardState extends State<MilkDashboard> {
                   ),
                 ),
 
-
                 GestureDetector(
                   onTap: () {
-                     Navigator.pushNamed(context, '/milklaboursalary');
+                    Navigator.pushNamed(context, '/dairy_feeding');
+
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
                     elevation: 5,
-                    margin: EdgeInsets.fromLTRB(12, 12, 0, 0),
+                    margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -189,7 +492,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('শ্রমিকদের বেতন',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('খাদ্য', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -197,7 +500,7 @@ class _MilkDashboardState extends State<MilkDashboard> {
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(8)
                                 ),
-                                child: Icon(FontAwesome.money)
+                                child: Icon(Icons.grass)
                             )
                           ],
                         ),
@@ -206,15 +509,14 @@ class _MilkDashboardState extends State<MilkDashboard> {
                   ),
                 ),
 
-
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/vermicompostreport');
+                    Navigator.pushNamed(context, '/dairy_reports');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
                     elevation: 5,
-                    margin: EdgeInsets.fromLTRB(10, 12, 10, 0),
+                    margin: EdgeInsets.all(8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -242,7 +544,6 @@ class _MilkDashboardState extends State<MilkDashboard> {
                     ),
                   ),
                 ),
-
               ],
             )
           ],

@@ -47,7 +47,7 @@ class _BreedingFeedState extends State<BreedingFeed> {
   List<dynamic> cows = [];
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -57,7 +57,7 @@ class _BreedingFeedState extends State<BreedingFeed> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -67,7 +67,7 @@ class _BreedingFeedState extends State<BreedingFeed> {
   }
 
   void getCows(shed_id, seat_id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/cows?shed_id=${shed_id}&seat_id=${seat_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/cows?shed_id=${shed_id}&seat_id=${seat_id}');
 
     Response res = await get(url);
 
@@ -77,7 +77,7 @@ class _BreedingFeedState extends State<BreedingFeed> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_feed');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_feed');
 
     Response res = await get(url);
 
@@ -87,7 +87,7 @@ class _BreedingFeedState extends State<BreedingFeed> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_feed/add');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_feed/add');
 
     Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'cow_id': cow_id, 'amount': amount.text, 'price': price.text};
 
@@ -117,7 +117,7 @@ class _BreedingFeedState extends State<BreedingFeed> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_feed/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_feed/edit?id=${editid.text}');
     Map<String, dynamic> data = { 'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'cow_id': edit_cow_id, 'amount': edit_amount.text, 'price': edit_price.text};
 
     Response res = await put(url, body: data);
@@ -139,7 +139,7 @@ class _BreedingFeedState extends State<BreedingFeed> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/breeding_feed/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/breeding_feed/delete?id=${id}');
 
     Response res = await delete(url);
 

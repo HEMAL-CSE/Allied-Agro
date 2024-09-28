@@ -107,7 +107,7 @@ class _BreedingTreatmentState extends State<BreedingTreatment> {
 
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -117,7 +117,7 @@ class _BreedingTreatmentState extends State<BreedingTreatment> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -131,7 +131,7 @@ class _BreedingTreatmentState extends State<BreedingTreatment> {
 
     String? owner_id = prefs.getString('user_id');
 
-    final url = Uri.parse('http://68.178.163.174:5007/farm/info?owner_id=${owner_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/farm/info?owner_id=${owner_id}');
 
     Response res = await get(url);
 
@@ -145,7 +145,7 @@ class _BreedingTreatmentState extends State<BreedingTreatment> {
   }
 
   void getCows(shed_id, seat_id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/cows?shed_id=${shed_id}&seat_id=${seat_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/cows?shed_id=${shed_id}&seat_id=${seat_id}');
 
     Response res = await get(url);
 
@@ -155,7 +155,7 @@ class _BreedingTreatmentState extends State<BreedingTreatment> {
   }
 
   void getDoctors() async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/doctors');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/doctors');
     Response res = await get(url);
 
     var resbody = jsonDecode(res.body);
@@ -184,7 +184,7 @@ class _BreedingTreatmentState extends State<BreedingTreatment> {
     for(var i in doctors){
 
       if(i['selected'] == true){
-        MultipartRequest request = MultipartRequest('POST', Uri.parse('http://68.178.163.174:5007/breeding/treatment'));
+        MultipartRequest request = MultipartRequest('POST', Uri.parse('http://68.178.163.174:5008/breeding/treatment'));
 
         final uploadList = <MultipartFile>[];
         for (final imageFile in imageFiles!) {
@@ -246,7 +246,7 @@ class _BreedingTreatmentState extends State<BreedingTreatment> {
 
     String? farm_id = prefs.getString('farm_id');
 
-    final url = Uri.parse('http://68.178.163.174:5007/doctors/breeding?farm_id=${farm_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/doctors/breeding?farm_id=${farm_id}');
 
     Response res = await get(url);
 
@@ -287,7 +287,7 @@ class _BreedingTreatmentState extends State<BreedingTreatment> {
   }
 
   void deleteData(cow_id, doctor_id) async {
-    final url = Uri.parse('http://68.178.163.174:5007/breeding/treatment/delete?cow_id=${cow_id}&doctor_id=${doctor_id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/treatment/delete?cow_id=${cow_id}&doctor_id=${doctor_id}');
 
     Response res = await delete(url);
 

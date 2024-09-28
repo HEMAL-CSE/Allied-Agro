@@ -74,7 +74,7 @@ class _LabourListState extends State<LabourList> {
   }
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/sheds');
 
     Response res = await get(url);
 
@@ -85,7 +85,7 @@ class _LabourListState extends State<LabourList> {
 
   void getData() async {
     final url =
-        Uri.parse('http://68.178.163.174:5007/vermi_compost/labour_list');
+        Uri.parse('http://68.178.163.174:5008/vermi_compost/labour_list');
 
     Response res = await get(url);
 
@@ -98,7 +98,7 @@ class _LabourListState extends State<LabourList> {
 
   void addData() async {
     final url =
-        Uri.parse('http://68.178.163.174:5007/vermi_compost/labour_list/add');
+        Uri.parse('http://68.178.163.174:5008/vermi_compost/labour_list/add');
 
     Map<String, dynamic> data = {
       'name': name.text,
@@ -134,7 +134,7 @@ class _LabourListState extends State<LabourList> {
 
   void editData() async {
     final url = Uri.parse(
-        'http://68.178.163.174:5007/vermi_compost/labour_list/edit?id=${editid.text}');
+        'http://68.178.163.174:5008/vermi_compost/labour_list/edit?id=${editid.text}');
 
     Map<String, dynamic> data = {
       'name': editname.text,
@@ -165,7 +165,7 @@ class _LabourListState extends State<LabourList> {
 
   void deleteData(id) async {
     final url = Uri.parse(
-        'http://68.178.163.174:5007/vermi_compost/labour_list/delete?id=${id}');
+        'http://68.178.163.174:5008/vermi_compost/labour_list/delete?id=${id}');
     Response res = await delete(url);
 
     if (res.statusCode == 201) {

@@ -25,7 +25,7 @@ class _BreedingMedicinesState extends State<BreedingMedicines> {
 
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/medicines');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/medicines');
 
     Response res = await get(url);
 
@@ -35,7 +35,7 @@ class _BreedingMedicinesState extends State<BreedingMedicines> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/medicines/add');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/medicines/add');
 
     Map data = {
       'name': name.text,
@@ -60,7 +60,7 @@ class _BreedingMedicinesState extends State<BreedingMedicines> {
   }
 
   void editData() async{
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/medicines/edit?id=${editId.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/medicines/edit?id=${editId.text}');
 
     Map data = {
       'name': editName.text,
@@ -85,7 +85,7 @@ class _BreedingMedicinesState extends State<BreedingMedicines> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/medicines/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/medicines/delete?id=${id}');
 
     Response res = await delete(url);
 

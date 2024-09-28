@@ -55,7 +55,7 @@ class _State extends State<ProductionEarthWorm> {
   }
 
   void getData() async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_prod');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_prod');
 
     Response res = await get(url);
 
@@ -68,7 +68,7 @@ class _State extends State<ProductionEarthWorm> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_prod/add');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_prod/add');
 
     Map<String, dynamic> data = { 'amount': kg.text, 'date': selectedDate.toIso8601String(),  };
 
@@ -97,7 +97,7 @@ class _State extends State<ProductionEarthWorm> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_prod/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_prod/edit?id=${editid.text}');
 
     Map<String, dynamic> data = {  'amount': editkg.text, 'date': selectedEditDate.toIso8601String(), };
 
@@ -123,7 +123,7 @@ class _State extends State<ProductionEarthWorm> {
   }
 
   void deleteData(id) async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_prod/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_prod/delete?id=${id}');
     Response res = await delete(url);
 
     if(res.statusCode == 201){

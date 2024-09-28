@@ -33,7 +33,7 @@ class _VermiCompostProductionReportState extends State<VermiCompostProductionRep
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/report/production?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/report/production?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
 
     Response res = await get(url);
 

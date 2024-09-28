@@ -18,7 +18,7 @@ class _VermiCompostProdState extends State<VermiCompostProd> {
   List<dynamic> sheds = [];
   
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/sheds');
 
     Response res = await get(url);
 

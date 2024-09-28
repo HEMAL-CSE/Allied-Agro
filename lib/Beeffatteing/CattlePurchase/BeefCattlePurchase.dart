@@ -41,7 +41,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
   List<dynamic> data = [];
 
   void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/sheds');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
     Response res = await get(url);
 
@@ -51,7 +51,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
   }
 
   void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/breeding/seats?shed_id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
 
     Response res = await get(url);
 
@@ -61,7 +61,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles');
 
     Response res = await get(url);
 
@@ -72,7 +72,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/add');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/add');
 
     Map<String, dynamic> data = {'shed_id': shed_id, 'seat_id': seat_id, 'cattle_id': cattle_id.text, 'purchase_date': purchase_date.toIso8601String(), 'purchase_price': price.text, 'weight': weight.text};
 
@@ -104,7 +104,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/update?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/update?id=${editid.text}');
     Map<String, dynamic> data = {'shed_id': edit_shed_id, 'seat_id': edit_seat_id, 'cattle_id': edit_cattle_id.text, 'purchase_date': edit_purchase_date.toIso8601String(), 'purchase_price': edit_price.text, 'weight': edit_weight.text};
 
     Response res = await put(url, body: data);
@@ -128,7 +128,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
 
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/delete?id=${id}');
 
     Response res = await delete(url);
 
@@ -171,7 +171,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: ' Cattle Purchase',),
+      appBar: CustomAppBar(title: 'গরু ক্রয়',),
       body: ListView(children: [
 
         Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
@@ -188,7 +188,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
                     value: shed_id,
                     isExpanded: true,
                     menuMaxHeight: 350,
-                    hint: Text('Select Shed ID'),
+                    hint: Text('শেড নাম্বার বাছাই করুন'),
                     items: [
                       ...sheds.map<DropdownMenuItem<String>>((data) {
                         return DropdownMenuItem(
@@ -223,7 +223,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
                     value: seat_id,
                     isExpanded: true,
                     menuMaxHeight: 350,
-                    hint: Text('Select Seat ID'),
+                    hint: Text('সিট নাম্বার বাছাই করুন '),
                     items: [
                       ...seats.map<DropdownMenuItem<String>>((data) {
                         return DropdownMenuItem(
@@ -247,14 +247,14 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
 
         Container(
             margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
-            child: CustomTextField(controller: cattle_id, hintText: "Cattle ID", obscureText: false, textinputtypephone: true)),
+            child: CustomTextField(controller: cattle_id, hintText: "গরু নাম্বার", obscureText: false, textinputtypephone: true)),
 
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Purchase Date: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                Text('ক্রয়ের তারিখ: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
                 Text("${purchase_date!.toLocal()}".split(' ')[0], style: TextStyle(fontSize: 20),),
                 GestureDetector(
                   onTap: () {
@@ -277,11 +277,11 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
 
         Container(
             margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
-            child: CustomTextField(controller: price, hintText: "Purchase Price", obscureText: false, textinputtypephone: true)),
+            child: CustomTextField(controller: price, hintText: "ক্রয়ের দাম", obscureText: false, textinputtypephone: true)),
 
         Container(
             margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
-            child: CustomTextField(controller: weight, hintText: "Weight KG", obscureText: false, textinputtypephone: true)),
+            child: CustomTextField(controller: weight, hintText: "ওজন কেজি", obscureText: false, textinputtypephone: true)),
 
         SizedBox(height: 04,),
 
@@ -294,7 +294,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
             ),
               onPressed: (){
             addData();
-          }, child: const Text("Submit", style: TextStyle(fontSize: 16),)),
+          }, child: const Text("জমা দিন", style: TextStyle(fontSize: 16),)),
         ),
 
         for(var i in data)
@@ -315,15 +315,15 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                              child: Text('Cattle ID: ${i['cattle_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                              child: Text('গরু নাম্বার: ${i['cattle_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                              child: Text('Shed ID: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                              child: Text('শেড নাম্বার: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                              child: Text('Seat ID: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                              child: Text('সিট নাম্বার: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                             ),
 
                             Padding(
@@ -333,7 +333,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
 
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                              child: Text('Purchase Price: ${i['purchase_price']} BDT', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.grey),),
+                              child: Text('ক্রয়ের দাম: ${i['purchase_price']} BDT', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Colors.grey),),
                             ),
 
                           ]
@@ -393,7 +393,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
                                                             value: edit_shed_id,
                                                             isExpanded: true,
                                                             menuMaxHeight: 350,
-                                                            hint: Text('Select Shed ID'),
+                                                            hint: Text('শেড নাম্বার বাছাই করুন'),
                                                             items: [
                                                               ...sheds.map<DropdownMenuItem<String>>((data) {
                                                                 return DropdownMenuItem(
@@ -430,7 +430,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
                                                             value: edit_seat_id,
                                                             isExpanded: true,
                                                             menuMaxHeight: 350,
-                                                            hint: Text('Select Seat ID'),
+                                                            hint: Text('সিট নাম্বার বাছাই করুন'),
                                                             items: [
                                                               ...seats.map<DropdownMenuItem<String>>((data) {
                                                                 return DropdownMenuItem(
@@ -465,7 +465,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
                                                     child: Row(
                                                       crossAxisAlignment: CrossAxisAlignment.center,
                                                       children: [
-                                                        Text('Purchase Date: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+                                                        Text('ক্রয়ের তারিখ: ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
                                                         Text("${edit_purchase_date!.toLocal()}".split(' ')[0], style: TextStyle(fontSize: 20),),
                                                         GestureDetector(
                                                           onTap: () {
@@ -488,11 +488,11 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
 
                                                 Container(
                                                     margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
-                                                    child: CustomTextField(controller: edit_price, hintText: "Purchase Price", obscureText: false, textinputtypephone: true)),
+                                                    child: CustomTextField(controller: edit_price, hintText: "ক্রয়ের দাম", obscureText: false, textinputtypephone: true)),
 
                                                 Container(
                                                     margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
-                                                    child: CustomTextField(controller: edit_weight, hintText: "Weight KG", obscureText: false, textinputtypephone: true)),
+                                                    child: CustomTextField(controller: edit_weight, hintText: "ওজন কেজি", obscureText: false, textinputtypephone: true)),
 
 
                                                 Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),
@@ -500,7 +500,7 @@ class _BeefCattlePurchaseState extends State<BeefCattlePurchase> {
                                                   child: ElevatedButton(onPressed: (){
                                                     editData();
                                                     Navigator.pop(context);
-                                                  }, child: const Text("Save")),
+                                                  }, child: const Text("জমা দিন")),
                                                 ),
 
                                                 // SizedBox(height: MediaQuery.of(context).viewInsets.bottom+20,)

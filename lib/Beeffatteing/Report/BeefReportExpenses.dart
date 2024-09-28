@@ -47,20 +47,20 @@ class _BeefExpensesReportState extends State<BeefExpensesReport> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/report/expenses/beef?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/report/expenses/beef?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
     Response res = await get(url);
 
     var data = jsonDecode(res.body);
 
     print(data);
-    final url2 = Uri.parse('http://68.178.163.174:5000/cattles/report/expenses/labour?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url2 = Uri.parse('http://68.178.163.174:5008/cattles/report/expenses/labour?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
     Response res2 = await get(url2);
 
     var data2 = jsonDecode(res2.body);
 
     print(data2);
 
-    final url3 = Uri.parse('http://68.178.163.174:5000/cattles/report/expenses/others?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url3 = Uri.parse('http://68.178.163.174:5008/cattles/report/expenses/others?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
     Response res3 = await get(url3);
 
     var data3 = jsonDecode(res3.body);
@@ -79,7 +79,7 @@ class _BeefExpensesReportState extends State<BeefExpensesReport> {
   }
 
   void getLabourDetails() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/report/expenses/labour/filter?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/report/expenses/labour/filter?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
     Response res = await get(url);
 
     var data = jsonDecode(res.body);
@@ -92,7 +92,7 @@ class _BeefExpensesReportState extends State<BeefExpensesReport> {
   }
 
   void getOthersDetails() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/report/expenses/others/filter?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/report/expenses/others/filter?start_date=${startDate.toIso8601String()}&end_date=${endDate.toIso8601String()}');
     Response res = await get(url);
 
     var data = jsonDecode(res.body);

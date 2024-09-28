@@ -24,7 +24,7 @@ class _BeefFeedingState extends State<BeefFeeding> {
 
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/feed_names');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/feed_names');
 
     Response res = await get(url);
 
@@ -34,7 +34,7 @@ class _BeefFeedingState extends State<BeefFeeding> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/feed_names/add');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/feed_names/add');
 
     Map data = {
       'name': name.text,
@@ -58,7 +58,7 @@ class _BeefFeedingState extends State<BeefFeeding> {
   }
 
   void editData() async{
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/feed_names/edit?id=${editId.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/feed_names/edit?id=${editId.text}');
 
     Map data = {
       'name': editName.text,
@@ -82,7 +82,7 @@ class _BeefFeedingState extends State<BeefFeeding> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/feed_names/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/feed_names/delete?id=${id}');
 
     Response res = await delete(url);
 
@@ -112,17 +112,17 @@ class _BeefFeedingState extends State<BeefFeeding> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Feeding',),
+      appBar: CustomAppBar(title: 'খাদ্য',),
       body: SingleChildScrollView(
         child: Column(
           children: [
             SizedBox(height: 20,),
-            CustomTextField(controller: name, hintText: 'Feed Name', obscureText: false, textinputtypephone: false),
+            CustomTextField(controller: name, hintText: 'খাদ্য নাম', obscureText: false, textinputtypephone: false),
             SizedBox(height: 10,),
 
             ElevatedButton(onPressed: (){
               addData();
-            }, child: Text('Submit')),
+            }, child: Text('জমা দিন')),
 
             SizedBox(height: 20,),
 
@@ -144,7 +144,7 @@ class _BeefFeedingState extends State<BeefFeeding> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                  child: Text('Feed Name: ${i['name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                  child: Text('খাদ্য নাম: ${i['name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                                 ),
 
 
@@ -189,7 +189,7 @@ class _BeefFeedingState extends State<BeefFeeding> {
 
                                                     Container(
                                                         margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
-                                                        child: CustomTextField(controller: editName, hintText: "Vaccine Name", obscureText: false, textinputtypephone: false)),
+                                                        child: CustomTextField(controller: editName, hintText: "খাদ্য নাম", obscureText: false, textinputtypephone: false)),
 
 
 
@@ -200,7 +200,7 @@ class _BeefFeedingState extends State<BeefFeeding> {
                                                       child: ElevatedButton(onPressed: (){
                                                         editData();
                                                         Navigator.pop(context);
-                                                      }, child: const Text("Save")),
+                                                      }, child: const Text("জমা দিন")),
                                                     ),
 
                                                     // SizedBox(height: MediaQuery.of(context).viewInsets.bottom+20,)
@@ -215,7 +215,7 @@ class _BeefFeedingState extends State<BeefFeeding> {
                                   },
                                   child: Icon(Icons.edit, color: Colors.green[500],),
                                 ),
-                                Spacer(),
+                                Spacer(), 
                                 GestureDetector(
                                   onTap: () {
                                     showDialog<String>(

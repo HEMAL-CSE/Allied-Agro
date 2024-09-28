@@ -34,7 +34,7 @@ class _EarthwormLabourPaymentState extends State<EarthwormLabourPayment> {
 
 
   void getLabours() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_labour');
 
     Response res = await get(url);
 
@@ -57,7 +57,7 @@ class _EarthwormLabourPaymentState extends State<EarthwormLabourPayment> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour_payment');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_labour_payment');
 
     Response res = await get(url);
 
@@ -67,7 +67,7 @@ class _EarthwormLabourPaymentState extends State<EarthwormLabourPayment> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour_payment/add');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_labour_payment/add');
 
     Map<String, dynamic> data = { 'labour_id': labour, 'amount': amount.text, 'date': selectedDate.toIso8601String()  };
 
@@ -97,7 +97,7 @@ class _EarthwormLabourPaymentState extends State<EarthwormLabourPayment> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour_payment/edit?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_labour_payment/edit?id=${editid.text}');
 
     Map<String, dynamic> data = { 'labour_id': editLabour, 'amount': editamount.text, 'date': selectedEditDate.toIso8601String() };
 
@@ -136,7 +136,7 @@ class _EarthwormLabourPaymentState extends State<EarthwormLabourPayment> {
   }
 
   void deleteData(id) async{
-    final url = Uri.parse('http://68.178.163.174:5007/vermi_compost/earthworm_labour_payment/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/vermi_compost/earthworm_labour_payment/delete?id=${id}');
     Response res = await delete(url);
 
     if(res.statusCode == 201){

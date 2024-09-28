@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 
 class CalfFeed extends StatefulWidget {
   const CalfFeed({super.key});
@@ -14,7 +18,7 @@ class _CalfFeedState extends State<CalfFeed> {
 
   String? seat_id;
 
-  String? cow_id;
+  String? calf_id;
 
   TextEditingController amount = TextEditingController();
 
@@ -24,7 +28,7 @@ class _CalfFeedState extends State<CalfFeed> {
 
   String? edit_seat_id;
 
-  String? edit_cow_id;
+  String? edit_calf_id;
 
   TextEditingController edit_amount = TextEditingController();
 
@@ -34,11 +38,130 @@ class _CalfFeedState extends State<CalfFeed> {
 
   List<dynamic> data = [];
 
-  List<dynamic> sheds = [];
+  List sheds = [];
+  List seats = [];
 
-  List<dynamic> seats = [];
+  List calfs = [];
 
-  List<dynamic> cows = [];
+  void getSheds() async {
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
+
+    Response res = await get(url);
+
+    setState(() {
+      sheds = jsonDecode(res.body);
+    });
+  }
+
+  void getSeats(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
+
+    Response res = await get(url);
+
+    setState(() {
+      seats = jsonDecode(res.body);
+    });
+  }
+
+  void getCalf(shed_id, seat_id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf?shed_id=${shed_id}&&seat_id=${seat_id}');
+
+    Response res = await get(url);
+
+    setState(() {
+      calfs = jsonDecode(res.body);
+    });
+  }
+
+  void getData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_feed');
+
+    Response res = await get(url);
+
+    setState(() {
+      data = jsonDecode(res.body);
+    });
+  }
+
+  void addData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_feed/add');
+    Map body = {
+      'shed_id': shed_id,
+      'seat_id': seat_id,
+      'calf_id': calf_id,
+      'weight': amount,
+      'amount': price
+    };
+
+    Response res = await post(url, body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Submitted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  void editData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_feed/edit?id=${id}');
+
+    Map body = {
+      'shed_id': shed_id,
+      'seat_id': seat_id,
+      'calf_id': calf_id,
+      'weight': amount,
+      'amount': price
+    };
+
+    Response res = await put(url, body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  void deleteData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_feed/delete?id=${id}');
+
+    Response res = await delete(url);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Deleted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getSheds();
+    getData();
+  }
 
 
   @override
@@ -71,7 +194,7 @@ class _CalfFeedState extends State<CalfFeed> {
 
                       onChanged: (value) {
                         print("selected Value $value");
-                        // getSeats(value);
+                        getSeats(value);
                         setState(() {
                           shed_id = value!;
                         });
@@ -107,7 +230,7 @@ class _CalfFeedState extends State<CalfFeed> {
 
                       onChanged: (value) {
                         print("selected Value $value");
-                        // getCows(shed_id, value);
+                        getCalf(shed_id, value);
                         setState(() {
                           seat_id = value!;
                         });
@@ -131,14 +254,14 @@ class _CalfFeedState extends State<CalfFeed> {
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                       isDense: true,
-                      value: cow_id,
+                      value: calf_id,
                       isExpanded: true,
                       menuMaxHeight: 350,
                       hint: Text('বাছুর নাম্বার বাছাই করুন'),
                       items: [
-                        ...cows.map<DropdownMenuItem<String>>((data) {
+                        ...calfs.map<DropdownMenuItem<String>>((data) {
                           return DropdownMenuItem(
-                              child: Text(data['cow_id'].toString()), value: data['id'].toString());
+                              child: Text(data['calf_id'].toString()), value: data['id'].toString());
                         }).toList(),
                       ],
 
@@ -146,7 +269,7 @@ class _CalfFeedState extends State<CalfFeed> {
                         print("selected Value $value");
 
                         setState(() {
-                          cow_id = value!;
+                          calf_id = value!;
                         });
                       }),
 
@@ -168,15 +291,16 @@ class _CalfFeedState extends State<CalfFeed> {
           Container( padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(04),
             child: ElevatedButton(onPressed: (){
-              // addData();
+              addData();
             }, child: const Text("Submit")),
           ),
 
           SizedBox(height: 20,),
 
-
+          for(var i in data)
             Column(
               children: [
+
                 Container(
                   height: 200,
                   child: Card(
@@ -192,24 +316,24 @@ class _CalfFeedState extends State<CalfFeed> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('বাছুর নাম্বার: 1', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                child: Text('বাছুর নাম্বার: ${i['calf_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('শেড নাম্বার: 1', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('শেড নাম্বার: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('সিট নাম্বার: 1', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('সিট নাম্বার: ${i['seat_Id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('পরিমান: 100 kg', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey),),
+                                child: Text('পরিমান: ${i['weight']} kg', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey),),
                               ),
 
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-                                child: Text('মূল্য: 100 tk', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey),),
+                                child: Text('মূল্য: ${i['amount']} tk', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.grey),),
                               ),
 
                             ]
@@ -228,18 +352,17 @@ class _CalfFeedState extends State<CalfFeed> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  // setState(() {
-                                  //   editid.text = i['id'].toString();
-                                  //   edit_shed_id = i['shed_id'].toString();
-                                  //   edit_seat_id = i['seat_id'].toString();
-                                  //   edit_cow_id = i['cow_id'].toString();
-                                  //   edit_amount.text = i['amount'].toString();
-                                  //   edit_price.text = i['price'].toString();
-                                  //
-                                  // });
+                                  setState(() {
+                                    edit_shed_id = i['shed_id'].toString();
+                                    edit_seat_id = i['seat_id'].toString();
+                                    edit_calf_id = i['cow_id'].toString();
+                                    edit_amount.text = i['weight'].toString();
+                                    edit_price.text = i['amount'].toString();
 
-                                  // getSeats(i['shed_id']);
-                                  // getCows(i['shed_id'], i['seat_id']);
+                                  });
+
+                                  getSeats(i['shed_id']);
+                                  getCalf(i['shed_id'], i['seat_id']);
 
                                   showModalBottomSheet<void>(
                                     context: context,
@@ -341,14 +464,14 @@ class _CalfFeedState extends State<CalfFeed> {
                                                         child: DropdownButtonHideUnderline(
                                                           child: DropdownButton<String>(
                                                               isDense: true,
-                                                              value: edit_cow_id,
+                                                              value: edit_calf_id,
                                                               isExpanded: true,
                                                               menuMaxHeight: 350,
                                                               hint: Text('Select Cow ID'),
                                                               items: [
-                                                                ...cows.map<DropdownMenuItem<String>>((data) {
+                                                                ...calfs.map<DropdownMenuItem<String>>((data) {
                                                                   return DropdownMenuItem(
-                                                                      child: Text(data['cow_id'].toString()), value: data['id'].toString());
+                                                                      child: Text(data['calf_id'].toString()), value: data['id'].toString());
                                                                 }).toList(),
                                                               ],
 
@@ -356,7 +479,7 @@ class _CalfFeedState extends State<CalfFeed> {
                                                                 print("selected Value $value");
 
                                                                 setState(() {
-                                                                  edit_cow_id = value!;
+                                                                  edit_calf_id = value!;
                                                                 });
                                                               }),
 

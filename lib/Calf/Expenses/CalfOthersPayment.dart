@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
 
 class CalfOthersPayment extends StatefulWidget {
   const CalfOthersPayment({super.key});
@@ -36,6 +40,124 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
 
   List<dynamic> others = [];
 
+  void getSheds() async {
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
+
+    Response res = await get(url);
+
+    setState(() {
+      sheds = jsonDecode(res.body);
+    });
+  }
+
+  void getSeats(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
+
+    Response res = await get(url);
+
+    setState(() {
+      seats = jsonDecode(res.body);
+    });
+  }
+
+  void getOthers(shed_id, seat_id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others?shed_id=${shed_id}&&seat_id=${seat_id}');
+
+    Response res = await get(url);
+
+    setState(() {
+      others = jsonDecode(res.body);
+    });
+  }
+
+  void getData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others_payment');
+
+    Response res = await get(url);
+
+    setState(() {
+      data = jsonDecode(res.body);
+    });
+  }
+
+  void addData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others_payment/add');
+    Map body = {
+      'shed_id': shed_id,
+      'seat_id': seat_id,
+      'others_id': others_id,
+      'payment': payment.text,
+    };
+
+    Response res = await post(url, body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Submitted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  void editData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others_payment/edit?id=${id}');
+
+    Map body = {
+      'shed_id': edit_shed_id,
+      'seat_id': edit_seat_id,
+      'others_id': edit_others_id,
+      'payment': editpayment.text
+    };
+
+    Response res = await put(url, body: body);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  void deleteData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others_payment/delete?id=${id}');
+
+    Response res = await delete(url);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Deleted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getSheds();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +188,7 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
 
                       onChanged: (value) {
                         print("selected Value $value");
-                        // getSeats(value);
+                        getSeats(value);
                         setState(() {
                           shed_id = value!;
                         });
@@ -103,7 +225,7 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
 
                       onChanged: (value) {
                         print("selected Value $value");
-                        // getOthers(shed_id, value);
+                        getOthers(shed_id, value);
                         setState(() {
                           seat_id = value!;
                         });
@@ -161,11 +283,11 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
           Container( padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(04),
             child: ElevatedButton(onPressed: (){
-              // addData();
+              addData();
             }, child: const Text("জমা দিন")),
           ),
 
-          // for(var i in data)
+          for(var i in data)
             Column(
               children: [
                 Container(
@@ -183,20 +305,20 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('অন্যান্য: 1', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                child: Text('অন্যান্য: ${i['others_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('শেড নাম্বার: 1', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('শেড নাম্বার: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('সিট নাম্বার: 1', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('সিট নাম্বার: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
 
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('খরচ: 2000 BDT', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('খরচ: ${i['payment']} BDT', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
 
                             ]
@@ -215,17 +337,16 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  // setState(() {
-                                  //   editid.text = i['id'].toString();
-                                  //   edit_shed_id = i['shed_id'].toString();
-                                  //   edit_seat_id = i['seat_id'].toString();
-                                  //   edit_others_id = i['others_id'].toString();
-                                  //   editpayment.text = i['payment'];
-                                  //
-                                  // });
-                                  //
-                                  // getSeats(i['shed_id']);
-                                  // getOthers(i['shed_id'], i['seat_id']);
+                                  setState(() {
+                                    edit_shed_id = i['shed_id'].toString();
+                                    edit_seat_id = i['seat_id'].toString();
+                                    edit_others_id = i['others_id'].toString();
+                                    editpayment.text = i['payment'];
+
+                                  });
+
+                                  getSeats(i['shed_id']);
+                                  getOthers(i['shed_id'], i['seat_id']);
                                   showModalBottomSheet<void>(
                                     context: context,
                                     isScrollControlled: true,
@@ -364,7 +485,7 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),
                                                     margin: EdgeInsets.all(04),
                                                     child: ElevatedButton(onPressed: (){
-                                                      // editData();
+                                                      editData(i['id']);
                                                       Navigator.pop(context);
                                                     }, child: const Text("Save")),
                                                   ),
@@ -398,7 +519,7 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
                                         TextButton(
                                           onPressed: ()
                                           {
-                                            // deleteData(i['id']);
+                                            deleteData(i['id']);
                                             Navigator.pop(context, 'OK');
                                           },
                                           child: const Text('OK'),

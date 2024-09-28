@@ -34,7 +34,7 @@ class _BeefCustomerInfoState extends State<BeefCustomerInfo> {
   List<dynamic> data = [];
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/customers');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/customers');
 
     Response res = await get(url);
 
@@ -44,7 +44,7 @@ class _BeefCustomerInfoState extends State<BeefCustomerInfo> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/customers/add');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/customers/add');
 
     Map<String, dynamic> data = { 'name': name.text, 'address': address.text, 'mobile': mobile.text };
 
@@ -74,7 +74,7 @@ class _BeefCustomerInfoState extends State<BeefCustomerInfo> {
   }
 
   void editData() async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/customers/update?id=${editid.text}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/customers/update?id=${editid.text}');
 
     Map<String, dynamic> data = { 'name': editname.text, 'address': editaddress.text, 'mobile': editmobile.text };
 
@@ -97,7 +97,7 @@ class _BeefCustomerInfoState extends State<BeefCustomerInfo> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5000/cattles/customers/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/cattles/customers/delete?id=${id}');
 
     Response res = await delete(url);
 

@@ -26,7 +26,7 @@ class _BioGasesState extends State<BioGases> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/materialsVermiCompost');
+                    Navigator.pushNamed(context, '/biogas_expenses');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -61,45 +61,45 @@ class _BioGasesState extends State<BioGases> {
                 ),
 
                 //Earthwarm section start
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, '/earthworm');
-                  },
-                  child: Card(
-                    color: Colors.greenAccent[400],
-                    elevation: 5,
-                    margin: EdgeInsets.fromLTRB(08, 12, 10, 0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text('বায়োগ্যাসের চাপ',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                            SizedBox(height: 10,),
-                            Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.5),
-                                    borderRadius: BorderRadius.circular(8)
-                                ),
-                                child: Icon(Icons.compress_outlined)
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.pushNamed(context, '/earthworm');
+                //   },
+                //   child: Card(
+                //     color: Colors.greenAccent[400],
+                //     elevation: 5,
+                //     margin: EdgeInsets.fromLTRB(08, 12, 10, 0),
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(8.0),
+                //     ),
+                //     child: Container(
+                //       height: 150,
+                //       width: 150,
+                //       child: Center(
+                //         child: Column(
+                //           crossAxisAlignment: CrossAxisAlignment.center,
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             Text('বায়োগ্যাসের চাপ',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                //             SizedBox(height: 10,),
+                //             Container(
+                //                 padding: EdgeInsets.all(10),
+                //                 decoration: BoxDecoration(
+                //                     color: Colors.white.withOpacity(0.5),
+                //                     borderRadius: BorderRadius.circular(8)
+                //                 ),
+                //                 child: Icon(Icons.compress_outlined)
+                //             )
+                //           ],
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
 
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/vermicompostprod');
+                    Navigator.pushNamed(context, '/biogas_customer');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -116,7 +116,7 @@ class _BioGasesState extends State<BioGases> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('উৎপাদন',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('ক্রেতা',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),
@@ -124,7 +124,7 @@ class _BioGasesState extends State<BioGases> {
                                     color: Colors.white.withOpacity(0.5),
                                     borderRadius: BorderRadius.circular(8)
                                 ),
-                                child: Icon(Icons.production_quantity_limits_sharp)
+                                child: Icon(Icons.people)
                             )
                           ],
                         ),
@@ -135,7 +135,7 @@ class _BioGasesState extends State<BioGases> {
 
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/vermiCompostSellsButton');
+                    Navigator.pushNamed(context, '/biogas_income');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
@@ -172,7 +172,7 @@ class _BioGasesState extends State<BioGases> {
 
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/vermicompostenvironment');
+                    Navigator.pushNamed(context, '/biogas_environment');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],
