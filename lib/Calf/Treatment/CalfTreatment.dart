@@ -61,7 +61,7 @@ class _CalfTreatmentState extends State<CalfTreatment> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Navigator.pushNamed(context, '/breedingtreatment');
+                    Navigator.pushNamed(context, '/calf_treatment_desc');
                   },
                   child: Card(
                     color: Colors.greenAccent[400],

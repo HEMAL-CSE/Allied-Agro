@@ -157,7 +157,14 @@ class _HomeState extends State<HomePage> {
               ListTile(
                 leading: Icon(Icons.logout),
                 title: Text('Logout'),
-                onTap: () => print('Contact'),
+                onTap: () async {
+                  SharedPreferences prefs = await SharedPreferences.getInstance();
+
+                  await prefs.remove('token');
+                  await prefs.remove('user_id');
+                  await prefs.remove('user_type_id');
+                  Navigator.pushNamed(context, '/');
+                },
               )
 
             ],

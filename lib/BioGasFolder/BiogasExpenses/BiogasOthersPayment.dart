@@ -1,67 +1,40 @@
 import 'dart:convert';
 
 import 'package:alliedagro/components/CustomAppBar.dart';
-import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 
-class CalfOthersPayment extends StatefulWidget {
-  const CalfOthersPayment({super.key});
+class BiogasOthersPayment extends StatefulWidget {
+  const BiogasOthersPayment({super.key});
 
   @override
-  State<CalfOthersPayment> createState() => _CalfOthersPaymentState();
+  State<BiogasOthersPayment> createState() => _BiogasOthersPaymentState();
 }
 
-class _CalfOthersPaymentState extends State<CalfOthersPayment> {
-  String? shed_id;
-
-  String? seat_id;
+class _BiogasOthersPaymentState extends State<BiogasOthersPayment> {
 
   String? others_id;
 
   TextEditingController payment = TextEditingController();
 
-  String? edit_shed_id;
 
-  String? edit_seat_id;
 
   String? edit_others_id;
-
-  TextEditingController editid = TextEditingController();
 
   TextEditingController editpayment = TextEditingController();
 
   List<dynamic> data = [];
 
-  List<dynamic> sheds = [];
 
-  List<dynamic> seats = [];
 
   List<dynamic> others = [];
 
-  void getSheds() async {
-    final url = Uri.parse('http://68.178.163.174:5008/breeding/sheds');
 
-    Response res = await get(url);
 
-    setState(() {
-      sheds = jsonDecode(res.body);
-    });
-  }
-
-  void getSeats(id) async {
-    final url = Uri.parse('http://68.178.163.174:5008/breeding/seats?shed_id=${id}');
-
-    Response res = await get(url);
-
-    setState(() {
-      seats = jsonDecode(res.body);
-    });
-  }
-
-  void getOthers(shed_id, seat_id) async {
-    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others?shed_id=${shed_id}&&seat_id=${seat_id}');
+  void getOthers() async {
+    final url = Uri.parse('http://68.178.163.174:5008/biogas/others');
 
     Response res = await get(url);
 
@@ -71,7 +44,7 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
   }
 
   void getData() async {
-    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others_payment');
+    final url = Uri.parse('http://68.178.163.174:5008/biogas/others_payment');
 
     Response res = await get(url);
 
@@ -81,10 +54,8 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
   }
 
   void addData() async {
-    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others_payment/add');
+    final url = Uri.parse('http://68.178.163.174:5008/biogas/others_payment/add');
     Map body = {
-      'shed_id': shed_id,
-      'seat_id': seat_id,
       'others_id': others_id,
       'payment': payment.text,
     };
@@ -106,11 +77,9 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
   }
 
   void editData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others_payment/edit?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/biogas/others_payment/edit?id=${id}');
 
     Map body = {
-      'shed_id': edit_shed_id,
-      'seat_id': edit_seat_id,
       'others_id': edit_others_id,
       'payment': editpayment.text
     };
@@ -132,7 +101,7 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
   }
 
   void deleteData(id) async {
-    final url = Uri.parse('http://68.178.163.174:5008/calf/calf_others_payment/delete?id=${id}');
+    final url = Uri.parse('http://68.178.163.174:5008/biogas/others_payment/delete?id=${id}');
 
     Response res = await delete(url);
 
@@ -154,8 +123,8 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getSheds();
     getData();
+    getOthers();
   }
 
   @override
@@ -164,80 +133,6 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
       appBar: CustomAppBar(title: 'অন্যান্য পেমেন্ট',),
       body: ListView(
         children: [
-          Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
-            child: InputDecorator(
-                decoration: InputDecoration(
-                  border:
-                  OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                  contentPadding: const EdgeInsets.all(10),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                      isDense: true,
-                      value: shed_id,
-                      isExpanded: true,
-                      menuMaxHeight: 350,
-                      hint: Text('শেড নাম্বার বাছাই করুন'),
-                      items: [
-                        ...sheds.map<DropdownMenuItem<String>>((data) {
-                          return DropdownMenuItem(
-                              child: Text(data['name']), value: data['id'].toString());
-                        }).toList(),
-                      ],
-
-                      onChanged: (value) {
-                        print("selected Value $value");
-                        getSeats(value);
-                        setState(() {
-                          shed_id = value!;
-                        });
-                      }),
-
-
-                )
-
-              // CustomTextField()
-            ),
-          ),
-
-          Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
-            child: InputDecorator(
-                decoration: InputDecoration(
-                  border:
-                  OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15.0)),
-                  contentPadding: const EdgeInsets.all(10),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                      isDense: true,
-                      value: seat_id,
-                      isExpanded: true,
-                      menuMaxHeight: 350,
-                      hint: Text('সিট নাম্বার বাছাই করুন'),
-                      items: [
-                        ...seats.map<DropdownMenuItem<String>>((data) {
-                          return DropdownMenuItem(
-                              child: Text(data['name']), value: data['id'].toString());
-                        }).toList(),
-                      ],
-
-                      onChanged: (value) {
-                        print("selected Value $value");
-                        getOthers(shed_id, value);
-                        setState(() {
-                          seat_id = value!;
-                        });
-                      }),
-
-
-                )
-
-              // CustomTextField()
-            ),
-          ),
-
 
 
           Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
@@ -307,14 +202,6 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
                                 child: Text('অন্যান্য: ${i['others_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('শেড নাম্বার: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('সিট নাম্বার: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
-                              ),
 
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
@@ -338,15 +225,13 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    edit_shed_id = i['shed_id'].toString();
-                                    edit_seat_id = i['seat_id'].toString();
+
                                     edit_others_id = i['others_id'].toString();
                                     editpayment.text = i['payment'];
 
                                   });
 
-                                  getSeats(i['shed_id']);
-                                  getOthers(i['shed_id'], i['seat_id']);
+                                  getOthers();
                                   showModalBottomSheet<void>(
                                     context: context,
                                     isScrollControlled: true,
@@ -362,79 +247,6 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
                                                 // mainAxisAlignment: MainAxisAlignment.center,
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: <Widget>[
-                                                  Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
-                                                    child: InputDecorator(
-                                                        decoration: InputDecoration(
-                                                          border:
-                                                          OutlineInputBorder(
-                                                              borderRadius: BorderRadius.circular(15.0)),
-                                                          contentPadding: const EdgeInsets.all(10),
-                                                        ),
-                                                        child: DropdownButtonHideUnderline(
-                                                          child: DropdownButton<String>(
-                                                              isDense: true,
-                                                              value: edit_shed_id,
-                                                              isExpanded: true,
-                                                              menuMaxHeight: 350,
-                                                              hint: Text('Select Shed ID'),
-                                                              items: [
-                                                                ...sheds.map<DropdownMenuItem<String>>((data) {
-                                                                  return DropdownMenuItem(
-                                                                      child: Text(data['name']), value: data['id'].toString());
-                                                                }).toList(),
-                                                              ],
-
-                                                              onChanged: (value) {
-                                                                print("selected Value $value");
-                                                                // getSeats(value);
-                                                                setStateSB(() {
-                                                                  edit_shed_id = value!;
-                                                                });
-                                                              }),
-
-
-                                                        )
-
-                                                      // CustomTextField()
-                                                    ),
-                                                  ),
-
-                                                  Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
-                                                    child: InputDecorator(
-                                                        decoration: InputDecoration(
-                                                          border:
-                                                          OutlineInputBorder(
-                                                              borderRadius: BorderRadius.circular(15.0)),
-                                                          contentPadding: const EdgeInsets.all(10),
-                                                        ),
-                                                        child: DropdownButtonHideUnderline(
-                                                          child: DropdownButton<String>(
-                                                              isDense: true,
-                                                              value: edit_seat_id,
-                                                              isExpanded: true,
-                                                              menuMaxHeight: 350,
-                                                              hint: Text('Select Seat ID'),
-                                                              items: [
-                                                                ...seats.map<DropdownMenuItem<String>>((data) {
-                                                                  return DropdownMenuItem(
-                                                                      child: Text(data['name']), value: data['id'].toString());
-                                                                }).toList(),
-                                                              ],
-
-                                                              onChanged: (value) {
-                                                                print("selected Value $value");
-                                                                // getOthers(edit_shed_id, value);
-                                                                setStateSB(() {
-                                                                  edit_seat_id = value!;
-                                                                });
-                                                              }),
-
-
-                                                        )
-
-                                                      // CustomTextField()
-                                                    ),
-                                                  ),
 
                                                   Container( padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
                                                     child: InputDecorator(
