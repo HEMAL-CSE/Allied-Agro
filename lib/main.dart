@@ -120,6 +120,7 @@ class MyApp extends StatelessWidget {
         '/cowdungsellerList' : (context) =>CowdungSellerList(),
         '/earthworm' : (context) =>EarthwormComponent(),
         '/productionEarthWorm' : (context) =>ProductionEarthWorm(),
+
         '/sellsofEarthWorm' :(context) =>EarthWormSells(),
         '/vermicompostprod': (context) => VermiCompostProd(),
         '/vermicompostshed': (context) => VermiCompostShed(),
@@ -149,14 +150,9 @@ class MyApp extends StatelessWidget {
         //   Milk Section Start
         '/milkdashboard' : (context) => MilkDashboard(),
 
-
-
         //   Calf Section Start
 
         '/calfDashboard' : (context) => CalfDashboard(),
-
-
-
 
         '/calf_birth': (context) => CalfBirth(),
         '/calf_expenses': (context) => CalfExpenses(),
@@ -179,7 +175,6 @@ class MyApp extends StatelessWidget {
         '/biogasdashboard': (context) => BioGases(),
 
         '/beeffattening' : (context) => BeefFattening(),
-
 
         // Cow/ Breeding:
         '/cowdashboard' : (context) => CowDashboard(),
@@ -237,8 +232,6 @@ class MyApp extends StatelessWidget {
       //   Calf Section
 
       },
-
-
     );
   }
 }
