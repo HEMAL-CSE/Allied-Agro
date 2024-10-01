@@ -18,15 +18,11 @@ class _BioGasCustomerState extends State<BioGasCustomer> {
   TextEditingController customer_address = TextEditingController();
   TextEditingController customer_mobile = TextEditingController();
 
-
   TextEditingController edit_customer_name = TextEditingController();
   TextEditingController edit_customer_address = TextEditingController();
   TextEditingController edit_customer_mobile = TextEditingController();
 
-
   List<dynamic> customers = [];
-
-
 
   void getData() async {
     final url = Uri.parse('http://68.178.163.174:5008/biogas/customer');
@@ -114,7 +110,7 @@ class _BioGasCustomerState extends State<BioGasCustomer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'ক্রেতাদের তালিকা',),
+      appBar: CustomAppBar(title: 'গ্রাহক তালিকা',),
       body: ListView(children: [
 
         Container(
@@ -131,9 +127,14 @@ class _BioGasCustomerState extends State<BioGasCustomer> {
 
         Container( padding: EdgeInsets.all(10),
           margin: EdgeInsets.all(04),
-          child: ElevatedButton(onPressed: (){
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.greenAccent[400],
+                foregroundColor: Colors.black,
+              ),
+              onPressed: (){
             addData();
-          }, child: const Text("জমা দিন")),
+          }, child: const Text("জমা দিন", style: TextStyle(fontSize: 15.5),)),
         ),
 
         for(var i in customers)
@@ -217,8 +218,6 @@ class _BioGasCustomerState extends State<BioGasCustomer> {
 
                                                 SizedBox(height: 10,),
 
-
-
                                                 Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),
                                                   margin: EdgeInsets.all(04),
                                                   child: ElevatedButton(onPressed: (){
@@ -270,7 +269,6 @@ class _BioGasCustomerState extends State<BioGasCustomer> {
                           ],
                         ),
                       )
-
                     ],
                   ),
                 ),

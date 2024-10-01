@@ -116,7 +116,7 @@ class _BioGasesState extends State<BioGases> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('ক্রেতা',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            Text('গ্রাহক',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                             SizedBox(height: 10,),
                             Container(
                                 padding: EdgeInsets.all(10),

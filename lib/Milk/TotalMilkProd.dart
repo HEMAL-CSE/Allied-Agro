@@ -69,7 +69,7 @@ class _TotalMilkProdState extends State<TotalMilkProd> {
               margin: EdgeInsets.all(04),
               child: ElevatedButton(onPressed: (){
                 // addData();
-              }, child: const Text("জমা দিন")),
+              }, child: const Text("জমা দিন",)),
             ),
 
             SizedBox(height: 20,),
