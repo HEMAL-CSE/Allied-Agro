@@ -71,6 +71,15 @@ import 'package:alliedagro/Cow/HealthCare/HealthcareVexine.dart';
 import 'package:alliedagro/Cow/Treatment/CowDoctor.dart';
 import 'package:alliedagro/Cow/Treatment/CowTreatment.dart';
 import 'package:alliedagro/Cow/Treatment/Treatment.dart';
+import 'package:alliedagro/Doctor/BeefFattening/DoctorBeef.dart';
+import 'package:alliedagro/Doctor/Breeding/DoctorBreeding.dart';
+import 'package:alliedagro/Doctor/Breeding/DoctorTreatment.dart';
+import 'package:alliedagro/Doctor/Calf/DoctorCalf.dart';
+import 'package:alliedagro/Doctor/Chicken/DoctorChicken.dart';
+import 'package:alliedagro/Doctor/Dairy/DoctorDairy.dart';
+import 'package:alliedagro/Doctor/Doctor.dart';
+import 'package:alliedagro/Doctor/Duck/DoctorDuck.dart';
+import 'package:alliedagro/Doctor/Goat/DoctorGoat.dart';
 import 'package:alliedagro/Home.dart';
 import 'package:alliedagro/Milk/Customers/DairyCustomer.dart';
 import 'package:alliedagro/Milk/Customers/DairyCustomerInfo.dart';
@@ -310,6 +319,19 @@ class MyApp extends StatelessWidget {
         '/admin': (context) => Administrator(),
         '/approve_doctor': (context) => ApproveDoctor(),
         '/approved_doctor': (context) => ApprovedDoctor(),
+
+        //doctor
+        //doctor
+        '/doctor': (context) => Doctor(),
+        '/doctorbreeding': (context) => DoctorBreeding(),
+        '/doctortreatment': (context) => DoctorTreatment(),
+        '/doctorbeef': (context) => DoctorBeef(),
+        '/doctordairy': (context) => DoctorDairy(),
+    '/doctorduck': (context) => DoctorDuck(),
+    '/doctorchicken': (context) => DoctorChicken(),
+        '/doctorgoat': (context) => DoctorGoat(),
+        '/doctorcalf': (context) => DoctorCalf(),
+
 
 
       },
