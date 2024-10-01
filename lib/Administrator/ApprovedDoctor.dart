@@ -47,6 +47,7 @@ class _ApprovedDoctorState extends State<ApprovedDoctor> {
             scrollDirection: Axis.horizontal,
             child: DataTable(
               columns: [
+                DataColumn(label: Text('User Code')),
                 DataColumn(label: Text('Doctor Email')),
                 DataColumn(label: Text('Doctor ID')),
                 DataColumn(label: Text('Doctor Name'))
@@ -54,6 +55,7 @@ class _ApprovedDoctorState extends State<ApprovedDoctor> {
               rows: [
                 for(var i in data)
                   DataRow(cells: [
+                    DataCell(Text('${i['user_code']}')),
                     DataCell(Text('${i['email']}')),
                     DataCell(Text('${i['id']}')),
                     DataCell(Text('${i['name']}')),

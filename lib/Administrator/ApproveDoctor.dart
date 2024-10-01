@@ -26,8 +26,8 @@ class _ApproveDoctorState extends State<ApproveDoctor> {
     });
   }
 
-  void handleApprove(id) async {
-    final url = Uri.parse('http://68.178.163.174:5008/doctors/approve?id=${id}');
+  void handleApprove(id, user_id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/doctors/approve?id=${id}&user_id=${user_id}');
 
     Response res = await put(url);
 
@@ -74,7 +74,7 @@ class _ApproveDoctorState extends State<ApproveDoctor> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          handleApprove(i['id']);
+                          handleApprove(i['id'],i['user_id']);
                         },
                         child: Container(
                           padding: EdgeInsets.all(10),
