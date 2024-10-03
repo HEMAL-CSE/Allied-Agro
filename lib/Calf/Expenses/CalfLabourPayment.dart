@@ -87,6 +87,8 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
 
       );
     }
+    getData();
+
   }
 
   void editData(id) async {
@@ -112,6 +114,8 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
 
       );
     }
+    getData();
+
   }
 
   void deleteData(id) async {
@@ -131,6 +135,8 @@ class _CalfLabourPaymentState extends State<CalfLabourPayment> {
 
       );
     }
+    getData();
+
   }
 
   @override

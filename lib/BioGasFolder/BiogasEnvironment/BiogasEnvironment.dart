@@ -60,6 +60,8 @@ class _BiogasEnvironmentState extends State<BiogasEnvironment> {
 
       );
     }
+    getData();
+
   }
 
   void editData(id) async {
@@ -84,6 +86,8 @@ class _BiogasEnvironmentState extends State<BiogasEnvironment> {
 
       );
     }
+    getData();
+
   }
 
   void deleteData(id) async {
@@ -103,6 +107,8 @@ class _BiogasEnvironmentState extends State<BiogasEnvironment> {
 
       );
     }
+    getData();
+
   }
 
   @override
@@ -183,9 +189,9 @@ class _BiogasEnvironmentState extends State<BiogasEnvironment> {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  edit_pressure = i['pressure'];
-                                  edit_temperature = i['temperature'];
-                                  edit_combustible_material = i['combustible_material'];
+                                  edit_pressure.text = i['pressure'].toString();
+                                  edit_temperature.text = i['temperature'].toString();
+                                  edit_combustible_material.text = i['combustible_material'].toString();
 
                                 });
 

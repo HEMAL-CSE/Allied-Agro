@@ -74,6 +74,8 @@ class _BiogasOthersPaymentState extends State<BiogasOthersPayment> {
 
       );
     }
+    getData();
+
   }
 
   void editData(id) async {
@@ -98,6 +100,8 @@ class _BiogasOthersPaymentState extends State<BiogasOthersPayment> {
 
       );
     }
+    getData();
+
   }
 
   void deleteData(id) async {
@@ -117,6 +121,8 @@ class _BiogasOthersPaymentState extends State<BiogasOthersPayment> {
 
       );
     }
+    getData();
+
   }
 
   @override
@@ -227,7 +233,7 @@ class _BiogasOthersPaymentState extends State<BiogasOthersPayment> {
                                   setState(() {
 
                                     edit_others_id = i['others_id'].toString();
-                                    editpayment.text = i['payment'];
+                                    editpayment.text = i['payment'].toString();
 
                                   });
 

@@ -73,6 +73,8 @@ class _BiogasIncomeState extends State<BiogasIncome> {
 
       );
     }
+    getData();
+
   }
 
   void editData(id) async {
@@ -97,6 +99,8 @@ class _BiogasIncomeState extends State<BiogasIncome> {
 
       );
     }
+    getData();
+
   }
 
   void deleteData(id) async {
@@ -116,6 +120,8 @@ class _BiogasIncomeState extends State<BiogasIncome> {
 
       );
     }
+    getData();
+
   }
 
   @override

@@ -86,6 +86,8 @@ class _CalfOthersState extends State<CalfOthers> {
 
       );
     }
+    getData();
+
   }
 
   void editData(id) async {
@@ -111,6 +113,8 @@ class _CalfOthersState extends State<CalfOthers> {
 
       );
     }
+    getData();
+
   }
 
   void deleteData(id) async {
@@ -130,6 +134,8 @@ class _CalfOthersState extends State<CalfOthers> {
 
       );
     }
+    getData();
+
   }
 
   @override

@@ -62,6 +62,9 @@ class _CalfCustomerState extends State<CalfCustomer> {
 
       );
     }
+
+    getData();
+
   }
 
   void editData(id) async {
@@ -86,6 +89,9 @@ class _CalfCustomerState extends State<CalfCustomer> {
 
       );
     }
+
+    getData();
+
   }
 
   void deleteData(id) async {
@@ -105,6 +111,9 @@ class _CalfCustomerState extends State<CalfCustomer> {
 
       );
     }
+
+    getData();
+
   }
 
   @override
@@ -185,9 +194,9 @@ class _CalfCustomerState extends State<CalfCustomer> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                               edit_customer_name = i['name'];
-                               edit_customer_address = i['address'];
-                               edit_customer_mobile = i['mobile'];
+                               edit_customer_name.text = i['name'];
+                               edit_customer_address.text = i['address'];
+                               edit_customer_mobile.text = i['mobile'];
 
                               });
 
