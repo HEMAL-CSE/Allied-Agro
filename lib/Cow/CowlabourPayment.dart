@@ -182,7 +182,7 @@ class _BreedingLabourPaymentState extends State<BreedingLabourPayment> {
                       value: shed_id,
                       isExpanded: true,
                       menuMaxHeight: 350,
-                      hint: Text('Select Shed ID'),
+                      hint: Text('শেড নাম্বার বাছাই করুন'),
                       items: [
                         ...sheds.map<DropdownMenuItem<String>>((data) {
                           return DropdownMenuItem(
@@ -259,7 +259,7 @@ class _BreedingLabourPaymentState extends State<BreedingLabourPayment> {
                       value: labour_id,
                       isExpanded: true,
                       menuMaxHeight: 350,
-                      hint: Text('Select Labour'),
+                      hint: Text('শ্রমিক বছাই করুন'),
                       items: [
                         ...labours.map<DropdownMenuItem<String>>((data) {
                           return DropdownMenuItem(
@@ -283,7 +283,7 @@ class _BreedingLabourPaymentState extends State<BreedingLabourPayment> {
 
           Container(
               margin: EdgeInsets.fromLTRB(2, 10, 2, 0),
-              child: CustomTextField(controller: payment, hintText: "Payment", obscureText: false, textinputtypephone: true)),
+              child: CustomTextField(controller: payment, hintText: "বেতন", obscureText: false, textinputtypephone: true)),
 
           Container( padding: EdgeInsets.all(10),
             margin: EdgeInsets.all(04),
@@ -294,7 +294,7 @@ class _BreedingLabourPaymentState extends State<BreedingLabourPayment> {
                 ),
                 onPressed: (){
               addData();
-            }, child: const Text("Submit", style: TextStyle(fontSize: 15.5),)),
+            }, child: const Text("জমা দিন", style: TextStyle(fontSize: 15.5),)),
           ),
 
           for(var i in data)
@@ -315,11 +315,11 @@ class _BreedingLabourPaymentState extends State<BreedingLabourPayment> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('Labour ID: ${i['labour_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                child: Text('শ্রমিক নাম্বার: ${i['labour_id']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('Shed ID: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('শেড নাম্বার: ${i['shed_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
                               // Padding(
                               //   padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
@@ -328,7 +328,7 @@ class _BreedingLabourPaymentState extends State<BreedingLabourPayment> {
 
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('Payment: ${i['payment']} BDT', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('বেতন: ${i['payment']} BDT', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
 
                             ]
