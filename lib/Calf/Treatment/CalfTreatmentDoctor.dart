@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:alliedagro/components/CustomAppBar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CalfTreatmentDoctor extends StatefulWidget {
   const CalfTreatmentDoctor({super.key});
@@ -17,6 +22,112 @@ class _CalfTreatmentDoctorState extends State<CalfTreatmentDoctor> {
   List<dynamic> doctors = [];
 
   TextEditingController editid = TextEditingController();
+
+
+
+  List<dynamic> data = [];
+
+  void getData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/doctors');
+
+    Response res = await get(url);
+
+    setState(() {
+      data = jsonDecode(res.body);
+    });
+  }
+
+  void getDoctors() async {
+    final url = Uri.parse('http://68.178.163.174:5008/doctors/approved');
+    Response res = await get(url);
+
+    setState(() {
+      doctors = jsonDecode(res.body);
+    });
+  }
+
+  void addData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/doctors/add');
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String? farm_id = await prefs.getString('farm_id');
+
+    Map<String, dynamic> data = {'doctor_id': doctor_id, 'farm_id': farm_id};
+
+    Response res = await post(url, body: data);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Submitted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+
+      setState(() {
+        doctor_id = null;
+      });
+    }
+
+    getData();
+
+  }
+
+  void editData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/doctors/edit?id=${editid.text}');
+
+    Map<String, dynamic> data = {'doctor_id': edit_doctor_id};
+
+    Response res = await put(url, body: data);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+
+    getData();
+  }
+
+  void deleteData(id) async {
+    final url = Uri.parse('http://68.178.163.174:5008/calf/doctors/delete?id=${id}');
+
+    Response res = await delete(url);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Deleted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
+
+    getData();
+  }
+
+  @override void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+    getDoctors();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,11 +173,11 @@ class _CalfTreatmentDoctorState extends State<CalfTreatmentDoctor> {
         Container( padding: EdgeInsets.all(10),
           margin: EdgeInsets.all(04),
           child: ElevatedButton(onPressed: (){
-            // addData();
+            addData();
           }, child: const Text("জমা দিন")),
         ),
 
-        // for(var i in data)
+        for(var i in data)
           Column(
             children: [
               Container(
@@ -84,11 +195,11 @@ class _CalfTreatmentDoctorState extends State<CalfTreatmentDoctor> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                              child: Text('ডাক্তার নাম: Rayat', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                              child: Text('ডাক্তার নাম: ${i['doctor_name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                             ),
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                              child: Text('ইমেইল: fyazrayat@gmail.com', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                              child: Text('ইমেইল: ${i['doctor_email']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                             ),
 
                           ]
@@ -107,11 +218,11 @@ class _CalfTreatmentDoctorState extends State<CalfTreatmentDoctor> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                // setState(() {
-                                //   editid.text = i['id'].toString();
-                                //   edit_doctor_id = i['doctor_id'].toString();
-                                //
-                                // });
+                                setState(() {
+                                  editid.text = i['id'].toString();
+                                  edit_doctor_id = i['doctor_id'].toString();
+
+                                });
 
                                 // getSeats(i['shed_id']);
                                 showModalBottomSheet<void>(
@@ -170,7 +281,7 @@ class _CalfTreatmentDoctorState extends State<CalfTreatmentDoctor> {
                                                 Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),
                                                   margin: EdgeInsets.all(04),
                                                   child: ElevatedButton(onPressed: (){
-                                                    // editData();
+                                                    editData();
                                                     Navigator.pop(context);
                                                   }, child: const Text("Save")),
                                                 ),
@@ -204,7 +315,7 @@ class _CalfTreatmentDoctorState extends State<CalfTreatmentDoctor> {
                                       TextButton(
                                         onPressed: ()
                                         {
-                                          // deleteData(i['id']);
+                                          deleteData(i['id']);
                                           Navigator.pop(context, 'OK');
                                         },
                                         child: const Text('OK'),

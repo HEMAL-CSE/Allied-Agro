@@ -74,6 +74,8 @@ class _BiogasLabourPaymentState extends State<BiogasLabourPayment> {
 
       );
     }
+    getData();
+
   }
 
   void editData(id) async {
@@ -98,6 +100,8 @@ class _BiogasLabourPaymentState extends State<BiogasLabourPayment> {
 
       );
     }
+    getData();
+
   }
 
   void deleteData(id) async {
@@ -117,6 +121,8 @@ class _BiogasLabourPaymentState extends State<BiogasLabourPayment> {
 
       );
     }
+    getData();
+
   }
 
   @override
@@ -271,7 +277,7 @@ class _BiogasLabourPaymentState extends State<BiogasLabourPayment> {
                                   setState(() {
                                     // edit_seat_id = i['seat_id'].toString();
                                     edit_labour_id = i['labour_id'].toString();
-                                    editpayment.text = i['payment'];
+                                    editpayment.text = i['payment'].toString();
 
                                   });
 

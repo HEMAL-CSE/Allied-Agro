@@ -56,6 +56,8 @@ class _BiogasLabourState extends State<BiogasLabour> {
 
       );
     }
+    getData();
+
   }
 
   void editData(id) async {
@@ -79,6 +81,8 @@ class _BiogasLabourState extends State<BiogasLabour> {
 
       );
     }
+    getData();
+
   }
 
   void deleteData(id) async {
@@ -98,6 +102,9 @@ class _BiogasLabourState extends State<BiogasLabour> {
 
       );
     }
+
+
+    getData();
   }
 
   @override

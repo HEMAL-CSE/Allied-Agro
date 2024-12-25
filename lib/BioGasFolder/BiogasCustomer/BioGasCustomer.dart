@@ -56,6 +56,8 @@ class _BioGasCustomerState extends State<BioGasCustomer> {
 
       );
     }
+    getData();
+    
   }
 
   void editData(id) async {
@@ -80,6 +82,8 @@ class _BioGasCustomerState extends State<BioGasCustomer> {
 
       );
     }
+    getData();
+    
   }
 
   void deleteData(id) async {
@@ -99,6 +103,8 @@ class _BioGasCustomerState extends State<BioGasCustomer> {
 
       );
     }
+    getData();
+    
   }
 
   @override
@@ -184,9 +190,9 @@ class _BioGasCustomerState extends State<BioGasCustomer> {
                             GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  edit_customer_name = i['name'];
-                                  edit_customer_address = i['address'];
-                                  edit_customer_mobile = i['mobile'];
+                                  edit_customer_name.text = i['name'];
+                                  edit_customer_address.text = i['address'];
+                                  edit_customer_mobile.text = i['mobile'];
 
                                 });
 

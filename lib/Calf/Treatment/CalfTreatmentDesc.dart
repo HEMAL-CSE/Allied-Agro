@@ -410,7 +410,7 @@ class _CalfTreatmentDescState extends State<CalfTreatmentDesc> {
                       value: calf_id,
                       isExpanded: true,
                       menuMaxHeight: 350,
-                      hint: Text('গাভী নাম্বার সিলেক্ট করুন'),
+                      hint: Text('বাছুর নাম্বার সিলেক্ট করুন'),
                       items: [
                         ...calfs.map<DropdownMenuItem<String>>((data) {
                           return DropdownMenuItem(

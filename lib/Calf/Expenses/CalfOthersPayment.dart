@@ -103,6 +103,8 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
 
       );
     }
+    getData();
+
   }
 
   void editData(id) async {
@@ -129,6 +131,8 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
 
       );
     }
+    getData();
+
   }
 
   void deleteData(id) async {
@@ -148,6 +152,8 @@ class _CalfOthersPaymentState extends State<CalfOthersPayment> {
 
       );
     }
+    getData();
+
   }
 
   @override

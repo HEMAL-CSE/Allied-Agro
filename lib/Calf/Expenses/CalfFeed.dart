@@ -89,8 +89,8 @@ class _CalfFeedState extends State<CalfFeed> {
       'shed_id': shed_id,
       'seat_id': seat_id,
       'calf_id': calf_id,
-      'weight': amount,
-      'amount': price
+      'weight': amount.text,
+      'amount': price.text
     };
 
     Response res = await post(url, body: body);
@@ -107,6 +107,8 @@ class _CalfFeedState extends State<CalfFeed> {
 
       );
     }
+    getData();
+
   }
 
   void editData(id) async {
@@ -133,7 +135,9 @@ class _CalfFeedState extends State<CalfFeed> {
           fontSize: 16.0
 
       );
+      getData();
     }
+
   }
 
   void deleteData(id) async {
@@ -153,6 +157,8 @@ class _CalfFeedState extends State<CalfFeed> {
 
       );
     }
+    getData();
+
   }
 
   @override
@@ -324,7 +330,7 @@ class _CalfFeedState extends State<CalfFeed> {
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),
-                                child: Text('সিট নাম্বার: ${i['seat_Id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
+                                child: Text('সিট নাম্বার: ${i['seat_id']}', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800),),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 2),

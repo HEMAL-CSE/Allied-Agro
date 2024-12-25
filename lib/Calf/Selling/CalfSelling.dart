@@ -99,6 +99,8 @@ class _CalfSellingState extends State<CalfSelling> {
 
       );
     }
+    getData();
+
 
   }
 
@@ -123,6 +125,8 @@ class _CalfSellingState extends State<CalfSelling> {
 
       );
     }
+    getData();
+
 
   }
 
