@@ -217,7 +217,7 @@ class _LabourListState extends State<LabourList> {
                     textinputtypephone: true)),
 
             const SizedBox(
-              height: 20,
+              height: 16,
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 04),
@@ -256,7 +256,7 @@ class _LabourListState extends State<LabourList> {
             ),
 
             SizedBox(
-              height: 10,
+              height: 08,
             ),
 
             Container(
@@ -296,12 +296,18 @@ class _LabourListState extends State<LabourList> {
 
             Container(
               padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(04),
+              margin: EdgeInsets.fromLTRB(36, 02, 36, 0),
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.greenAccent[400],
+                  foregroundColor: Colors.black,
+                ),
                   onPressed: () {
                     addData();
                   },
-                  child: const Text("জমা দিন")),
+                  child: const Text("জমা দিন", style: TextStyle(
+                    fontSize: 15.5,
+                  ),)),
             ),
 
             SizedBox(

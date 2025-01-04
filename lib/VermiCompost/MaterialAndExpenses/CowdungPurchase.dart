@@ -255,16 +255,17 @@ class _CowdungPurchaseState extends State<CowdungPurchase> {
           ),
         ),
 
-
-
-
-
-
+         SizedBox(height: 02,),
          Container( padding: EdgeInsets.all(10),
-           margin: EdgeInsets.all(04),
-           child: ElevatedButton(onPressed: (){
+           margin: EdgeInsets.fromLTRB(36, 04, 36, 0),
+           child: ElevatedButton(
+               style: ElevatedButton.styleFrom(
+                 backgroundColor: Colors.greenAccent[400],
+                 foregroundColor: Colors.black,
+               ),
+               onPressed: (){
               addData();
-           }, child: const Text("জমা দিন")),
+           }, child: const Text("জমা দিন", style: TextStyle(fontSize: 15.5),)),
          ),
 
 

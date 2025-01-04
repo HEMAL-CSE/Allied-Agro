@@ -138,13 +138,18 @@ class _OthersListState extends State<OthersList> {
               child: CustomTextField(controller: name, hintText: "নাম", obscureText: false, textinputtypephone: false)), //Custom TextFeild
 
           const SizedBox(
-            height: 20,
+            height: 12,
           ),
 
 
           Container( padding: EdgeInsets.all(10),
-            margin: EdgeInsets.all(04),
-            child: ElevatedButton(onPressed: (){
+            margin: EdgeInsets.fromLTRB(36, 0, 36, 0),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.greenAccent[400],
+                  foregroundColor: Colors.black,
+                ),
+                onPressed: (){
               addData();
             }, child: const Text("জমা দিন")),
           ),
@@ -172,8 +177,6 @@ class _OthersListState extends State<OthersList> {
                                 padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
                                 child: Text('${i['name']}', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                               ),
-
-
 
                             ]
                         ),

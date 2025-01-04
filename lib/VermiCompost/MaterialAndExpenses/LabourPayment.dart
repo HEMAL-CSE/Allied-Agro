@@ -152,7 +152,6 @@ class _LabourPaymentState extends State<LabourPayment> {
           fontSize: 16.0
 
       );
-
       getData();
     }
 
@@ -226,8 +225,6 @@ class _LabourPaymentState extends State<LabourPayment> {
                         labour = value!;
                       });
                     }),
-
-
               )
 
             // CustomTextField()
@@ -235,14 +232,20 @@ class _LabourPaymentState extends State<LabourPayment> {
         ),
 
         Container(
-            margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
+            margin: EdgeInsets.fromLTRB(2, 14, 2, 0),
             child: CustomTextField(controller: amount, hintText: "টাকার পরিমাণ", obscureText: false, textinputtypephone: true)),
 
+        SizedBox(height: 02,),
         Container( padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(04),
-          child: ElevatedButton(onPressed: (){
+          margin: EdgeInsets.fromLTRB(36, 04, 36, 0),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.greenAccent[400],
+                foregroundColor: Colors.black,
+              ),
+              onPressed: (){
             addData();
-          }, child: const Text("জমা দিন")),
+          }, child: const Text("জমা দিন", style: TextStyle(fontSize: 15.5),)),
         ),
 
         SizedBox(height: 20,),

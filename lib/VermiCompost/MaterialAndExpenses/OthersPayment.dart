@@ -39,7 +39,6 @@ class _OthersPaymentState extends State<OthersPayment> {
 
     Response res = await get(url);
 
-
     setState(() {
       othersList = jsonDecode(res.body);
     });
@@ -95,7 +94,6 @@ class _OthersPaymentState extends State<OthersPayment> {
       });
     }
 
-
     getData();
   }
 
@@ -120,7 +118,6 @@ class _OthersPaymentState extends State<OthersPayment> {
 
       getData();
     }
-
 
     getData();
   }
@@ -240,10 +237,15 @@ class _OthersPaymentState extends State<OthersPayment> {
             child: CustomTextField(controller: amount, hintText: "টাকার পরিমাণ", obscureText: false, textinputtypephone: true)),
 
         Container( padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(04),
-          child: ElevatedButton(onPressed: (){
+          margin: EdgeInsets.fromLTRB(36, 04, 36, 0),
+          child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.greenAccent[400],
+                foregroundColor: Colors.black,
+              ),
+              onPressed: (){
             addData();
-          }, child: const Text("জমা দিন")),
+          }, child: const Text("জমা দিন", style: TextStyle(fontSize: 15.5),)),
         ),
 
         SizedBox(height: 20,),
@@ -430,7 +432,6 @@ class _OthersPaymentState extends State<OthersPayment> {
                           ],
                         ),
                       )
-
                     ],
                   ),
                 ),

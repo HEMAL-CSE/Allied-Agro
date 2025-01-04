@@ -161,11 +161,17 @@ class _CowdungSellerListState extends State<CowdungSellerList> {
                margin: EdgeInsets.fromLTRB(2, 16, 2, 0),
                child: CustomTextField(controller: monthly_selling_capacity, hintText: "মাসিক বিক্রয়ের পরিমাণ (কেজি)", obscureText: false, textinputtypephone: true)),
 
+          SizedBox(height: 02,),
           Container( padding: EdgeInsets.symmetric(horizontal: 80, vertical: 08),
             margin: EdgeInsets.all(04),
-            child: ElevatedButton(onPressed: (){
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.greenAccent[400],
+                  foregroundColor: Colors.black,
+                ),
+                onPressed: (){
               addData();
-            }, child: const Text("জমা দিন")),
+            }, child: const Text("জমা দিন", style: TextStyle(fontSize: 15.5),)),
           ),
 
           SizedBox(height: 20,),
