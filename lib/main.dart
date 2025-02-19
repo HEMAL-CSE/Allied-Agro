@@ -326,9 +326,7 @@ class MyApp extends StatelessWidget {
         '/doctorchicken': (context) => DoctorChicken(),
         '/doctorgoat': (context) => DoctorGoat(),
         '/doctorcalf': (context) => DoctorCalf(),
-
-
-
+        
       },
     );
   }
