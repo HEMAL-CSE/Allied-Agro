@@ -1,6 +1,9 @@
 import 'package:alliedagro/components/CustomAppBar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:flutter/cupertino.dart';
+
 
 class BioGases extends StatefulWidget {
   const BioGases({super.key});
@@ -168,7 +171,41 @@ class _BioGasesState extends State<BioGases> {
                     ),
                   ),
                 ),
-
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/biogas_monitoring');
+                  },
+                  child: Card(
+                    color: Colors.greenAccent[400],
+                    elevation: 5,
+                    margin: EdgeInsets.fromLTRB(10, 12, 10, 0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      child: Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('বায়োগ্যাস পর্যবেক্ষণ',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                            SizedBox(height: 10,),
+                            Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(8)
+                                ),
+                                child: Icon(CupertinoIcons.desktopcomputer)
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
 
                 GestureDetector(
                   onTap: () {

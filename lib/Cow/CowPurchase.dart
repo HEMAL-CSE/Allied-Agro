@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:alliedagro/components/CustomAppBar.dart';
 import 'package:alliedagro/components/CustomTextField.dart';
 import 'package:flutter/material.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
@@ -117,38 +117,38 @@ class _CowPurchaseState extends State<CowPurchase> {
     });
   }
 
-  // void addData() async {
-  //   final url = Uri.parse('http://68.178.163.174:5008/breeding/cow_purchase');
-  //
-  //   Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'cow_id': cow_id.text, 'purchase_date': purchase_date.toIso8601String(), 'price': price.text, 'weight': weight.text, 'pregnant': pregnant, 'pregnant_month': pregnant_month.text, 'supposed_delivery_date': supposed_delivery_date.toIso8601String() };
-  //
-  //   Response res = await post(url, body: data);
-  //
-  //   if(res.statusCode == 201){
-  //     Fluttertoast.showToast(
-  //         msg: "Submitted",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.CENTER,
-  //         timeInSecForIosWeb: 1,
-  //         backgroundColor: Colors.green,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0
-  //
-  //     );
-  //
-  //     setState(() {
-  //       shed_id = null;
-  //       seat_id = null;
-  //       cow_id.text = '';
-  //       purchase_date = DateTime.now();
-  //       weight.text = '';
-  //       pregnant = null;
-  //       pregnant_month.text = '';
-  //       supposed_delivery_date = DateTime.now();
-  //     });
-  //   }
-  //   getData();
-  // }
+  void addData() async {
+    final url = Uri.parse('http://68.178.163.174:5008/breeding/cow_purchase');
+
+    Map<String, dynamic> data = { 'shed_id': shed_id, 'seat_id': seat_id, 'cow_id': cow_id.text, 'purchase_date': purchase_date.toIso8601String(), 'price': price.text, 'weight': weight.text, 'pregnant': pregnant, 'pregnant_month': pregnant_month.text, 'supposed_delivery_date': supposed_delivery_date.toIso8601String() };
+
+    Response res = await post(url, body: data);
+
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Submitted",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+
+      setState(() {
+        shed_id = null;
+        seat_id = null;
+        cow_id.text = '';
+        purchase_date = DateTime.now();
+        weight.text = '';
+        pregnant = null;
+        pregnant_month.text = '';
+        supposed_delivery_date = DateTime.now();
+      });
+    }
+    getData();
+  }
 
   void editData() async {
     final url = Uri.parse('http://68.178.163.174:5008/breeding/cow_purchase/edit?id=${editid.text}');
@@ -156,18 +156,18 @@ class _CowPurchaseState extends State<CowPurchase> {
 
     Response res = await put(url, body: data);
 
-    // if(res.statusCode == 201){
-    //   Fluttertoast.showToast(
-    //       msg: "Updated",
-    //       toastLength: Toast.LENGTH_SHORT,
-    //       gravity: ToastGravity.CENTER,
-    //       timeInSecForIosWeb: 1,
-    //       backgroundColor: Colors.green,
-    //       textColor: Colors.white,
-    //       fontSize: 16.0
-    //
-    //   );
-    // }
+    if(res.statusCode == 201){
+      Fluttertoast.showToast(
+          msg: "Updated",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0
+
+      );
+    }
 
     getData();
   }
@@ -399,7 +399,7 @@ class _CowPurchaseState extends State<CowPurchase> {
                   foregroundColor: Colors.black,
                 ),
                 onPressed: (){
-              // addData();
+              addData();
             }, child: const Text("জমা দিন", style: TextStyle(fontSize: 15.5),)),
           ),
 
