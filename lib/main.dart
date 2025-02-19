@@ -34,6 +34,7 @@ import 'package:alliedagro/BioGasFolder/BiogasExpenses/BiogasLabourPayment.dart'
 import 'package:alliedagro/BioGasFolder/BiogasExpenses/BiogasOthers.dart';
 import 'package:alliedagro/BioGasFolder/BiogasExpenses/BiogasOthersPayment.dart';
 import 'package:alliedagro/BioGasFolder/BiogasIncome/BiogasIncome.dart';
+import 'package:alliedagro/BioGasFolder/BiogasMonitoring/BiogasMonitoring.dart';
 import 'package:alliedagro/Calf/Treatment/CalfTreatmentDesc.dart';
 import 'package:alliedagro/Cow/CowDashboard.dart';
 import 'package:alliedagro/Cow/CowDelivary.dart';
@@ -225,6 +226,7 @@ class MyApp extends StatelessWidget {
         '/biogas_customer': (context) => BioGasCustomer(),
         '/biogas_income': (context) => BiogasIncome(),
         '/biogas_environment': (context) => BiogasEnvironment(),
+        '/biogas_monitoring': (context) => BiogasMonitoring(),
 
 
         '/beeffattening' : (context) => BeefFattening(),
